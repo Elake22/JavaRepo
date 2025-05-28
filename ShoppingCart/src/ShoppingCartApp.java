@@ -1,6 +1,16 @@
 // Shopping Cart
 
-public class Main {
+public class ShoppingCartApp {
+
+    // ORDER STATUS
+    enum OrderStatus{
+        PENDING, PROCESSING, SHIPPED, DELIVERED
+    }
+    // METHOD
+    enum ShippingStatus{
+        STANDARD, TWO_DAY, OVERNIGHT
+    }
+
     public static void main(String[] args) {
 
         System.out.printf("Shopping Cart");
@@ -24,6 +34,16 @@ public class Main {
         double totalProfit = productProfit * productQuantity;
         System.out.println("Total Possible Profit: $" + totalProfit);
 
+
+        System.out.println(ShippingStatus.STANDARD);
+        System.out.println(ShippingStatus.TWO_DAY);
+        System.out.println(ShippingStatus.OVERNIGHT);
+        System.out.println(OrderStatus.PENDING);
+        System.out.println(OrderStatus.PROCESSING);
+        System.out.println(OrderStatus.SHIPPED);
+        System.out.println(OrderStatus.DELIVERED);
+       
+        System.out.println("Bye");
 
     }
 }
