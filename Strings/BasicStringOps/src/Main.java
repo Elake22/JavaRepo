@@ -3,7 +3,7 @@ public class Main {
         // Declare and assign
         String firstName = "Harry";
         String lastName = "Potter";
-        String fullName = firstName + "" + lastName;
+        String fullName = firstName + " " + lastName;
 
         // Print full name
         System.out.println("Full name: " + fullName);
@@ -19,7 +19,7 @@ public class Main {
         // Find position of letter r
         int indexOfR = fullName.indexOf('r');
         System.out.println("Index of 'r': " + indexOfR);
-        
+
 
     }
 }
