@@ -34,7 +34,6 @@ public class ShoppingCartApp {
         double totalProfit = productProfit * productQuantity;
         System.out.println("Total Possible Profit: $" + totalProfit);
 
-
         System.out.println(ShippingStatus.STANDARD);
         System.out.println(ShippingStatus.TWO_DAY);
         System.out.println(ShippingStatus.OVERNIGHT);
@@ -42,8 +41,16 @@ public class ShoppingCartApp {
         System.out.println(OrderStatus.PROCESSING);
         System.out.println(OrderStatus.SHIPPED);
         System.out.println(OrderStatus.DELIVERED);
-
         System.out.println("Bye");
+
+        // Stings Code-Along
+        String businessName = "My Business";
+        String businessContactInfo = "123-456-7890";
+        String productDescription = "My product description";
+
+        System.out.println("Business name: " + businessName);
+        System.out.println("Business contact info: " + businessContactInfo);
+        System.out.println("Product description: " + productDescription);
 
     }
 }
