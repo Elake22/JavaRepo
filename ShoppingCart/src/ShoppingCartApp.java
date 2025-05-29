@@ -42,7 +42,7 @@ public class ShoppingCartApp {
         System.out.println(OrderStatus.PROCESSING);
         System.out.println(OrderStatus.SHIPPED);
         System.out.println(OrderStatus.DELIVERED);
-       
+
         System.out.println("Bye");
 
     }
