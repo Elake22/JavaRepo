@@ -1,15 +1,35 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
+
 public class ObjectPractice {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        // Part 1: Car Dealership System
+        Car car1 = new Car("Toyota", "Corolla", 2020);
+        Car car2 = new Car("Ford", "Mustang", 2022);
+        car1.displayInfo();
+        car2.displayInfo();
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+
+        // Part 2: Book Library System
+        Book book1 = new Book("The Hobbit", "J.R.R. Tolkien");
+        book1.displayStatus();
+        System.out.println("Borrowing the book...");
+        book1.borrowBook();
+        book1.displayStatus();
+
+
+        // Part 3: Shared Account Reference
+        BankAccount acc1 = new BankAccount("Alice", 1000.0);
+        BankAccount acc2 = acc1; // Reference copy
+        acc1.displayBalance();
+        System.out.println("Depositing $500 to acc2...");
+        acc2.deposit(500);
+        acc1.displayBalance();
+
+
+        // Part 4: Employee Tracking
+        new Employee("John");
+        new Employee("Jane");
+        new Employee("Mike");
+        System.out.println("Total Employees: " + Employee.getTotalEmployees());
     }
 }
