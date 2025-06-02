@@ -47,7 +47,7 @@ public class ShoppingCartApp {
         System.out.println(OrderStatus.DELIVERED);
         System.out.println("Bye");
 
-        // Stings Code-Along
+        // Strings Code-Along
         String businessName = "My Business";
         String businessContactInfo = "123-456-7890";
         String productDescription = "My product description";
