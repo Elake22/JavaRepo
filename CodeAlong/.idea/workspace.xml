@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ed99011b-0741-42ee-bdfb-a52ab0a8c07c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/CodeAlongMethods/src/StarterMethodsCodeAlong.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ShoppingCart/src/CartMethods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodeAlongArrays/CodeAlongArrays.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Decisons/Decisons.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExerciseArrays/ExerciseArrays.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab Text Adventure Through Loops/Lab Text Adventure Through Loops.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loops/Loops.iml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="2xyCkZqfdgpqKB4xk0pbCHGdlic" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/Users/elijahlake/Documents/GitHub/JavaRepo/CodeAlong"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ed99011b-0741-42ee-bdfb-a52ab0a8c07c" name="Changes" comment="" />
+      <created>1748901069682</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1748901069682</updated>
+    </task>
+    <servers />
+  </component>
+</project>

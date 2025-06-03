@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/CodeAlong.iml" filepath="$PROJECT_DIR$/.idea/CodeAlong.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CodeAlongArrays/CodeAlongArrays.iml" filepath="$PROJECT_DIR$/CodeAlongArrays/CodeAlongArrays.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CodeAlongManualUnitTesting/CodeAlongManualUnitTesting.iml" filepath="$PROJECT_DIR$/CodeAlongManualUnitTesting/CodeAlongManualUnitTesting.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CodeAlongMethods/CodeAlongMethods.iml" filepath="$PROJECT_DIR$/CodeAlongMethods/CodeAlongMethods.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Decisons/Decisons.iml" filepath="$PROJECT_DIR$/Decisons/Decisons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ExerciseArrays/ExerciseArrays.iml" filepath="$PROJECT_DIR$/ExerciseArrays/ExerciseArrays.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lab Text Adventure Through Loops/Lab Text Adventure Through Loops.iml" filepath="$PROJECT_DIR$/Lab Text Adventure Through Loops/Lab Text Adventure Through Loops.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Loops/Loops.iml" filepath="$PROJECT_DIR$/Loops/Loops.iml" />
+    </modules>
+  </component>
+</project>
