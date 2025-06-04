@@ -49,7 +49,7 @@ public class LockerManager {
     // 6. Method: Generate a 4-digit random PIN
     private String generatePin() {
         int pin = (int) (Math.random() * 9000) + 1000; // ensures 4 digits
-        return String.valueOf(pin);
+        return String.format("%04d", pin);
     }
     // 7. Method: Display available lockers
     public void displayAvailableLockers() {
@@ -65,7 +65,18 @@ public class LockerManager {
             System.out.println("No lockers currently available.");
         }
     }
+    public int getTotalLockers() {
+        return TOTAL_LOCKERS;
+    }
 
+    public boolean isLockerAvailable(int lockerNumber) {
+        if (lockerNumber >= 1 && lockerNumber <= TOTAL_LOCKERS) {
+            return lockers[lockerNumber] == null;
+        }
+        return false;
+    }
 }
+
+
 
 

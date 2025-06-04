@@ -23,56 +23,55 @@ public class LockersApp {
             // Switch and cases
             switch (choice) {
                 case "1":
-                    manager.displayAvailableLockers();
+                    System.out.print(service.availableLockersMessage());
                     break;
 
                 case "2": // Rent locker if available
-                    if (manager.hasAvailableLocker()) {
-                        int lockerNum = manager.rentLocker();
-                        String pin = manager.getLockerPin(lockerNum);
-                        System.out.println("Locker " + lockerNum + " rented. PIN: " + pin );
-                    } else  {
-                        System.out.println("No Locker Available.");
-                    }
+                    Result rentResult = service.rentLocker();
+                    System.out.println(rentResult.getMessage());
                     break;
 
                 case "3": // Prompt for locker number and pin access
                     System.out.print("Enter locker number: ");
-                    int lockerToAccess = Integer.parseInt(scanner.nextLine());
+                    String accessStr = scanner.nextLine();
+                    Integer lockerToAccess = IOUtilities.parseIntSafe(accessStr);
+                    if (lockerToAccess == null) {
+                        System.out.println("Invalid locker number.");
+                        break;
+                    }
                     System.out.print("Enter Pin: ");
                     String accessPin = scanner.nextLine();
 
                     // Validate Access
-                    if (manager.accessLocker(lockerToAccess, accessPin)) {
-                        System.out.println("Access Granted!");
-                    } else {
-                        System.out.println("Access Denied.");
-                    }
+                    Result accessResult = service.accessLocker(lockerToAccess, accessPin);
+                    System.out.println(accessResult.getMessage());
                     break;
 
-                case "4": // Prompt for locker and Pin to release locker
+                case "4": // Prompt for locker and PIN to release locker
                     System.out.print("Enter locker number: ");
-                    int lockerToRelease = Integer.parseInt(scanner.nextLine());
+                    String releaseStr = scanner.nextLine();
+                    Integer lockerToRelease = IOUtilities.parseIntSafe(releaseStr);
+                    if (lockerToRelease == null) {
+                        System.out.println("Invalid locker number.");
+                        break;
+                    }
                     System.out.print("Enter PIN: ");
                     String releasePin = scanner.nextLine();
 
-                    // Try to release locker
-                    if (manager.releaseLocker(lockerToRelease, releasePin)) {
-                        System.out.println("Locker released.");
-                    } else {
-                        System.out.println("Incorrect PIN or locker number.");
-                    }
-                    break;
+                // Try to release locker
+                Result releaseResult = service.releaseLocker(lockerToRelease, releasePin);
+                System.out.println(releaseResult.getMessage());
+                break;
 
                     // Exit
                 case "5":
                     running = false;
-                    System.out.println("Thanks you for using Lockers! Goodbye! ");
+                    System.out.println("Thank you for using Lockers! Goodbye! ");
                     break;
 
                     // Invalid Menu input
                 default:
-                    System.out.println("Invalid Selection. Selection option 1-4. ");
+                    System.out.println("Invalid Selection. Choose option 1-5. ");
             }
         }
         // Close scanner
