@@ -1,6 +1,10 @@
+// Locker internal data and tracking
+
 public class LockerManager {
     private String[] lockers;
     private static final int TOTAL_LOCKERS = 10;
+
+    // Aligns internal index to start at 1 for display alignment
     public LockerManager() {
         lockers = new String[TOTAL_LOCKERS + 1];
     }
@@ -12,7 +16,7 @@ public class LockerManager {
         }
         return false;
     }
-    // 2. Method: Rent the first open locker
+    // 2. Method: Rent the first open locker and assigns PIN
     public int rentLocker() {
         for (int i = 1; i <= TOTAL_LOCKERS; i++) {
             if (lockers[i] == null) {
@@ -51,24 +55,11 @@ public class LockerManager {
         int pin = (int) (Math.random() * 9000) + 1000; // ensures 4 digits
         return String.format("%04d", pin);
     }
-    // 7. Method: Display available lockers
-    public void displayAvailableLockers() {
-        System.out.println("Available Lockers:");
-        boolean found = false;
-        for (int i = 1; i <= TOTAL_LOCKERS; i++) {
-            if (lockers[i] == null) {
-                System.out.println("Locker " + i + " is available.");
-                found = true;
-            }
-        }
-        if (!found) {
-            System.out.println("No lockers currently available.");
-        }
-    }
+    // 7. Returns the total number of lockers
     public int getTotalLockers() {
         return TOTAL_LOCKERS;
     }
-
+    // 8. Helper method to check for availability
     public boolean isLockerAvailable(int lockerNumber) {
         if (lockerNumber >= 1 && lockerNumber <= TOTAL_LOCKERS) {
             return lockers[lockerNumber] == null;

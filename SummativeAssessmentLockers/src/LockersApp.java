@@ -1,16 +1,15 @@
 import java.util.Scanner;
-
 public class LockersApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        LockerManager manager = new LockerManager();
-        boolean running = true;
+        LockerService service = new LockerService(new LockerManager());
+        boolean exit = false;
 
             //Welcome
         System.out.println("Welcome to the Locker System!");
 
-            // Manin menu
-        while (running) {
+            // Main menu
+        while (!exit) {
             System.out.println("\nMenu:");
             System.out.println("1. View Available Lockers");
             System.out.println("2. Rent a Locker");
@@ -22,7 +21,7 @@ public class LockersApp {
 
             // Switch and cases
             switch (choice) {
-                case "1":
+                case "1": // Show Open lockers
                     System.out.print(service.availableLockersMessage());
                     break;
 
@@ -32,41 +31,28 @@ public class LockersApp {
                     break;
 
                 case "3": // Prompt for locker number and pin access
-                    System.out.print("Enter locker number: ");
-                    String accessStr = scanner.nextLine();
-                    Integer lockerToAccess = IOUtilities.parseIntSafe(accessStr);
+                    Integer lockerToAccess = IOUtilities.getLockerNumber(scanner);
                     if (lockerToAccess == null) {
                         System.out.println("Invalid locker number.");
                         break;
-                    }
-                    System.out.print("Enter Pin: ");
-                    String accessPin = scanner.nextLine();
-
-                    // Validate Access
+                    } // Validate PIN access
+                    String accessPin = IOUtilities.getLockerPin(scanner);
                     Result accessResult = service.accessLocker(lockerToAccess, accessPin);
                     System.out.println(accessResult.getMessage());
                     break;
 
                 case "4": // Prompt for locker and PIN to release locker
-                    System.out.print("Enter locker number: ");
-                    String releaseStr = scanner.nextLine();
-                    Integer lockerToRelease = IOUtilities.parseIntSafe(releaseStr);
-                    if (lockerToRelease == null) {
-                        System.out.println("Invalid locker number.");
-                        break;
-                    }
-                    System.out.print("Enter PIN: ");
-                    String releasePin = scanner.nextLine();
+                    Integer lockerToRelease = IOUtilities.getLockerNumber(scanner);
+                    String releasePin = IOUtilities.getLockerPin(scanner);
+                    String confirm = IOUtilities.getConfirmation(scanner);
 
-                // Try to release locker
-                Result releaseResult = service.releaseLocker(lockerToRelease, releasePin);
-                System.out.println(releaseResult.getMessage());
-                break;
+                    Result releaseResult = service.handleLockerRelease(lockerToRelease, releasePin, confirm);
+                    System.out.println(releaseResult.getMessage());
+                    break;
 
-                    // Exit
-                case "5":
-                    running = false;
+                case "5": // Exit
                     System.out.println("Thank you for using Lockers! Goodbye! ");
+                    exit = true;
                     break;
 
                     // Invalid Menu input

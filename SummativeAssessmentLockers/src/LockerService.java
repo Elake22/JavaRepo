@@ -1,3 +1,4 @@
+// Locker Logic handler
 public class LockerService {
     private final LockerManager manager;
 
@@ -5,6 +6,7 @@ public class LockerService {
         this.manager = manager;
     }
 
+    // 1. Display message with all available lockers
     public String availableLockersMessage() {
         StringBuilder sb = new StringBuilder("Available Lockers:\n");
         boolean found = false;
@@ -20,15 +22,17 @@ public class LockerService {
         return sb.toString();
     }
 
+    // 2. Rent a locker if available and return the locker number and PIN
     public Result rentLocker() {
         if (!manager.hasAvailableLocker()) {
             return new Result(false, "No Locker Available.");
         }
-        int lockerNum = manager.rentLocker();
-        String pin = manager.getLockerPin(lockerNum);
+        int lockerNum = manager.rentLocker(); // Assign the next open locker
+        String pin = manager.getLockerPin(lockerNum); // Retrieve PIN for that locker
         return new Result(true, "Locker " + lockerNum + " rented. PIN: " + pin);
     }
 
+    // 3. Check if user can access locker with provided number and PIN
     public Result accessLocker(int lockerNumber, String pin) {
         if (manager.accessLocker(lockerNumber, pin)) {
             return new Result(true, "Access Granted!");
@@ -36,10 +40,25 @@ public class LockerService {
         return new Result(false, "Access Denied.");
     }
 
+    // 4. Attempt to release a locker using the correct PIN
     public Result releaseLocker(int lockerNumber, String pin) {
         if (manager.releaseLocker(lockerNumber, pin)) {
             return new Result(true, "Locker released.");
         }
         return new Result(false, "Incorrect PIN or locker number.");
     }
+
+    // 5. Locker release confirmations and logic
+    public Result handleLockerRelease(int lockerNumber, String pin, String confirm) {
+        if (!accessLocker(lockerNumber, pin).isSuccess()) {
+            return new Result(false, "Incorrect PIN or locker number. Returning to menu.");
+        }
+
+        if (confirm.equals("yes") || confirm.equals("y")) {
+            return releaseLocker(lockerNumber, pin);
+        } else {
+            return new Result(true, "Locker release cancelled.");
+        }
+    }
 }
+
