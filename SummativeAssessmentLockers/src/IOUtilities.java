@@ -13,12 +13,13 @@ public class IOUtilities {
     // Prompts the user to enter locker number
     public static Integer getLockerNumber(Scanner scanner) {
         Integer lockerNumber = null;
-        while (lockerNumber == null) {
-            System.out.print("Enter locker number: ");
+        while (lockerNumber == null || lockerNumber < 1 || lockerNumber > 10) {
+            System.out.print("Enter locker number (1-10): ");
             String input = scanner.nextLine();
             lockerNumber = parseIntSafe(input);
-            if (lockerNumber == null) {
-                System.out.println("Invalid input. Please enter a number 1-5.");
+            if (lockerNumber == null || lockerNumber < 1 || lockerNumber > 10) {
+                System.out.println("Invalid input. Please enter a locker number between 1 and 10.");
+                lockerNumber = null;
             }
         }
         return lockerNumber;
