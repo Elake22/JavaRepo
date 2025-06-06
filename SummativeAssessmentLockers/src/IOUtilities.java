@@ -26,8 +26,16 @@ public class IOUtilities {
     }
     // Prompts the user to enter their PIN
     public static String getLockerPin(Scanner scanner) {
-        System.out.print("Enter PIN: ");
-        return scanner.nextLine();
+        String pin;
+        while (true) {
+            System.out.print("Enter 4-digit PIN: ");
+            pin = scanner.nextLine().trim();
+            if (pin.matches("\\d{4}")) {
+                return pin;
+            } else {
+                System.out.println("Invalid PIN. Please enter 4 digits (ex. 1234).");
+            }
+        }
     }
     // Locker release confirmation
     public static String getConfirmation(Scanner scanner) {

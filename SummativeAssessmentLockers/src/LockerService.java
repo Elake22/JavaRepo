@@ -37,7 +37,7 @@ public class LockerService {
         if (manager.accessLocker(lockerNumber, pin)) {
             return new Result(true, "Access Granted!");
         }
-        return new Result(false, "Access Denied.");
+        return new Result(false, "Incorrect PIN, Access Denied.");
     }
 
     // 4. Attempt to release a locker using the correct PIN
