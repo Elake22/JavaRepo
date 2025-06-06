@@ -53,7 +53,6 @@ public class LockerService {
         if (!accessLocker(lockerNumber, pin).isSuccess()) {
             return new Result(false, "Incorrect PIN or locker number. Returning to menu.");
         }
-
         if (confirm.equals("yes") || confirm.equals("y")) {
             return releaseLocker(lockerNumber, pin);
         } else {
