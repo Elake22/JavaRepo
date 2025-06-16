@@ -10,6 +10,7 @@ public class SpellBook {
         spells.add(new HealSpell());
         spells.add(new InvisibilitySpell());
         spells.add(new StoneDefenseSpell());
+        spells.add(new TeleportSpell());
         spells.add(new ExitSpell());
     }
     // Attempts to cast spell based on spell name

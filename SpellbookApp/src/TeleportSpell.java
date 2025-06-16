@@ -6,11 +6,11 @@ public class TeleportSpell implements Spell {
 
     @Override
     public String getIncantation() {
-        return "teleport";
+        return "Teleport";
     }
 
     @Override
     public String getHelp() {
-        return "\"Instantly transports you to a location in visible range.\"";
+        return "Instantly transports you to a location in visible range.";
     }
 }

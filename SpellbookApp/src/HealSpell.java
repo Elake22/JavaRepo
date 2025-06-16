@@ -6,7 +6,7 @@ public class HealSpell implements Spell {
 
     @Override
     public String getIncantation() {
-        return "senzu bean";
+        return "Senzu bean";
     }
 
     @Override
