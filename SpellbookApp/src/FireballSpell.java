@@ -1,9 +1,10 @@
 public class FireballSpell implements  Spell {
+    @Override
     public void cast() {
         System.out.println("\uD83D\uDCA5 Amaterasu a burst of pitch black flames");
     }
     public String getIncantation() {
-        return " Fireball";
+        return "Fireball";
     }
     public String getHelp() {
        return "Amaterasu burns as hot as the sun itself, " +

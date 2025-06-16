@@ -6,4 +6,8 @@ class ExitSpell implements Spell {
     public String getIncantation() {
         return "quit";
     }
+    @Override
+    public String getHelp() {
+        return "Opens a portal to exit the realm (ends the program).";
+    }
 }
