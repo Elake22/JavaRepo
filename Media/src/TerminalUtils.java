@@ -9,6 +9,7 @@ public class TerminalUtils {
     public TerminalUtils() {
         scanner = new Scanner(System.in);
     }
+
     // Display menu options
     public void displayMenu() {
         System.out.println("\n=== Media List Menu ===");
@@ -18,6 +19,7 @@ public class TerminalUtils {
         System.out.println("4. List All Media");
         System.out.println("5. Exit");
     }
+
     public int getMenuChoice() {
         int choice = -1;
         while (choice < 1 || choice > 5) {
@@ -30,10 +32,43 @@ public class TerminalUtils {
         }
         return choice;
     }
+
     public String getString(String prompt) { //Prompts user and returns string
         System.out.print(prompt);
-        return  scanner.nextLine().trim();
+        return scanner.nextLine().trim();
     }
-    
+    // Prompts the user and returns their input as an integer, with validation
+    public int getInt(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            try {
+                return Integer.parseInt(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+            }
+        }
+    }
+    public void displayMessage(String message) { // Displays message to user
+        System.out.println(message);
+    }
 
+    // Display a list of media items
+    public void displayMediaList(List<Media> mediaList) {
+        if (mediaList.isEmpty()) {
+            System.out.println("No media items found.");
+        } else {
+            System.out.println("\nAll Media in Library:");
+            int index = 1;
+
+            for (Media media : mediaList) {
+                // Get class name (e.g., Video, Audio, Book, etc.)
+                String mediaType = media.getClass().getSimpleName();
+                System.out.println(index + ". " + mediaType + ": " + media.getName());
+                System.out.println("   Description: " + media.getDescription());
+                index++;
+            }
+        }
+    }
 }
+
+

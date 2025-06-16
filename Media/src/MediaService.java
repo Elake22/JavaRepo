@@ -42,6 +42,9 @@ public class MediaService {
     public boolean isEmpty() {
         return mediaList.isEmpty();
     }
+    public List<Media> getAllMedia() {
+        return new ArrayList<>(mediaList); // return a copy to protect the original list
+    }
 
 }
 
