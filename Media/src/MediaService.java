@@ -1,4 +1,5 @@
 // This class manages the media collection (the business logic layer)
+package media;
 import media.models.Media;
 
 import java.util.ArrayList;
@@ -6,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class MediaService {
-    private List<Media> mediaList; // List to store all media items (Video, Audio,  media.models.Image, media.models.Book)
+    private List<Media> mediaList; // List to store all media items (media.models.Video, Audio,  media.models.Image, media.models.Book)
 
     // Constructor to initialize list
     public MediaService() {

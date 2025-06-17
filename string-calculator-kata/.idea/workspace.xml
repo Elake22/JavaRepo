@@ -5,9 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b4b471f-72e6-415b-be05-179e61223c83" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../Media/src/media/commands/Command.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Media/src/MediaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Media/src/MediaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Media/src/TerminalUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Media/src/media/utils/TerminalUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Media/src/Video.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Media/src/media/models/Video.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Media/src/media/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Media/src/media/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Media/src/media/commands/AddMediaCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Media/src/media/commands/AddMediaCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Media/src/media/commands/ListAllMediaCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Media/src/media/commands/ListAllMediaCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Media/src/media/commands/PlayMediaCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Media/src/media/commands/PlayMediaCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Media/src/media/commands/RemoveMediaCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Media/src/media/commands/RemoveMediaCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Media/src/media/models/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Media/src/media/models/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Media/src/media/models/Image.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Media/src/media/models/Image.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/calculator/StringCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/calculator/StringCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/calculator/CalculatorTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/calculator/CalculatorTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

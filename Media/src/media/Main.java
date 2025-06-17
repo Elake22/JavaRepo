@@ -1,6 +1,8 @@
 package media;
-import media.*;
+
+import media.MediaService;
 import media.commands.*;
+import media.utils.TerminalUtils;
 
 public class Main {
     public static void main(String[] args) {

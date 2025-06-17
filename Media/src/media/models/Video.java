@@ -1,4 +1,4 @@
-import media.models.Media;
+package media.models;
 
 //Extends media.models.Media and represents a video file
 public class Video extends Media {
@@ -8,7 +8,7 @@ public class Video extends Media {
     public Video(String name, int duration, String resolution) {
         super(name);
         this.duration = duration; // Duration of the video in minutes
-        this.resolution = resolution; // Video resolution (e.g., "1080p", "4K")
+        this.resolution = resolution; // media.models.Video resolution (e.g., "1080p", "4K")
     }
     // Getter method for duration
     public int getDuration() {

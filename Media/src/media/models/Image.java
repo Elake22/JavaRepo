@@ -37,6 +37,6 @@ public class Image extends Media {
 
     @Override  // Implements the abstract getDescription() method from media.models.Media
     public String getDescription() {
-        return "media.models.Image (" + dimensions + " , " + fileFormat + ")";
+        return "Image (" + dimensions + " , " + fileFormat + ")";
     }
 }

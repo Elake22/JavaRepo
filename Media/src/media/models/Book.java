@@ -39,6 +39,6 @@ public class Book extends Media {
     // Implements the abstract getDescription() method from media.models.Media
     @Override
     public String getDescription() {
-        return "media.models.Book by " + author + " (" + pageCount + " pages)";
+        return "Book by " + author + " (" + pageCount + " pages)";
     }
 }

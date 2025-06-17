@@ -1,11 +1,15 @@
-package media.commands;// Handles playing a selected media item by name
+package media.commands;
+
+import media.MediaService;
 import media.models.Media;
-
+import media.utils.TerminalUtils;
 import java.util.List;
-public class PlayMediaCommand {
 
+public class PlayMediaCommand implements Command {
+
+    @Override
     public void execute(MediaService mediaService, TerminalUtils terminal) {
-        terminal.displayMessage("\n--- Play media.models.Media ---");
+        terminal.displayMessage("\n--- Play Media ---");
 
         List<Media> allMedia = mediaService.getAllMedia();
 

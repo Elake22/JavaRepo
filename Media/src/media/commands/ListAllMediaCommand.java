@@ -1,12 +1,15 @@
-package media.commands;// Handles displaying all media
+package media.commands;
+
+import media.MediaService;
 import media.models.Media;
+import media.utils.TerminalUtils;
+import java.util.List;
 
-import  java.util.List;
+public class ListAllMediaCommand implements Command {
 
-public class ListAllMediaCommand {
-
+    @Override
     public void execute(MediaService mediaService, TerminalUtils terminal) {
-        terminal.displayMessage("\n--- media.models.Media Collection ---");
+        terminal.displayMessage("\n--- Media Collection ---");
 
 
         // Full list of media items from the service

@@ -1,21 +1,24 @@
 package media.commands;
 
-import media.models.Book;
+import media.MediaService;
+import media.models.Video;
 import media.models.Image;
+import media.models.Audio;
+import media.models.Book;
+import media.utils.TerminalUtils;
 
-// Handles adding new media by prompting for type and type-specific details
-public class AddMediaCommand {
+public class AddMediaCommand implements Command {
 
-    // The execute method takes MediaService (manages the list of media items.) and TerminalUtils fot input/output
-    public  void executes(MediaService mediaService, TerminalUtils terminal) {
-        terminal.displayMessage("\n--- Add New media.models.Media ---");
+    @Override
+    public void execute(MediaService mediaService, TerminalUtils terminal) {
+        terminal.displayMessage("\n--- Add New Media ---");
 
         // Prompt user for the media type
         terminal.displayMessage("Select media type:");
         terminal.displayMessage("1. Video");
         terminal.displayMessage("2. Audio");
-        terminal.displayMessage("3. media.models.Image");
-        terminal.displayMessage("4. media.models.Book");
+        terminal.displayMessage("3. Image");
+        terminal.displayMessage("4. Book");
 
         int type = terminal.getInt("Choose type (1-4): ");
 
@@ -43,18 +46,18 @@ public class AddMediaCommand {
                 String dimensions = terminal.getString("Enter dimensions (e.g., 1920x1080): ");
                 String format = terminal.getString("Enter file format (e.g., JPEG): ");
                 mediaService.addMedia(new Image(name, dimensions, format));
-                terminal.displayMessage("✅ media.models.Image added successfully!");
+                terminal.displayMessage("✅ Image added successfully!");
                 break;
 
             case 4: //"book":
                 String author = terminal.getString("Enter author name: ");
                 int pages = terminal.getInt("Enter number of pages: ");
                 mediaService.addMedia(new Book(name, author, pages));
-                terminal.displayMessage("✅ media.models.Book added successfully!");
+                terminal.displayMessage("✅ Book added successfully!");
                 break;
 
             default:
-                terminal.displayMessage("❌ Invalid media type. Please enter Video, Audio, media.models.Image, or media.models.Book.");
+                terminal.displayMessage("❌ Invalid media type. Please enter Video, Audio, Image, or Book.");
         }
     }
 }

@@ -1,3 +1,5 @@
+package media.utils;
+
 import media.models.Media;
 
 import java.util.List;
@@ -14,11 +16,11 @@ public class TerminalUtils {
 
     // Display menu options
     public void displayMenu() {
-        System.out.println("\n=== media.models.Media List Menu ===");
-        System.out.println("1. Add media.models.Media");
-        System.out.println("2. Remove media.models.Media");
-        System.out.println("3. Play media.models.Media");
-        System.out.println("4. List All media.models.Media");
+        System.out.println("\n=== Media List Menu ===");
+        System.out.println("1. Add Media");
+        System.out.println("2. Remove Media");
+        System.out.println("3. Play Media");
+        System.out.println("4. List All Media");
         System.out.println("5. Exit");
     }
 
@@ -59,11 +61,11 @@ public class TerminalUtils {
         if (mediaList.isEmpty()) {
             System.out.println("No media items found.");
         } else {
-            System.out.println("\nAll media.models.Media in Library:");
+            System.out.println("\nAll Media in Library:");
             int index = 1;
 
             for (Media media : mediaList) {
-                // Get class name (e.g., Video, Audio, media.models.Book, etc.)
+                // Get class name (e.g., media.models.Video, Audio, media.models.Book, etc.)
                 String mediaType = media.getClass().getSimpleName();
                 System.out.println(index + ". " + mediaType + ": " + media.getName());
                 System.out.println("   Description: " + media.getDescription());
