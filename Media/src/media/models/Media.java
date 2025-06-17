@@ -1,3 +1,5 @@
+package media.models;
+
 public abstract class Media {
     protected String name;
 

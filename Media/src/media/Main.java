@@ -1,32 +1,30 @@
-// Main class that control the application loop
+package media;
+import media.*;
+import media.commands.*;
+
 public class Main {
     public static void main(String[] args) {
+        MediaService mediaService = new MediaService();     // Handles media collection
+        TerminalUtils terminal = new TerminalUtils();       // Manages input/output
+        boolean running = true;
 
-        MediaService mediaService = new MediaService();     // Manages media collection
-        TerminalUtils terminal = new TerminalUtils();       // Handles user input/output
-        boolean running = true;                             // Controls the application loop
-
-        // Main menu loop
         while (running) {
-            terminal.displayMenu();
-            int choice = terminal.getMenuChoice(); // Menu choice
+            terminal.displayMenu();                         // Show menu
+            int choice = terminal.getMenuChoice();          // Get user input
 
             switch (choice) {
                 case 1:
-                    new AddMediaCommand().executes(mediaService,terminal);
+                    new AddMediaCommand().execute(mediaService, terminal);
                     break;
-
                 case 2:
                     new RemoveMediaCommand().execute(mediaService, terminal);
                     break;
-
                 case 3:
                     new PlayMediaCommand().execute(mediaService, terminal);
                     break;
-
-                case 4:new ListAllMediaCommand().execute(mediaService, terminal); // placeholder
+                case 4:
+                    new ListAllMediaCommand().execute(mediaService, terminal);
                     break;
-
                 case 5:
                     terminal.displayMessage("Exiting Media List. Goodbye!");
                     running = false;

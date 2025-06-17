@@ -1,9 +1,9 @@
-// Handles removing a media item from the list by name
+package media.commands;// Handles removing a media item from the list by name
 
 public class RemoveMediaCommand {
 
     public void execute(MediaService mediaService, TerminalUtils terminal) {
-        terminal.displayMessage("\n--- Remove Media ---");
+        terminal.displayMessage("\n--- Remove media.models.Media ---");
 
         // Ask for media to remove
         String name = terminal.getString("Enter the name of the media to remove: ");
@@ -13,9 +13,9 @@ public class RemoveMediaCommand {
 
         // Pass or fail to remove
         if (removed) {
-            terminal.displayMessage("✅ Media \"" + name + "\" removed successfully.");
+            terminal.displayMessage("✅ media.models.Media \"" + name + "\" removed successfully.");
         } else {
-            terminal.displayMessage("❌ Media \"" + name + "\" not found.");
+            terminal.displayMessage("❌ media.models.Media \"" + name + "\" not found.");
         }
     }
 }

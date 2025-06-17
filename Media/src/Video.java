@@ -1,4 +1,6 @@
-//Extends Media and represents a video file
+import media.models.Media;
+
+//Extends media.models.Media and represents a video file
 public class Video extends Media {
     private int duration;
     private String resolution;
@@ -25,12 +27,12 @@ public class Video extends Media {
         this.resolution = resolution;
     }
 
-    @Override // Implements the abstract play method from Media
+    @Override // Implements the abstract play method from media.models.Media
     public void play() {
         System.out.println("Now playing video: " + getName());
     }
 
-    @Override // Implements the abstract getDescription method from Media
+    @Override // Implements the abstract getDescription method from media.models.Media
     public String getDescription() {
         return "Video (" + resolution + ", " + duration + " min)";
     }
