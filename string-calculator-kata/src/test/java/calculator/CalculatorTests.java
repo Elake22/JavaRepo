@@ -50,9 +50,20 @@ public class CalculatorTests {
         assertEquals(5, result); // 2 + 3 = 5; 1001 is ignored
     }
     @Test
-    void multiCharacterDelimiter() {
+    void multiCharacterDelimiter() { //Multi-character delimiter using [***]
         StringCalculator calc = new StringCalculator();
         int result = calc.add("//[***]\n1***2***3");// *** is the custom delimiter, The calculator should split by ***
         assertEquals(6, result);
     }
+    @Test
+    void multiCharacterDelimiter2() { // Multiple single-character delimiters like [*][%]
+        StringCalculator calc = new StringCalculator();
+        assertEquals(6, calc.add("//[*][%]\n1*2%3"));
+    }
+    @Test
+    void multiDelimiterLongLength() { //Allows any length and multiples like [**][%%]
+        StringCalculator calc = new StringCalculator();
+        assertEquals(6, calc.add("//[**][%%]\n1**2%%3"));
+    }
+
 }

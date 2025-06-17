@@ -1,57 +1,84 @@
 package calculator;
 
-import java.util.regex.Pattern;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.regex.*;
+import java.util.*;
 
 public class StringCalculator {
-    // Method to add numbers from a comma-separated string (or custom delimiter)
-    public int add(String numbers) {
 
-        // Step 1: Handle null or empty input
-        if (numbers == null || numbers.isEmpty()) {
-            return 0;
+
+    public int add(String input) {
+        // Return 0 for empty or null input
+        if (input == null || input.isEmpty()) return 0;
+
+        String numberSection = input; // Part of the string that contains the numbers
+        String delimiterPattern = "[,\n]"; // Default delimiters: comma or newline
+
+        // Check for custom delimiter definition at the start of the input
+        if (input.startsWith("//")) {
+            int delimiterEndIndex = input.indexOf("\n");
+
+            // Extract the custom delimiter definition section (e.g., "//[***]\n")
+            String delimiterDefinition = input.substring(2, delimiterEndIndex);
+
+            // Extract the actual numbers portion after the delimiter line
+            numberSection = input.substring(delimiterEndIndex + 1);
+
+            // Generate a regex pattern to split the numbers using one or more delimiters
+            delimiterPattern = buildDelimiterRegex(delimiterDefinition);
         }
 
-        String delimiter = "[,\n]";  // Default: comma or newline
-        String numSection = numbers;
+        // Split the numbers using the delimiter pattern and compute the total
+        return calculateSum(numberSection, delimiterPattern);
+    }
 
-        // Step 2: Handle custom delimiter syntax, e.g., "//;\n1;2"
-        if (numbers.startsWith("//")) {
-            int delimiterIndex = numbers.indexOf("\n"); // Find the newline after delimiter
-            String customDelimiter = numbers.substring(2, delimiterIndex); // Extract delimiter
+    // Builds a regex pattern to Split wherever there’s a comma or a newline.
+    //Supports multi-character and multiple delimiters in the format: //[delim1][delim2]
 
-            // Handle muli-character delimiters
-            if(customDelimiter.startsWith("[") && customDelimiter.endsWith("]")) {
+    private String buildDelimiterRegex(String definition) {
+        List<String> delimiters = new ArrayList<>();
 
-            }
+        // Regex to match any substring enclosed in square brackets (e.g., [***], [%])
+        Matcher matcher = Pattern.compile("\\[(.*?)]").matcher(definition);
+
+        // Extract all bracketed delimiters and escape them for regex use
+        while (matcher.find()) {
+            delimiters.add(Pattern.quote(matcher.group(1)));
         }
 
-        // Step 3: Split numbers using the appropriate delimiter
-        String[] parts = numSection.split(delimiter);
+        // If no brackets were found, it's a single character delimiter like ";"
+        if (delimiters.isEmpty()) {
+            delimiters.add(Pattern.quote(definition));
+        }
+
+        // Join all delimiters using "|" to create a regex OR pattern
+        return String.join("|", delimiters);
+    }
+    //Splits the number section using the given delimiter pattern,
+    private int calculateSum(String numbers, String delimiterRegex) {
+        String[] parts = numbers.split(delimiterRegex);
+        List<Integer> negatives = new ArrayList<>();
         int sum = 0;
 
-        List<Integer> negatives = new ArrayList<>();
-
-        // Step 4: Loop through each number, trim and add
         for (String part : parts) {
-            part = part.trim();
-            if (!part.isEmpty()) {
-                int number = Integer.parseInt(part);
+            if (part.isBlank()) continue;
 
-                if (number < 0) {
-                    negatives.add(number); // collect negatives
-                } else if (number <= 1000) { // Only add if <= 1000
-                    sum += number;
-                }
+            int number = Integer.parseInt(part.trim());
+
+            // Collect negatives for error reporting
+            if (number < 0) {
+                negatives.add(number);
+            }
+            // Ignore numbers greater than 1000
+            else if (number <= 1000) {
+                sum += number;
             }
         }
 
-        // After loop: check and throw if any negatives found
+        // Throw exception if any negative numbers were found and replace it with ""
         if (!negatives.isEmpty()) {
             throw new IllegalArgumentException("Negatives not allowed: " +
                     negatives.toString().replaceAll("[\\[\\]]", ""));
         }
-    return sum;
+        return sum;
     }
 }
