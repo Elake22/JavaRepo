@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 // Implements the CartOperations interface
-public abstract class ShoppingCartService implements CartOperations {
+public class ShoppingCartService implements CartOperations {
     // Store items using a map
     private  final Map<String, CartItem> cart = new HashMap<>();
 
@@ -63,7 +63,7 @@ public abstract class ShoppingCartService implements CartOperations {
         }
         double total = cart.values().stream().mapToDouble(CartItem::getTotalPrice).sum();
         cart.clear();
-        System.out.println("\n Checkout Complete!");
+        System.out.println("\nCheckout Complete!");
         System.out.println("Total: " + Utils.format(total));
         return total;
     }
