@@ -39,11 +39,21 @@ public class MainApp {
                 case 4: // Menu option 4 - Checkout
                     String confirm = ui.promptString("Are you sure you want to checkout? (y/n): ");
                     if (confirm.equalsIgnoreCase("y")) {
-                        cartService.checkout();
+                        cartService.displayCart(); // Show cart again for review
+
+                        // Ask again to confirm reviewed cart
+                        String finalConfirm = ui.promptString("Proceed with final checkout? (y/n): ");
+                        if (finalConfirm.equalsIgnoreCase("y")) {
+                            cartService.checkout();
+                        } else {
+                            ui.showMessage("Final checkout cancelled. Returning to menu.");
+                        }
                     } else {
                         ui.showMessage("Checkout cancelled. Returning to menu.");
                     }
                     break;
+
+
 
                 case 5: // Menu option 5 - Exit
                     running = false;

@@ -14,6 +14,15 @@ public class ShoppingCartService implements CartOperations {
 
     @Override // Add items to cart or updates if it already exists in cart
     public void addItem(String name, double price, int quantity) {
+        if (quantity <= 0) { // Prevents negative numbers adding to cart
+            System.out.println("Quantity must be greater than 0.");
+            return;
+        }
+        if (price <= 0) {
+            System.out.println("Price must be at least $0.01.");
+            return;
+        }
+
         name = name.toLowerCase(); // Case formats to ensure Apple and apple are added together
 
         if (cart.containsKey(name)) {
@@ -27,6 +36,10 @@ public class ShoppingCartService implements CartOperations {
 
     @Override // Removes Items from cart or if it reaches 0
     public void  removeItem(String name, int quantity) {
+        if (quantity <= 0) { // Prevents negative numbers breaking cart
+            System.out.println("Enter a positive quantity to remove.");
+            return;
+        }
         name = name.toLowerCase(); // Case formats to ensure casing
 
         if (!cart.containsKey(name)) {
@@ -72,7 +85,7 @@ public class ShoppingCartService implements CartOperations {
             total += item.getTotalPrice();
         }
 
-        // Print total (optional)
+        // Print total
         System.out.println("--------------------------------------");
         System.out.printf("%-18s %-8s %10s\n", "", "Total:", Utils.format(total));
     }
