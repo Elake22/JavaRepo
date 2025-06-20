@@ -1,0 +1,15 @@
+Shopping Cart Project Journal
+
+Design Overview
+The Shopping Cart application began with a clean package structure designed around separating responsibilities.
+Early planning included reviewing real-world shopping cart flows like Amazon's to guide how cart interactions should feel.
+Inspired by that, I created the application to include clear user prompts, item quantity control, and cart review before removal.
+
+The initial design was broken into six focused packages:
+	• MainApp – Entry point that handles control flow and menu routing
+	• ShoppingCartService – Core business logic: add, remove, display, and checkout
+	• CartItem (model) – Represents individual items in the cart
+	• ConsoleUI – Manages user input/output (menus, prompts, error messages)
+	• Utils – Formats currency and keeps display logic clean
+    •  CartOperations – Interface for cart behavior
+Each class is focused on a single responsibility, allowing features to be maintained or expanded easily. 
