@@ -12,4 +12,25 @@ The initial design was broken into six focused packages:
 	• ConsoleUI – Manages user input/output (menus, prompts, error messages)
 	• Utils – Formats currency and keeps display logic clean
     •  CartOperations – Interface for cart behavior
-Each class is focused on a single responsibility, allowing features to be maintained or expanded easily. 
+Each class is focused on a single responsibility, allowing features to be maintained or expanded easily.
+
+Prototype-Building Experience & Lessons Learned
+
+This project reinforced object-oriented design. Building and testing in stages helped me catch issues early,
+like improperly formatted cart displays or incorrect quantity handling when removing items.
+To ensure clarity, I converted the cart map into a sorted list during display to improve user readability.
+This allowed items to be shown alphabetically and formatted like receipts with aligned columns and total amounts.
+I made design decisions throughout development to enforce clean structure and modular logic.
+Isolating method features like checkout, quantity updates, and cart empty help maintain DRY principles.
+Validating edge cases, like removing more items than exist or checking out an empty cart,
+helped ensure the app responds to invalid or unusual input.
+A key enhancement was improving cart readability by formatting the output to look like a printed receipt.
+I could display each item, quantity, and total cost in aligned columns, improving the user experience.
+
+Reflection
+
+This assignment helped sharpen my understanding of scalable application design. Utilizing interfaces, maps,
+and lists made me think carefully about data flow, efficiency, and how users interact with each feature.
+Implementing unit tests for all business logic reinforced the importance of isolating and verifying functionality through repeatable testing.
+I can better appreciate the value of designing for maintainability and testing from the start rather than retrofitting fixes.
+Overall, this project deepened my confidence in building structured, user-friendly applications
