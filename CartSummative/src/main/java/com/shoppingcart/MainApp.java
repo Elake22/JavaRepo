@@ -30,6 +30,7 @@ public class MainApp {
                     break;
 
                 case 3: // Menu option 3 - Remove Item
+                    cartService.displayCart();
                     String removeName = ui.promptString("Enter item name to remove: ");
                     int removeQty = ui.promptInt("Enter quantity to remove: ");
                     cartService.removeItem(removeName, removeQty);
