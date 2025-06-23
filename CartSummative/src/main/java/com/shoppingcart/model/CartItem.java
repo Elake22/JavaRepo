@@ -12,7 +12,7 @@ public class CartItem {
         this.price = price;
         this.quantity = quantity;
     }
-        // Getters
+        // Getters & Setter
     public String getName() {
         return name;
     }
@@ -24,7 +24,7 @@ public class CartItem {
     public double getPrice() {
         return price;
     }
-        // Setters
+
     public void setPrice(double price) {
         this.price = price;
     }

@@ -53,8 +53,6 @@ public class MainApp {
                     }
                     break;
 
-
-
                 case 5: // Menu option 5 - Exit
                     running = false;
                     ui.showMessage("Thank you for using Shopping Cart!");

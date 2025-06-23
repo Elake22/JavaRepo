@@ -23,12 +23,12 @@ public class ConsoleUI {
         }
         return scanner.nextInt();
     }
-    // String input
+    // String input (Item name)
     public String promptString(String prompt) {
         System.out.print(prompt);
         return scanner.next();
     }
-    // Integer input
+    // Integer input (Item quantity)
     public int promptInt(String prompt) {
         System.out.print(prompt);
         while (!scanner.hasNextInt()) {
@@ -37,7 +37,7 @@ public class ConsoleUI {
         }
         return scanner.nextInt();
     }
-    // Double input (price)
+    // Double input (Item price)
     public double promptDouble(String prompt) {
         System.out.print(prompt);
         while (!scanner.hasNextDouble()) {
@@ -46,7 +46,7 @@ public class ConsoleUI {
         }
         return scanner.nextDouble();
     }
-    //Message
+    //Help display messages from main app
     public void showMessage(String message) {
         System.out.println(message);
     }

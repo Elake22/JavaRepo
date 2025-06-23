@@ -85,7 +85,7 @@ public class ShoppingCartService implements CartOperations {
             total += item.getTotalPrice();
         }
 
-        // Print total
+        // Print total and header
         System.out.println("--------------------------------------");
         System.out.printf("%-18s %-8s %10s\n", "", "Total:", Utils.format(total));
     }
