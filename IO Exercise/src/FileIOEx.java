@@ -13,11 +13,15 @@ public class FileIOEx {
                 } else {
                     System.out.println("student_data already exist");
                 }
+                // Part 5 Print absolute and relative paths
+                System.out.println("Absolute path: " + file.getAbsolutePath());
+                System.out.println("Relative path: " + file.getPath());
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-            // Print to text to file
+        // Print to text to file
         PrintWriter writer = null;
         try {
             writer = new PrintWriter("student_data.txt");
@@ -44,7 +48,7 @@ public class FileIOEx {
         try (FileReader fileReader = new FileReader("student_data.txt");
              BufferedReader reader = new BufferedReader(fileReader)) {
 
-        // When there are no more lines, readLine() returns null.
+            // When there are no more lines, readLine() returns null.
             for (String line = reader.readLine(); line != null; line =
                     reader.readLine()) {
                 System.out.println(line);
@@ -52,5 +56,12 @@ public class FileIOEx {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        // Delete file 
+        if (file.delete()) {
+            System.out.println("\nFile deleted successfully.");
+        } else {
+            System.out.println("\nFailed to delete the file.");
+        }
     }
+
 }
