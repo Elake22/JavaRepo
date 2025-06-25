@@ -13,14 +13,12 @@ public class ShoppingCartService implements CartOperations {
     private  final Map<String, CartItem> cart = new HashMap<>();
 
     @Override // Add items to cart or updates if it already exists in cart
-    public void addItem(String name, double price, int quantity) {
-        if (quantity <= 0) { // Prevents negative numbers adding to cart
-            System.out.println("Quantity must be greater than 0.");
-            return;
+    public String addItem(String name, double price, int quantity) {
+        if (quantity <= 0) {
+            return "Quantity must be greater than 0.";
         }
         if (price <= 0) {
-            System.out.println("Price must be at least $0.01.");
-            return;
+            return "Price must be at least $0.01.";
         }
 
         name = name.toLowerCase(); // Case formats to ensure Apple and apple are added together
@@ -31,80 +29,65 @@ public class ShoppingCartService implements CartOperations {
         } else {
             cart.put(name, new CartItem(name, price, quantity));
         }
-        System.out.printf("Added %d x %s to cart.\n", quantity, name);
+        // Return confirmation message for UI to display
+        return String.format("Added %d x %s to cart.", quantity, Utils.capitalize(name));
     }
 
     @Override // Removes Items from cart or if it reaches 0
-    public void  removeItem(String name, int quantity) {
-        if (quantity <= 0) { // Prevents negative numbers breaking cart
-            System.out.println("Enter a positive quantity to remove.");
-            return;
+    public String removeItem(String name, int quantity) {
+        if (quantity <= 0) {
+            return "Enter a positive quantity to remove.";
         }
         name = name.toLowerCase(); // Case formats to ensure casing
 
         if (!cart.containsKey(name)) {
-            System.out.println("Item not in cart.");
-            return;
+            return "Item not in cart.";
         }
 
         CartItem item = cart.get(name);
         if (quantity >= item.getQuantity()) {
             cart.remove(name);
-            System.out.println("Item removed from cart.");
+            return Utils.capitalize(name) + " removed from cart.";
         } else {
             item.setQuantity(item.getQuantity() - quantity);
-            System.out.printf("Removed %d of %s. Remaining: %d\n",
-                    quantity, name, item.getQuantity());
+            return String.format("Removed %d of %s. Remaining: %d",
+                    quantity, Utils.capitalize(name), item.getQuantity());
         }
     }
-
-    @Override // Displays current cart and total
-    public void displayCart() {
-        if (cart.isEmpty()) {
-            System.out.println("Your cart is empty");
-            return;
-        }
-        System.out.println("\n Cart Items: ");
-
-        // Convert Map values to list to show them in ABC order
+    // Returns sorted list of items (A–Z) for UI display
+    @Override
+    public List<CartItem> getCartItems() {
         List<CartItem> itemList = new ArrayList<>(cart.values());
-        itemList.sort(Comparator.comparing(CartItem::getName));
-
-        // Print header
-        System.out.printf("%-18s %-8s %-10s\n", "Item", "Qty", "Price");
-        System.out.println("--------------------------------------");
-
-        double total = 0.0;
-
-        // Print each item
-        for (CartItem item : itemList) {
-            System.out.printf("%-18s x%-7d %10s\n",
-                    Utils.capitalize(item.getName()),
-                    item.getQuantity(),
-                    Utils.format(item.getTotalPrice()));
-            total += item.getTotalPrice();
-        }
-
-        // Print total and header
-        System.out.println("--------------------------------------");
-        System.out.printf("%-18s %-8s %10s\n", "", "Total:", Utils.format(total));
+        itemList.sort(Comparator.comparing(CartItem::getName)); // Sort alphabetically
+        return itemList;
     }
 
-    @Override // Shows total cost, clears, cart and returns total
-    public  double checkout() {
+    // Returns true if the cart is empty (used before display or checkout)
+    @Override
+    public boolean isCartEmpty() {
+        return cart.isEmpty();
+    }
+
+    // Calculates total, clears the cart, and returns total amount
+    @Override
+    public double checkout() {
         if (cart.isEmpty()) {
-            System.out.println("Cart empty, nothing to checkout.");
-            return 0.0;
+            return 0.0; // Nothing to check out
         }
-        double total = cart.values().stream().mapToDouble(CartItem::getTotalPrice).sum();
-        cart.clear();
-        System.out.println("\nCheckout Complete!");
-        System.out.println("Total: " + Utils.format(total));
-        System.out.println("\nThanks for Shopping!");
+
+        // Sum total of all items
+        double total = cart.values().stream()
+                .mapToDouble(CartItem::getTotalPrice)
+                .sum();
+
+        cart.clear(); // Empty cart after checkout
         return total;
     }
-    // Cart map for testing purposes
+
+    // Optional: expose cart for testing or debugging
+    @Override
     public Map<String, CartItem> getCart() {
         return cart;
     }
 }
+

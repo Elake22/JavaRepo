@@ -19,32 +19,39 @@ public class MainApp {
 
             switch (choice) {
                 case 1: // Menu option 1 - Display
-                    cartService.displayCart();
-                    break;
+                    if (cartService.isCartEmpty()) {
+                        ui.showMessage("Your cart is empty.");
+                    } else {
+                        ui.displayCart(cartService.getCartItems());
+                    } break;
 
                 case 2: // Menu option 2 - Add Item
                     String name = ui.promptString("Enter item name: ");
                     double price = ui.promptDouble("Enter item price: ");
                     int quantity = ui.promptInt("Enter quantity: ");
-                    cartService.addItem(name, price, quantity);
+                    String addMsg = cartService.addItem(name, price, quantity);
+                    ui.showMessage(addMsg);
                     break;
 
                 case 3: // Menu option 3 - Remove Item
-                    cartService.displayCart();
+                    ui.displayCart(cartService.getCartItems());
                     String removeName = ui.promptString("Enter item name to remove: ");
                     int removeQty = ui.promptInt("Enter quantity to remove: ");
-                    cartService.removeItem(removeName, removeQty);
+                    String removeMsg = cartService.removeItem(removeName, removeQty);
+                    ui.showMessage(removeMsg);
                     break;
 
                 case 4: // Menu option 4 - Checkout
                     String confirm = ui.promptString("Are you sure you want to checkout? (y/n): ");
                     if (confirm.equalsIgnoreCase("y")) {
-                        cartService.displayCart(); // Show cart again for review
+                        ui.displayCart(cartService.getCartItems()); // Show cart again for review
 
                         // Ask again to confirm reviewed cart
                         String finalConfirm = ui.promptString("Proceed with final checkout? (y/n): ");
                         if (finalConfirm.equalsIgnoreCase("y")) {
-                            cartService.checkout();
+                            double total = cartService.checkout();  // 💬 get final amount
+                            ui.showMessage("Checkout complete! Total: " + String.format("$%.2f", total));
+
                         } else {
                             ui.showMessage("Final checkout cancelled. Returning to menu.");
                         }
