@@ -12,7 +12,7 @@ public class PrivateJet extends Aircraft {
         this.maxSpeed = maxSpeed;
     }
 
-    public boolean isHasLuxuryService() {
+    public boolean hasLuxuryService() {
         return hasLuxuryService;
     }
 

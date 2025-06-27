@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="fae68baf-e516-4010-9738-802cb8d2d1f5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Airport/domain/model/Aircraft.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/model/Aircraft.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Airport/domain/model/CommercialAircraft.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/model/CommercialAircraft.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Airport/domain/model/Passenger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/model/Passenger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Airport/domain/model/Flight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/model/Flight.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Airport/domain/model/PrivateJet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/model/PrivateJet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ModelTest/ModelTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ModelTest/ModelTest.java" afterDir="false" />
     </list>
