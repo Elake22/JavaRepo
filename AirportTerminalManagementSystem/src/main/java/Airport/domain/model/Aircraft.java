@@ -2,9 +2,10 @@ package Airport.domain.model;
 
 public class Aircraft {
 
+    // Attributes
     private final String model; // Ex, Boeing 737
     private final int capacity; // Max passenger count
-    private final double fuelCapacity; // Fuel capacity
+    private final double fuelCapacity; // Fuel capacity in Gallons
 
     public Aircraft(String model, int capacity, double fuelCapacity) {
         this.model = model;

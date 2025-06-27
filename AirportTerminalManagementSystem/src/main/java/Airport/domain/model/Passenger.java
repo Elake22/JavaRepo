@@ -2,6 +2,7 @@ package Airport.domain.model;
 
 public class Passenger {
 
+    // Attributes
     private final String name;
     private final String passportNumber;
 

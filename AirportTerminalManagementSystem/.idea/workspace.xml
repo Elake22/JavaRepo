@@ -5,28 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fae68baf-e516-4010-9738-802cb8d2d1f5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/README" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/data/reservation.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Airport/AirportTerminalApp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Airport/data/CSVUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/loyalty/LoyaltyProgram.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/loyalty/RegularPassenger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/loyalty/VIPPassenger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/model/Aircraft.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/model/CommercialAircraft.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/model/Flight.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/model/Passenger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/model/PrivateJet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/reservation/ReservationSystem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/Airport/AirportTerminalTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ModelTest/ModelTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../LibraryManagementSystem/src/main/java/domain/LibraryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CartSummative/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CartSummative/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LibraryManagementSystem/src/main/java/data/LibraryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LibraryManagementSystem/src/main/java/data/LibraryRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LibraryManagementSystem/src/test/java/Library/LibrarySystemTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LibraryManagementSystem/src/test/java/Library/LibrarySystemTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Airport/domain/model/Aircraft.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/model/Aircraft.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Airport/domain/model/CommercialAircraft.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/model/CommercialAircraft.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Airport/domain/model/Passenger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/model/Passenger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Airport/domain/model/PrivateJet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/model/PrivateJet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ModelTest/ModelTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ModelTest/ModelTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
