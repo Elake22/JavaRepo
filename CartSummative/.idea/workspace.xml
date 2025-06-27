@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b4c2f972-cd6b-4701-a2d6-4a061f7af658" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../AirportTerminalManagementSystem/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AirportTerminalManagementSystem/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AirportTerminalManagementSystem/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AirportTerminalManagementSystem/src/main/java/Airport/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AirportTerminalManagementSystem/src/test/java/Airport/AppTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LibraryManagementSystem/src/main/java/domain/LibraryService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LibraryManagementSystem/src/main/java/data/LibraryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LibraryManagementSystem/src/main/java/data/LibraryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LibraryManagementSystem/src/test/java/Library/LibrarySystemTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LibraryManagementSystem/src/test/java/Library/LibrarySystemTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,20 +39,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.MainApp.executor": "Run",
-    "JUnit.AppTest.executor": "Run",
-    "JUnit.CartServiceTest.executor": "Run",
-    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
-    "Maven.cart-summative [test].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.MainApp.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AppTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CartServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.cart-summative [test].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/elijahlake/Documents/GitHub/JavaRepo/CartSummative&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="b4c2f972-cd6b-4701-a2d6-4a061f7af658" name="Changes" comment="" />

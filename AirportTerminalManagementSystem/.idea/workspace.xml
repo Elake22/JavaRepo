@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fae68baf-e516-4010-9738-802cb8d2d1f5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/README" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/data/reservation.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Airport/AirportTerminalApp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Airport/data/CSVUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/loyalty/LoyaltyProgram.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/loyalty/RegularPassenger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/loyalty/VIPPassenger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/model/Aircraft.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/model/CommercialAircraft.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/model/Flight.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/model/Passenger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/model/PrivateJet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/reservation/ReservationSystem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/Airport/AirportTerminalTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ModelTest/ModelTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LibraryManagementSystem/src/main/java/domain/LibraryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CartSummative/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CartSummative/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LibraryManagementSystem/src/main/java/data/LibraryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LibraryManagementSystem/src/main/java/data/LibraryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LibraryManagementSystem/src/test/java/Library/LibrarySystemTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LibraryManagementSystem/src/test/java/Library/LibrarySystemTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2z6GU2D1eC8MKPpBSyzCHxBLbuT" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.ModelTest.executor": "Run",
+    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fae68baf-e516-4010-9738-802cb8d2d1f5" name="Changes" comment="" />
+      <created>1751044121916</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1751044121916</updated>
+    </task>
+    <servers />
+  </component>
+</project>
