@@ -1,0 +1,5 @@
+Flight   | Date         | Price   | Passenger       | Passport   | Aircraft         | Type      
+PJ007    | 2025-07-05   | 4999.00 | Tony Stark      | IRON01     | Gulfstream G650  | PrivateJet
+Flight   | Date         | Price   | Passenger       | Passport   | Aircraft         | Type      
+AA1001   | 2025-07-01   | 350.99  | John Smith      | P12345     | Boeing 737       | Commercial
+AA1001   | 2025-07-01   | 350.99  | Bob Jones       | P67890     | Boeing 737       | Commercial

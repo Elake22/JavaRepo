@@ -1,11 +1,15 @@
 package ModelTest;
 
 import Airport.domain.model.CommercialAircraft;
+import Airport.domain.model.Flight;
 import Airport.domain.model.Passenger;
 import Airport.domain.model.PrivateJet;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test; // JUnit 5 annotation
 
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -47,7 +51,33 @@ public class ModelTest {
         Assertions.assertEquals(6548.0, jet.getFuelCapacity());
         assertTrue(jet.hasLuxuryService());
         Assertions.assertEquals(590, jet.getMaxSpeed());
+    }
+    // Flight Test
+    @Test
+    void testFlightCreationCommercial() {
+        CommercialAircraft aircraft = new CommercialAircraft("Boeing 747", 450,50000.0, "Delta");
+        LocalDate date = LocalDate.of(2025, 6,30);
+        BigDecimal price = new BigDecimal("350.99");
 
+        Flight flight = new Flight("AA1001", date, price, aircraft);
+
+        assertEquals("AA1001", flight.getFlightNumber());
+        assertEquals(date, flight.getDepartureDate());
+        assertEquals(new BigDecimal("350.99"), flight.getTicketPrice());
+        assertEquals(aircraft, flight.getAircraft());
+    }
+    @Test
+    void testFlightCreationPrivateJet() {
+        PrivateJet jet = new PrivateJet("Learjet 75", 8, 900.0, true, 500);
+        LocalDate date = LocalDate.of(2025, 6,30);
+        BigDecimal price = new BigDecimal("4999.99");
+
+        Flight flight = new Flight("PJ007",date, price, jet);
+
+        assertEquals("PJ007", flight.getFlightNumber());
+        assertEquals(LocalDate.of(2025, 6, 30), flight.getDepartureDate());
+        assertEquals(new BigDecimal("4999.99"), flight.getTicketPrice());
+        assertEquals(jet, flight.getAircraft());
     }
 }
 

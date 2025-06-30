@@ -16,19 +16,19 @@ public class Flight {
         this.ticketPrice = ticketPrice;
         this.aircraft = aircraft;
     }
-
+    // Flight number getter
     public String getFlightNumber() {
         return flightNumber;
     }
-
+    // Departure getter
     public LocalDate getDepartureDate() {
         return departureDate;
     }
-
+    // Ticket price getter
     public BigDecimal getTicketPrice() {
         return ticketPrice;
     }
-
+    // Aircraft getter
     public Aircraft getAircraft() {
         return aircraft;
     }
