@@ -1,4 +1,8 @@
 package Airport.domain.loyalty;
+import java.math.BigDecimal;
 
-public class LoyaltyProgram {
+
+public interface LoyaltyProgram {
+    BigDecimal applyDiscount(BigDecimal ticketPrice);
+    
 }
