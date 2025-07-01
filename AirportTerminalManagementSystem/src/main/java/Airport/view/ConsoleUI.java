@@ -5,6 +5,7 @@ import Airport.domain.model.CommercialAircraft;
 import Airport.domain.model.Flight;
 import Airport.domain.model.Passenger;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,17 @@ public class ConsoleUI {
             System.out.println("- " + p.getName() + " (Passport: " + p.getPassportNumber() + ")");
         }
     }
+
+    public void displayDiscountedPassengers(String flightNumber, List<Passenger> passengers, BigDecimal basePrice) {
+        System.out.printf("====Flight Loyalty Members====: %s%n", flightNumber);
+        System.out.printf("%-20s %-12s %-12s%n", "Name", "Passport", "Discounted Price");
+
+        for (Passenger p : passengers) {
+            BigDecimal finalPrice = p.getDiscountedPrice(basePrice);
+            System.out.printf("%-20s %-12s $%-11s%n", p.getName(), p.getPassportNumber(), finalPrice);
+        }
+    }
+
     public void confirmSave(String filePath) {
         System.out.println("\nReservations saved to file: " + filePath);
     }
@@ -31,27 +43,36 @@ public class ConsoleUI {
             displayPassengerList(flightNumber, reservations.get(flightNumber));
         }
     }
+
     public void displayCsvFormat(Map<String, List<Passenger>> reservations, Map<String, Flight> flights) {
-        // Header row with aligned column titles
-        System.out.printf("%-10s %-12s %-8s %-20s %-15s %-20s %-12s%n",
-                "Flight", "Date", "Price", "Passenger", "Passport", "Aircraft", "Type");
+        // Header
+        System.out.printf(
+                "%-8s | %-12s | %-10s | %-12s | %-15s | %-10s | %-18s | %-10s%n",
+                "Flight", "Date", "Price", "FinalPrice", "Passenger", "Passport", "Aircraft", "Type"
+        );
+        System.out.println("---------------------------------------------------------------------------------------------------------------------");
+
         // Row data
         for (String flightNumber : reservations.keySet()) {
             Flight flight = flights.get(flightNumber);
             if (flight == null) continue;
 
             for (Passenger p : reservations.get(flightNumber)) {
-                // Determine the type based on the class
                 String type = (flight.getAircraft() instanceof CommercialAircraft) ? "Commercial" : "PrivateJet";
+                BigDecimal basePrice = flight.getTicketPrice();
+                BigDecimal discounted = p.getDiscountedPrice(basePrice).setScale(2, BigDecimal.ROUND_HALF_UP);
 
-                System.out.printf("%-10s %-12s %-8s %-20s %-15s %-20s %-12s%n",
+                System.out.printf(
+                        "%-8s | %-12s | %-10.2f | %-12.2f | %-15s | %-10s | %-18s | %-10s%n",
                         flightNumber,
                         flight.getDepartureDate(),
-                        flight.getTicketPrice(),
+                        basePrice,
+                        discounted,
                         p.getName(),
                         p.getPassportNumber(),
                         flight.getAircraft().getModel(),
-                        type);
+                        type
+                );
             }
         }
     }

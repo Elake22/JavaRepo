@@ -9,12 +9,12 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
+import Airport.domain.loyalty.*;
 
 import Airport.view.ConsoleUI;
 
-public class AirportTerminalApp
-{
-    public static void main( String[] args ) throws IOException {
+public class AirportTerminalApp {
+    public static void main(String[] args) throws IOException {
         ConsoleUI ui = new ConsoleUI(); // Handles all output
 
 
@@ -35,9 +35,9 @@ public class AirportTerminalApp
 
 
         // Step 3: Add Passengers to Flights
-        reservationSystem.addReservation("AA1001", new Passenger("John Smith", "P12345"));
-        reservationSystem.addReservation("AA1001", new Passenger("Bob Jones", "P67890"));
-        reservationSystem.addReservation("PJ007", new Passenger("Tony Stark", "IRON01"));
+        reservationSystem.addReservation("AA1001", new Passenger("John Smith", "P12345",new RegularPassenger()));
+        reservationSystem.addReservation("AA1001", new Passenger("Bob Jones", "P67890",new VIPPassenger()));
+        reservationSystem.addReservation("PJ007", new Passenger("Tony Stark", "IRON01", new RegularPassenger()));
 
         // Step 4: Save reservations to CSV
         String filePath = "data/reservations.csv";
@@ -53,5 +53,10 @@ public class AirportTerminalApp
         ui.displayHeader("Passenger List");
         ui.displayCsvFormat(loadedSystem.getAllReservations(), loadedFlights);
 
-        }
+        // Loyalty Program
+        // Passenger regular = new Passenger("John Smith", "P12345", new RegularPassenger());
+        // Passenger vip = new Passenger("Tony Stark", "IRON01", new VIPPassenger());
+        ui.displayDiscountedPassengers("AA1001", loadedSystem.getPassengersForFlight("AA1001"), loadedFlights.get("AA1001").getTicketPrice());
+
     }
+}

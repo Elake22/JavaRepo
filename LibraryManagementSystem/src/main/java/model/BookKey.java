@@ -4,7 +4,6 @@ import java.util.Objects;
 
 
   //BookKey is a composite key used to uniquely identify a book's location
- //in the library based on category, shelf, and position.
 
 public record BookKey(
         String category,    // The section or genre (e.g., Fiction)
@@ -13,16 +12,13 @@ public record BookKey(
 ) {
 
      //Provides a readable string version of the key,
-     //used for debugging or display (e.g., "Fiction-1-3").
 
     @Override
     public String toString() {
         return category + "-" + shelfNumber + "-" + position;
     }
 
-
      // Override equals to ensure case-insensitive matching for category,
-    //  and normal comparison for shelf and position.
 
     @Override
     public boolean equals(Object o) {
@@ -32,9 +28,6 @@ public record BookKey(
                 position == key.position &&
                 category.equalsIgnoreCase(key.category);
     }
-
-
-     // Override hashCode to match the logic in equals.
      // This ensures correct behavior in HashMap lookups.
 
     @Override

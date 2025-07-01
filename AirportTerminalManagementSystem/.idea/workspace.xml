@@ -5,8 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fae68baf-e516-4010-9738-802cb8d2d1f5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/LoyaltyTest/LoyaltyProgamTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/reservations.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/reservations.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Airport/AirportTerminalApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Airport/AirportTerminalApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Airport/data/CSVUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Airport/data/CSVUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Airport/domain/loyalty/LoyaltyProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/loyalty/LoyaltyProgram.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Airport/domain/loyalty/RegularPassenger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/loyalty/RegularPassenger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Airport/domain/loyalty/VIPPassenger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/loyalty/VIPPassenger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Airport/domain/model/Passenger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Airport/domain/model/Passenger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Airport/view/ConsoleUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Airport/view/ConsoleUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LibraryManagementSystem/src/main/java/model/BookKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LibraryManagementSystem/src/main/java/model/BookKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LibraryManagementSystem/src/main/java/model/book.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LibraryManagementSystem/src/main/java/model/book.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +45,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.AirportTerminalApp.executor": "Run",
+    "JUnit.LoyaltyProgamTest.executor": "Run",
     "JUnit.ModelTest.executor": "Run",
     "JUnit.ReservationSystemTest.executor": "Run",
     "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",

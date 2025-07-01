@@ -2,7 +2,6 @@ package model;
 
 
  //The Book record represents a book in the library.
- //It is immutable and holds all necessary details for identifying and cataloging a book.
 
 public record book(
         String category,      // The genre or section of the book (e.g., Fiction, Science)
@@ -12,7 +11,6 @@ public record book(
         String author,        // Author of the book
         String isbn           // Unique identifier (International Standard Book Number)
 ) {
-    // All methods like toString(), equals(), hashCode(), and accessors are auto-generated
-    // Example usage: book.author() or book.isbn()
+
 }
 
