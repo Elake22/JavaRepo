@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 // Utility class for saving and loading reservations to/from a CSV file
-public class CSVUtil {
+public class CSVUtil implements ReservationStorage {
 
     // Saves reservations to CSV file, one row per passenger
     public static void saveReservationsToCSV(
@@ -126,6 +126,18 @@ public class CSVUtil {
         }
 
         return flights;
+    }
+    @Override
+    public void save(String filePath,
+                     Map<String, List<Passenger>> reservations,
+                     Map<String, Flight> flightMap) throws IOException {
+        saveReservationsToCSV(filePath, reservations, flightMap);
+    }
+
+    @Override
+    public Map<String, Flight> load(String filePath,
+                                    ReservationSystem system) throws IOException {
+        return loadReservationsFromCSV(filePath, system);
     }
 }
 

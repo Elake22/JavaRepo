@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
-public class ConsoleUI {
+public class ConsoleUI implements  UI{
 
     public void displayHeader(String message) {
         System.out.println("\n==== " + message + " ====");
@@ -24,7 +24,7 @@ public class ConsoleUI {
 
     public void displayDiscountedPassengers(String flightNumber, List<Passenger> passengers, BigDecimal basePrice) {
         System.out.printf("====Flight Loyalty Members====: %s%n", flightNumber);
-        System.out.printf("%-20s %-12s %-12s%n", "Name", "Passport", "Discounted Price");
+        System.out.printf("%-20s %-12s %-12s%n", "Name", "Passport", "Final Price");
 
         for (Passenger p : passengers) {
             BigDecimal finalPrice = p.getDiscountedPrice(basePrice);
@@ -38,7 +38,7 @@ public class ConsoleUI {
 
     public void displayLoadedFlights(Map<String, List<Passenger>> reservations) {
         for (String flightNumber : reservations.keySet()) {
-            // Use the existing displayHeader method for clean output
+            // Use the existing displayHeader method
             displayHeader("Loaded Passenger List for " + flightNumber);
             displayPassengerList(flightNumber, reservations.get(flightNumber));
         }

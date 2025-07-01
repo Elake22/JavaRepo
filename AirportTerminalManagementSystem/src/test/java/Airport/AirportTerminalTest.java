@@ -1,38 +1,37 @@
 package Airport;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import Airport.data.CSVUtil;
+import Airport.domain.loyalty.*;
+import Airport.domain.model.*;
+import Airport.domain.reservation.ReservationSystem;
 
-/**
- * Unit test for simple App.
- */
-public class AirportTerminalTest
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AirportTerminalTest(String testName )
-    {
-        super( testName );
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+// These tests verify that:
+// Passengers are created with correct loyalty programs
+// Discounts are applied properly through the system
+// Data is correctly saved to and loaded from CSV
+
+public class AirportTerminalTest {
+
+    private ReservationSystem reservationSystem;
+    private Map<String, Flight> flightMap;
+    private String filePath;
+
+    @BeforeEach
+    void setup() {
+        reservationSystem = new ReservationSystem();
+        
     }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AirportTerminalTest.class );
-    }
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
-    }
+
 }

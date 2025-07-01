@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ReservationSystemTest {
 
+    @Test
     void testAddSingleReservation() {
         ReservationSystem system = new ReservationSystem();
         Passenger p1 = new Passenger("Bob", "P12345");

@@ -1,5 +1,6 @@
 package Airport;
 
+import Airport.data.ReservationStorage;
 import Airport.data.CSVUtil;
 import Airport.view.ConsoleUI;
 import Airport.domain.model.*;
@@ -12,11 +13,12 @@ import java.util.*;
 import Airport.domain.loyalty.*;
 
 import Airport.view.ConsoleUI;
+import Airport.view.UI;
 
 public class AirportTerminalApp {
     public static void main(String[] args) throws IOException {
-        ConsoleUI ui = new ConsoleUI(); // Handles all output
-
+        UI ui = new ConsoleUI();
+        ReservationStorage storage = new CSVUtil();
 
         // Step 1: Create Aircraft and Flights
         CommercialAircraft commercialJet = new CommercialAircraft("Boeing 737", 180, 50000.0, "Delta Airlines");
@@ -33,7 +35,6 @@ public class AirportTerminalApp {
         // Step 2: Create Reservation System
         ReservationSystem reservationSystem = new ReservationSystem();
 
-
         // Step 3: Add Passengers to Flights
         reservationSystem.addReservation("AA1001", new Passenger("John Smith", "P12345",new RegularPassenger()));
         reservationSystem.addReservation("AA1001", new Passenger("Bob Jones", "P67890",new VIPPassenger()));
@@ -41,12 +42,13 @@ public class AirportTerminalApp {
 
         // Step 4: Save reservations to CSV
         String filePath = "data/reservations.csv";
-        CSVUtil.saveReservationsToCSV(filePath, reservationSystem.getAllReservations(), flightMap);
+        storage.save(filePath, reservationSystem.getAllReservations(), flightMap);
         ui.confirmSave(filePath);
 
         // Step 5: Load reservations from CSV
         ReservationSystem loadedSystem = new ReservationSystem();
-        Map<String, Flight> loadedFlights = CSVUtil.loadReservationsFromCSV(filePath, loadedSystem);
+        Map<String, Flight> loadedFlights = storage.load(filePath, loadedSystem);
+
 
         // Step 6: Display passengers for a flight
         //ui.displayLoadedFlights(loadedSystem.getAllReservations());
