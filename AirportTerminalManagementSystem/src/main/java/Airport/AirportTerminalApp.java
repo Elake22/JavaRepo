@@ -56,8 +56,6 @@ public class AirportTerminalApp {
         ui.displayCsvFormat(loadedSystem.getAllReservations(), loadedFlights);
 
         // Loyalty Program
-        // Passenger regular = new Passenger("John Smith", "P12345", new RegularPassenger());
-        // Passenger vip = new Passenger("Tony Stark", "IRON01", new VIPPassenger());
         ui.displayDiscountedPassengers("AA1001", loadedSystem.getPassengersForFlight("AA1001"), loadedFlights.get("AA1001").getTicketPrice());
 
     }
