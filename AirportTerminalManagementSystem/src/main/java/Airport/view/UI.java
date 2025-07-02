@@ -14,6 +14,5 @@ public interface UI {
     void displayPassengerList(String flightNumber, List<Passenger> passengers);
     void displayDiscountedPassengers(String flightNumber, List<Passenger> passengers, BigDecimal basePrice);
     void confirmSave(String filePath);
-    void displayLoadedFlights(Map<String, List<Passenger>> reservations);
     void displayCsvFormat(Map<String, List<Passenger>> reservations, Map<String, Flight> flights);
 }
