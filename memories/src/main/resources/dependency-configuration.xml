@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Repository -->
+    <bean id="memoryRepository"
+          class="learn.memories.data.MemoryFileRepository">
+        <constructor-arg value="./data/memories.txt"/>
+    </bean>
+
+    <!-- Service -->
+    <bean id="memoryService"
+          class="learn.memories.domain.MemoryService">
+        <constructor-arg ref="memoryRepository"/>
+    </bean>
+
+    <!-- TextIO -->
+    <bean id="io"
+          class="learn.memories.ui.ConsoleIO"/>
+
+    <!-- View -->
+    <bean id="view"
+          class="learn.memories.ui.View">
+        <constructor-arg ref="io"/>
+    </bean>
+
+    <!-- Controller -->
+    <bean id="controller" class="learn.memories.ui.Controller">
+        <constructor-arg index="0" ref="view"/>
+        <constructor-arg index="1" ref="memoryService"/>
+    </bean>
+
+
+</beans>
