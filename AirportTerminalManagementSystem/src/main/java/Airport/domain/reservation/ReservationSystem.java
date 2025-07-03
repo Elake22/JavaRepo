@@ -11,9 +11,20 @@ public class ReservationSystem {
     private final Map<String, List<Passenger>> reservations = new HashMap<>();
 
     // Add passenger to flight number
-    public void addReservation(String flightNumber, Passenger passenger) {
+    public boolean addReservation(String flightNumber, Passenger passenger) {
         // If flight exist in Map, add passeneger to list, otherwise makes a new list to add to map
-        reservations.computeIfAbsent(flightNumber, k-> new ArrayList<>()).add(passenger);
+        List<Passenger> passengerList = reservations.computeIfAbsent(flightNumber, k -> new ArrayList<>());
+
+        // Prevent duplicate passengers by passport number
+        boolean alreadyExists = passengerList.stream()
+                .anyMatch(p -> p.getPassportNumber().equalsIgnoreCase(passenger.getPassportNumber()));
+
+        if (alreadyExists) {
+            return false; // Duplicate detected
+        }
+
+        passengerList.add(passenger);
+        return true;
 
     } // Retrieves the list of passengers for a given flight number
     public List<Passenger> getPassengersForFlight(String flightNumber) {

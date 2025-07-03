@@ -32,6 +32,7 @@ class ReservationSystemTest {
         assertEquals(2, passengers.size());
     }
 
+
     @Test
     void testGetPassengersForUnknownFlightReturnsEmptyList() {
         ReservationSystem system = new ReservationSystem();
@@ -39,6 +40,17 @@ class ReservationSystemTest {
 
         assertNotNull(passengers); // Should not be null
         assertTrue(passengers.isEmpty()); // Should be empty
+    }
+    @Test
+    void testDuplicatePassengerToSameFlight() {
+        ReservationSystem system = new ReservationSystem();
+        Passenger p = new Passenger("Alice", "P12345");
+
+        assertTrue(system.addReservation("DL101", p)); // First add succeeds
+        assertFalse(system.addReservation("DL101", p)); // Duplicate fails
+
+        List<Passenger> passengers = system.getPassengersForFlight("DL101");
+        assertEquals(1, passengers.size()); // Still only one passenger
     }
 
     // Passenger removal
