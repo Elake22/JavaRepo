@@ -1,7 +1,7 @@
 package Airport;
 
-import Airport.data.ReservationStorage;
-import Airport.data.CSVUtil;
+import Airport.reservation.ReservationRepository;
+import Airport.reservation.CSVUtil;
 import Airport.view.ConsoleUI;
 import Airport.domain.model.*;
 import Airport.domain.reservation.ReservationSystem;
@@ -12,13 +12,12 @@ import java.time.LocalDate;
 import java.util.*;
 import Airport.domain.loyalty.*;
 
-import Airport.view.ConsoleUI;
 import Airport.view.UI;
 
 public class AirportTerminalApp {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException { //private
         UI ui = new ConsoleUI();
-        ReservationStorage storage = new CSVUtil();
+        ReservationRepository storage = new CSVUtil();
 
         // Step 1: Create Aircraft and Flights
         CommercialAircraft commercialJet = new CommercialAircraft("Boeing 737", 180, 50000.0, "Delta Airlines");

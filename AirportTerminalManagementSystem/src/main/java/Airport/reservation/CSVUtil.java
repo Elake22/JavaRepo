@@ -1,4 +1,4 @@
-package Airport.data;
+package Airport.reservation;
 
 import Airport.domain.loyalty.LoyaltyProgram;
 import Airport.domain.loyalty.VIPPassenger;
@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 // Utility class for saving and loading reservations to/from a CSV file
-public class CSVUtil implements ReservationStorage {
+public class CSVUtil implements ReservationRepository {
 
     // Saves reservations to CSV file, one row per passenger
     public static void saveReservationsToCSV(

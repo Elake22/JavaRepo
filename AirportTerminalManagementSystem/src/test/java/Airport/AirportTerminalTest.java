@@ -1,6 +1,6 @@
 package Airport;
 
-import Airport.data.CSVUtil;
+import Airport.reservation.CSVUtil;
 import Airport.domain.loyalty.*;
 import Airport.domain.model.*;
 import Airport.domain.reservation.ReservationSystem;
