@@ -1,0 +1,20 @@
+Airport Terminal Management System
+
+ Project Description
+
+The Airport Terminal Management System is a Java console application that simulates a real-world airport reservation system.
+
+It allows users to:
+
+- Define different types of aircraft
+- Create and manage flights
+- Add and retrieve passengers
+- Persist flight reservations in a CSV file
+- Apply loyalty program discounts
+
+This project was built using clean, modular design principles to keep the code easy to understand, maintain, and extend.
+Responsibilities are clearly separated across layers, and features like file saving, passenger management,
+and loyalty discounts were implemented with flexibility in mind.
+The program uses object-oriented techniques like inheritance and interfaces, and only one class handles console output
+to keep things organized.
+Testing and error handling were also included to support stability and future improvements.

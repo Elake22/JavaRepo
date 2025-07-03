@@ -25,7 +25,7 @@ public class AirportTerminalApp {
         PrivateJet privateJet = new PrivateJet("Gulfstream G650", 10, 6548.0, true, 600);
 
         Flight flight1 = new Flight("AA1001", LocalDate.of(2025, 7, 1), new BigDecimal("350.99"), commercialJet);
-        Flight flight2 = new Flight("PJ007", LocalDate.of(2025, 7, 5), new BigDecimal("4999.00"), privateJet);
+        Flight flight2 = new Flight("PJ007", LocalDate.of(2025, 7, 5), new BigDecimal("5000.00"), privateJet);
 
         // Map of flights (needed for CSV writing)
         Map<String, Flight> flightMap = new HashMap<>();
