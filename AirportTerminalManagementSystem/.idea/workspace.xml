@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fae68baf-e516-4010-9738-802cb8d2d1f5" name="Changes" comment="" />
+    <list default="true" id="fae68baf-e516-4010-9738-802cb8d2d1f5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../LibraryManagementSystem/src/main/java/view/LibraryView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LibraryManagementSystem/src/main/java/Library/LibraryApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LibraryManagementSystem/src/main/java/Library/LibraryApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LibraryManagementSystem/src/main/java/domain/LibraryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LibraryManagementSystem/src/main/java/domain/LibraryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LibraryManagementSystem/src/main/java/model/book.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LibraryManagementSystem/src/main/java/model/book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LibraryManagementSystem/src/test/java/Library/LibrarySystemTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LibraryManagementSystem/src/test/java/Library/LibrarySystemTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

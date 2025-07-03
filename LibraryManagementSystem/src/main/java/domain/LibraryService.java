@@ -57,4 +57,10 @@ public class LibraryService {
                 && !book.isbn().isBlank()
                 && book.yearPublished() > 0 && book.yearPublished() <= java.time.Year.now().getValue();
     }
+    // Returns all books in a given category
+    public List<book> findBooksByCategory(String category) {
+        return repository.getAll().stream()
+                .filter(b -> b.category().equalsIgnoreCase(category))
+                .toList();
+    }
 }
