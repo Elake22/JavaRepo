@@ -7,7 +7,7 @@ public class PerishableProduct extends Product {
     private LocalDate expirationDate;
 
 
-    public PerishableProduct(int productID, String productName, int quantity, double price, LocalDate expirationDate) {
+    public PerishableProduct(String productID, String productName, int quantity, double price, LocalDate expirationDate) {
         super(productID, productName, quantity, price);
         this.expirationDate = expirationDate;
     }

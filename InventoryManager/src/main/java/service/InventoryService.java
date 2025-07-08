@@ -2,17 +2,20 @@ package service;
 
 import data.InventoryRepository;
 import model.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 // Service layer that handles business logic for inventory management
+@Service
 public class InventoryService {
 
     // Dependency on the repository interface, injected through constructor
     private final InventoryRepository repository;
 
-    // Constructor injects the repository implementation
+    @Autowired// Injects the repository implementation
     public InventoryService(InventoryRepository repository) {
         this.repository = repository;
     }
@@ -36,4 +39,12 @@ public class InventoryService {
     public List<Product> getAllProducts() {
         return repository.findAll();
     }
+    public boolean saveInventory(String filename) {
+        return repository.saveToFile(filename);
+    }
+
+    public boolean loadInventory(String filename) {
+        return repository.loadFromFile(filename);
+    }
+
 }

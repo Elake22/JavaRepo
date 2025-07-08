@@ -10,4 +10,7 @@ public interface InventoryRepository {
     boolean remove(String productId);
     Optional<Product> findById(String productId);
     List<Product> findAll();
+    boolean saveToFile(String filename);
+    boolean loadFromFile(String filename);
+
 }
