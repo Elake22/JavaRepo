@@ -15,7 +15,8 @@ public class InventoryApp {
         InventoryService service = context.getBean(InventoryService.class);
 
         // Launch the main menu with the wired service
-        MainMenu menu = new MainMenu(service);
+        MainMenu menu;
+        menu = new MainMenu(service);
         menu.run();
     }
 }

@@ -1,19 +1,26 @@
 package ui;
 
 import model.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import service.InventoryService;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
+@Component
 public class MainMenu {
     private final InventoryService service;
+    private final MenuFormatter formatter = null;
     private final Scanner scanner;
 
+    @Autowired
     public MainMenu(InventoryService service) {
         this.service = service;
         this.scanner = new Scanner(System.in);
     }
+
 
     public void run() {
         boolean running = true;
@@ -55,20 +62,16 @@ public class MainMenu {
 
     private void addProduct() {
         MenuFormatter.printSection("Add Product");
-        System.out.print("Enter Product ID: ");
-        String id = scanner.nextLine();
-        System.out.print("Enter Product Name: ");
-        String name = scanner.nextLine();
-        System.out.print("Enter Quantity: ");
-        int qty = Integer.parseInt(scanner.nextLine());
-        System.out.print("Enter Price: ");
-        double price = Double.parseDouble(scanner.nextLine());
+        String id = MenuFormatter.promptInput("Enter Product ID: ");
+        String name = MenuFormatter.promptInput("Enter Product Name: ");
+        int qty = MenuFormatter.promptInt("Enter Quantity: ");
+        double price = MenuFormatter.promptDouble("Enter Price: ");
 
         Product product = new Product(id, name, qty, price);
         if (service.addProduct(product)) {
-            System.out.println("Product added successfully!");
+            MenuFormatter.printSuccessMessage("Product added successfully!");
         } else {
-            System.out.println("Product already exists or input is invalid.");
+            MenuFormatter.printErrorMessage("Product already exists or input is invalid.");
         }
         MenuFormatter.pressEnterToContinue();
         scanner.nextLine();
@@ -78,11 +81,11 @@ public class MainMenu {
         MenuFormatter.printSection("Inventory List");
         List<Product> products = service.getAllProducts();
         if (products.isEmpty()) {
-            System.out.println("No products in inventory.");
+            MenuFormatter.printNoProducts();
         } else {
             MenuFormatter.printTableHeader();
             for (Product product : products) {
-                System.out.println(product);
+                MenuFormatter.printProductRow(product);
             }
         }
         MenuFormatter.pressEnterToContinue();
@@ -91,11 +94,11 @@ public class MainMenu {
 
     private void searchProduct() {
         MenuFormatter.printSection("Search Product");
-        System.out.print("Enter Product ID or Name: ");
-        String input = scanner.nextLine();
+        String input = MenuFormatter.promptInput("Enter Product ID or Name: ");
 
         Optional<Product> result = service.getAllProducts().stream()
-                .filter(p -> p.getProductID().equalsIgnoreCase(input) || p.getProductName().equalsIgnoreCase(input))
+                .filter(p -> p.getProductID().equalsIgnoreCase(input)
+                        || p.getProductName().equalsIgnoreCase(input))
                 .findFirst();
 
         if (result.isPresent()) {
@@ -110,8 +113,7 @@ public class MainMenu {
 
     private void updateProduct() {
         MenuFormatter.printSection("Update Product");
-        System.out.print("Enter Product ID: ");
-        String id = scanner.nextLine();
+        String id = MenuFormatter.promptInput("Enter Product ID: ");
 
         Optional<Product> optional = service.findProductById(id);
         if (optional.isEmpty()) {
@@ -120,30 +122,24 @@ public class MainMenu {
         }
 
         Product current = optional.get();
-        System.out.println("Current Details:");
-        System.out.println("Name: " + current.getProductName());
-        System.out.println("Quantity: " + current.getQuantity());
-        System.out.printf("Price: $%.2f%n", current.getPrice());
+        MenuFormatter.printProductDetails(current.getProductID(), current.getProductName(), current.getQuantity(), current.getPrice());
 
-        System.out.print("Enter New Quantity (or press Enter to skip): ");
-        String qtyInput = scanner.nextLine();
-        System.out.print("Enter New Price (or press Enter to skip): ");
-        String priceInput = scanner.nextLine();
+        String qtyInput = MenuFormatter.promptInput("Enter New Quantity (or press Enter to skip): ");
+        String priceInput = MenuFormatter.promptInput("Enter New Price (or press Enter to skip): ");
 
         int newQty = qtyInput.isBlank() ? current.getQuantity() : Integer.parseInt(qtyInput);
         double newPrice = priceInput.isBlank() ? current.getPrice() : Double.parseDouble(priceInput);
 
         Product updated = new Product(id, current.getProductName(), newQty, newPrice);
         service.updateProduct(id, updated);
-        System.out.println("Product updated successfully!");
+        MenuFormatter.printSuccess("Product updated successfully!");
         MenuFormatter.pressEnterToContinue();
         scanner.nextLine();
     }
 
     private void deleteProduct() {
         MenuFormatter.printSection("Delete Product");
-        System.out.print("Enter Product ID: ");
-        String id = scanner.nextLine();
+        String id = MenuFormatter.promptInput("Enter Product ID: ");
 
         Optional<Product> optional = service.findProductById(id);
         if (optional.isEmpty()) {
@@ -155,31 +151,36 @@ public class MainMenu {
         String confirm = scanner.nextLine();
         if (confirm.equalsIgnoreCase("Y")) {
             service.removeProduct(id);
-            System.out.println("Product deleted successfully!");
+            MenuFormatter.printSuccess("Product deleted successfully!");
         } else {
-            System.out.println("Deletion cancelled.");
+            MenuFormatter.printCancelled();
         }
         MenuFormatter.pressEnterToContinue();
         scanner.nextLine();
     }
 
     private void saveInventory() {
-        service.saveInventory("src/inventory.txt");
         MenuFormatter.printSection("Save Inventory");
-        System.out.println("Saving inventory data...");
-        // Stub: Logic to save inventory to file will go here
-        System.out.println("Inventory successfully saved to inventory.txt!");
+        boolean success = service.saveInventory("src/inventory.txt");
+        if (success) {
+            MenuFormatter.printSuccessMessage("Inventory save");
+        } else {
+            MenuFormatter.printErrorMessage("Inventory save");
+        }
         MenuFormatter.pressEnterToContinue();
         scanner.nextLine();
     }
 
     private void loadInventory() {
-        service.loadInventory("src/inventory.txt");
         MenuFormatter.printSection("Load Inventory");
-        System.out.println("Loading inventory data...");
-        // Stub: Logic to load inventory from file will go here
-        System.out.println("Inventory successfully loaded from inventory.txt!");
+        boolean success = service.loadInventory("src/inventory.txt");
+        if (success) {
+            MenuFormatter.printSuccessMessage("Inventory load");
+        } else {
+            MenuFormatter.printErrorMessage("Inventory load");
+        }
         MenuFormatter.pressEnterToContinue();
         scanner.nextLine();
     }
 }
+

@@ -52,7 +52,7 @@ public class Product {
     // ToString for display purposes
     @Override
     public String toString() {
-        return String.format("ID: %s | Name: %s | Qty: %d | Price: $%.2f",
+        return String.format(" %-6s  | %-15s | %8d | $%8.2f",
                 productID, productName, quantity, price);
     }
 }

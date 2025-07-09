@@ -1,8 +1,10 @@
 package ui;
 
+import model.Product;
+import java.util.Scanner;
+
 public class MenuFormatter {
 
-    // Prints the main header and menu options
     public static void printMainMenu() {
         System.out.println("===== Inventory Manager =====");
         System.out.println("1. Add Product");
@@ -16,46 +18,70 @@ public class MenuFormatter {
         System.out.print("Enter your choice: ");
     }
 
-    // Reusable section header
     public static void printSection(String title) {
         System.out.println("\n===== " + title + " =====");
     }
 
-    // For product table headers (used in View Products)
     public static void printTableHeader() {
-        System.out.println("ID   | Name           | Quantity | Price");
-        System.out.println("------------------------------------------");
+        System.out.println("ID       | Name             | Quantity | Price");
+        System.out.println("-----------------------------------------------");
     }
 
-    // For Search Product display
     public static void printProductDetails(String id, String name, int quantity, double price) {
         System.out.println("Product Found:");
-        System.out.println("ID: " + id);
-        System.out.println("Name: " + name);
-        System.out.println("Quantity: " + quantity);
-        System.out.printf("Price: $%.2f%n", price);
+        System.out.printf("ID: %-10s\n", id);
+        System.out.printf("Name: %-15s\n", name);
+        System.out.printf("Quantity: %-5d\n", quantity);
+        System.out.printf("Price: $%.2f\n", price);
     }
 
-    // For "Product not found"
+    public static void printProductRow(Product p) {
+        System.out.printf("%-8s | %-15s | %-8d | $%.2f\n",
+                p.getProductID(), p.getProductName(), p.getQuantity(), p.getPrice());
+    }
+
     public static void printNotFoundMessage() {
         System.out.println("Product not found!");
     }
 
-    // For Update Product prompts
-    public static void printUpdatePrompt() {
-        System.out.print("Enter New Quantity (or press Enter to skip): ");
-        // prompt for quantity only
-        System.out.print("Enter New Price (or press Enter to skip): ");
+    public static void printCurrentDetails(Product product) {
+        System.out.printf("Current Quantity: %d\n", product.getQuantity());
+        System.out.printf("Current Price: $%.2f\n", product.getPrice());
     }
 
-    // For Delete Product confirmation
     public static void printDeleteConfirmationPrompt() {
         System.out.print("Are you sure you want to delete this product? (Y/N): ");
     }
 
-    // For Save Inventory display
+    public static void printSuccessMessage(String message) {
+        System.out.println(message);
+    }
+
+    public static void printSuccess(String message) {
+        System.out.println(message);
+    }
+
+    public static void printErrorMessage(String message) {
+        System.out.println("Error: " + message);
+    }
+
+    public static void printCancelled() {
+        System.out.println("Operation cancelled.");
+    }
+
+    public static void printInvalidChoice() {
+        System.out.println("Invalid selection. Please try again.");
+    }
+
+    public static void printNoProducts() {
+        System.out.println("No products found.");
+    }
+
+    public static void pressEnterToContinue() {
+        System.out.println("\nPress Enter to return to the main menu...");
+    }
+
     public static void printSavingInventory() {
-        printSection("Save Inventory");
         System.out.println("Saving inventory data...");
     }
 
@@ -64,12 +90,10 @@ public class MenuFormatter {
     }
 
     public static void printInventorySaveError() {
-        System.out.println("Error saving data!");
+        System.out.println("Error saving inventory to file.");
     }
 
-    // For Load Inventory display
     public static void printLoadingInventory() {
-        printSection("Load Inventory");
         System.out.println("Loading inventory data...");
     }
 
@@ -78,11 +102,38 @@ public class MenuFormatter {
     }
 
     public static void printInventoryLoadError() {
-        System.out.println("Error loading data!");
+        System.out.println("Error loading inventory from file.");
     }
 
-    public static void pressEnterToContinue() {
-        System.out.println("\nPress Enter to return to the main menu...");
+    public static String promptInput(String message) {
+        System.out.print(message);
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
+
+    public static int promptInt(String message) {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.print(message);
+            String input = scanner.nextLine();
+            try {
+                return Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid number. Try again.");
+            }
+        }
+    }
+
+    public static double promptDouble(String message) {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.print(message);
+            String input = scanner.nextLine();
+            try {
+                return Double.parseDouble(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid price. Try again.");
+            }
+        }
     }
 }
-
