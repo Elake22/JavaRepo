@@ -21,8 +21,13 @@ public class InventoryService {
     }
     // Adds a product to the inventory (delegates to repository)
     public boolean addProduct(Product product) {
+        // Reject invalid quantity or price
+        if (product.getQuantity() < 0 || product.getPrice() < 0) {
+            return false;
+        }
         return repository.add(product);
     }
+
     // Updates an existing product by ID (delegates to repository)
     public boolean updateProduct(String productID, Product updatedProduct) {
         return repository.update(productID, updatedProduct);

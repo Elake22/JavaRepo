@@ -1,7 +1,10 @@
 package ui;
 
 import model.Product;
+
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class MenuFormatter {
 
@@ -106,9 +109,15 @@ public class MenuFormatter {
     }
 
     public static String promptInput(String message) {
-        System.out.print(message);
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
+        while (true) {
+            System.out.print(message);
+            String input = scanner.nextLine().trim();
+            if (!input.isEmpty()) {
+                return formatProductName(input);
+            }
+            System.out.println("Input cannot be empty. Please try again.");
+        }
     }
 
     public static int promptInt(String message) {
@@ -117,7 +126,12 @@ public class MenuFormatter {
             System.out.print(message);
             String input = scanner.nextLine();
             try {
-                return Integer.parseInt(input);
+                int value = Integer.parseInt(input);
+                if (value < 0) {
+                    System.out.println("Quantity cannot be negative. Try again.");
+                    continue;
+                }
+                return value;
             } catch (NumberFormatException e) {
                 System.out.println("Invalid number. Try again.");
             }
@@ -130,10 +144,22 @@ public class MenuFormatter {
             System.out.print(message);
             String input = scanner.nextLine();
             try {
-                return Double.parseDouble(input);
+                double value = Double.parseDouble(input);
+                if (value < 0) {
+                    System.out.println("Price cannot be negative. Try again.");
+                    continue;
+                }
+                return value;
             } catch (NumberFormatException e) {
                 System.out.println("Invalid price. Try again.");
             }
         }
+    }
+
+    public static String formatProductName(String input) {
+        if (input == null || input.isBlank()) return input;
+        return Arrays.stream(input.trim().split("\\s+"))
+                .map(word -> word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase())
+                .collect(Collectors.joining(" "));
     }
 }

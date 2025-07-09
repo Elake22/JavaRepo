@@ -60,4 +60,16 @@ public class InventoryServiceTest {
         service.addProduct(new Product("P007", "Stapler", 2, 4.99));
         assertEquals(2, service.getAllProducts().size());
     }
+    @Test
+    void shouldRejectNegativeQuantity() {
+        Product product = new Product("P008", "Negative Item", -5, 10.0);
+        assertFalse(service.addProduct(product));
+    }
+
+    @Test
+    void shouldRejectNegativePrice() {
+        Product product = new Product("P009", "Negative Price", 5, -10.0);
+        assertFalse(service.addProduct(product));
+    }
+
 }

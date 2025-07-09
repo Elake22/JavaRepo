@@ -12,7 +12,6 @@ import java.util.Scanner;
 @Component
 public class MainMenu {
     private final InventoryService service;
-    private final MenuFormatter formatter = null;
     private final Scanner scanner;
 
     @Autowired
@@ -63,7 +62,8 @@ public class MainMenu {
     private void addProduct() {
         MenuFormatter.printSection("Add Product");
         String id = MenuFormatter.promptInput("Enter Product ID: ");
-        String name = MenuFormatter.promptInput("Enter Product Name: ");
+        String nameRaw = MenuFormatter.promptInput("Enter Product Name: ");
+        String name = MenuFormatter.formatProductName(nameRaw);
         int qty = MenuFormatter.promptInt("Enter Quantity: ");
         double price = MenuFormatter.promptDouble("Enter Price: ");
 
@@ -130,7 +130,9 @@ public class MainMenu {
         int newQty = qtyInput.isBlank() ? current.getQuantity() : Integer.parseInt(qtyInput);
         double newPrice = priceInput.isBlank() ? current.getPrice() : Double.parseDouble(priceInput);
 
-        Product updated = new Product(id, current.getProductName(), newQty, newPrice);
+        String formattedName = MenuFormatter.formatProductName(current.getProductName());
+        Product updated = new Product(id, formattedName, newQty, newPrice);
+
         service.updateProduct(id, updated);
         MenuFormatter.printSuccess("Product updated successfully!");
         MenuFormatter.pressEnterToContinue();
