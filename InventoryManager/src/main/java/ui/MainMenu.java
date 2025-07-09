@@ -19,6 +19,7 @@ public class MainMenu {
         this.service = service;
         this.scanner = new Scanner(System.in);
     }
+    private static final String FILE_PATH = "src/inventory.txt";
 
 
     public void run() {
@@ -34,7 +35,7 @@ public class MainMenu {
                 case "5" -> deleteProduct();
                 case "6" -> {
                     MenuFormatter.printSavingInventory();
-                    if (service.saveInventory("src/inventory.txt")) {
+                    if (service.saveInventory(FILE_PATH)) {
                         MenuFormatter.printInventorySavedSuccess();
                     } else {
                         MenuFormatter.printInventorySaveError();
@@ -44,7 +45,7 @@ public class MainMenu {
                 }
                 case "7" -> {
                     MenuFormatter.printLoadingInventory();
-                    if (service.loadInventory("src/inventory.txt")) {
+                    if (service.loadInventory(FILE_PATH)) {
                         MenuFormatter.printInventoryLoadedSuccess();
                     } else {
                         MenuFormatter.printInventoryLoadError();
@@ -115,22 +116,24 @@ public class MainMenu {
         MenuFormatter.printSection("Update Product");
         String id = MenuFormatter.promptInput("Enter Product ID: ");
 
+        // Try to find product by ID
         Optional<Product> optional = service.findProductById(id);
         if (optional.isEmpty()) {
             MenuFormatter.printNotFoundMessage();
             return;
         }
-
+        // Product found — display current info
         Product current = optional.get();
         MenuFormatter.printProductDetails(current.getProductID(), current.getProductName(), current.getQuantity(), current.getPrice());
 
-        String qtyInput = MenuFormatter.promptInput("Enter New Quantity (or press Enter to skip): ");
-        String priceInput = MenuFormatter.promptInput("Enter New Price (or press Enter to skip): ");
+        // Prompt for new values (blank input keeps current values)
+        int newQty = MenuFormatter.promptInt("Enter New Quantity (or press Enter to keep current): ", true, current.getQuantity());
+        double newPrice = MenuFormatter.promptDouble("Enter New Price (or press Enter to keep current): ", true, current.getPrice());
 
-        int newQty = qtyInput.isBlank() ? current.getQuantity() : Integer.parseInt(qtyInput);
-        double newPrice = priceInput.isBlank() ? current.getPrice() : Double.parseDouble(priceInput);
-
+        // Reformat product name to ensure consistent style (capitalize)
         String formattedName = MenuFormatter.formatProductName(current.getProductName());
+
+        // Create updated product object
         Product updated = new Product(id, formattedName, newQty, newPrice);
 
         service.updateProduct(id, updated);
@@ -163,7 +166,7 @@ public class MainMenu {
 
     private void saveInventory() {
         MenuFormatter.printSection("Save Inventory");
-        boolean success = service.saveInventory("src/inventory.txt");
+        boolean success = service.saveInventory(FILE_PATH);
         if (success) {
             MenuFormatter.printSuccessMessage("Inventory save");
         } else {
@@ -175,7 +178,7 @@ public class MainMenu {
 
     private void loadInventory() {
         MenuFormatter.printSection("Load Inventory");
-        boolean success = service.loadInventory("src/inventory.txt");
+        boolean success = service.loadInventory(FILE_PATH);
         if (success) {
             MenuFormatter.printSuccessMessage("Inventory load");
         } else {

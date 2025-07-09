@@ -120,41 +120,60 @@ public class MenuFormatter {
         }
     }
 
+    // Required integer input
     public static int promptInt(String message) {
+        return promptInt(message, false, 0);
+    }
+
+    // Optional integer input with default fallback for updates
+    public static int promptInt(String message, boolean allowBlank, int defaultValue) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.print(message);
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().trim();
+            if (allowBlank && input.isEmpty()) {
+                return defaultValue; // Return default if blank and allowed
+            }
             try {
                 int value = Integer.parseInt(input);
                 if (value < 0) {
                     System.out.println("Quantity cannot be negative. Try again.");
-                    continue;
+                } else {
+                    return value;
                 }
-                return value;
             } catch (NumberFormatException e) {
                 System.out.println("Invalid number. Try again.");
             }
         }
     }
 
+    // Required double input
     public static double promptDouble(String message) {
+        return promptDouble(message, false, 0.0);
+    }
+
+    // Optional double input with default fallback for updates
+    public static double promptDouble(String message, boolean allowBlank, double defaultValue) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.print(message);
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().trim();
+            if (allowBlank && input.isEmpty()) {
+                return defaultValue; // Return default if blank and allowed
+            }
             try {
                 double value = Double.parseDouble(input);
                 if (value < 0) {
                     System.out.println("Price cannot be negative. Try again.");
-                    continue;
+                } else {
+                    return value;
                 }
-                return value;
             } catch (NumberFormatException e) {
                 System.out.println("Invalid price. Try again.");
             }
         }
     }
+
 
     public static String formatProductName(String input) {
         if (input == null || input.isBlank()) return input;
