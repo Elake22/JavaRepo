@@ -4,6 +4,7 @@ import model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import service.InventoryService;
+import java.math.BigDecimal;
 
 import java.util.List;
 import java.util.Optional;
@@ -66,7 +67,7 @@ public class MainMenu {
         String nameRaw = MenuFormatter.promptInput("Enter Product Name: ");
         String name = MenuFormatter.formatProductName(nameRaw);
         int qty = MenuFormatter.promptInt("Enter Quantity: ");
-        double price = MenuFormatter.promptDouble("Enter Price: ");
+        BigDecimal price = MenuFormatter.promptBigDecimal("Enter Price: ");
 
         Product product = new Product(id, name, qty, price);
         if (service.addProduct(product)) {
@@ -95,19 +96,19 @@ public class MainMenu {
 
     private void searchProduct() {
         MenuFormatter.printSection("Search Product");
-        String input = MenuFormatter.promptInput("Enter Product ID or Name: ");
+        String input = MenuFormatter.promptInput("Enter Product ID or Name: ").toLowerCase();
 
         Optional<Product> result = service.getAllProducts().stream()
-                .filter(p -> p.getProductID().equalsIgnoreCase(input)
-                        || p.getProductName().equalsIgnoreCase(input))
+                .filter(p -> p.getProductID().toLowerCase().contains(input) || p.getProductName().toLowerCase().contains(input))
                 .findFirst();
 
-        if (result.isPresent()) {
-            Product p = result.get();
-            MenuFormatter.printProductDetails(p.getProductID(), p.getProductName(), p.getQuantity(), p.getPrice());
-        } else {
-            MenuFormatter.printNotFoundMessage();
-        }
+        result.ifPresentOrElse(
+                p -> {
+                    MenuFormatter.printProductDetails(p.getProductID(), p.getProductName(), p.getQuantity(), p.getPrice());
+                },
+                MenuFormatter::printNotFoundMessage
+        );
+
         MenuFormatter.pressEnterToContinue();
         scanner.nextLine();
     }
@@ -124,11 +125,11 @@ public class MainMenu {
         }
         // Product found — display current info
         Product current = optional.get();
-        MenuFormatter.printProductDetails(current.getProductID(), current.getProductName(), current.getQuantity(), current.getPrice());
-
+        MenuFormatter.printProductDetails(current.getProductID(), current.getProductName(), current.getQuantity(), current.getPrice()
+        );
         // Prompt for new values (blank input keeps current values)
         int newQty = MenuFormatter.promptInt("Enter New Quantity (or press Enter to keep current): ", true, current.getQuantity());
-        double newPrice = MenuFormatter.promptDouble("Enter New Price (or press Enter to keep current): ", true, current.getPrice());
+        BigDecimal newPrice = MenuFormatter.promptBigDecimal("Enter New Price (or press Enter to keep current): ", true, current.getPrice());
 
         // Reformat product name to ensure consistent style (capitalize)
         String formattedName = MenuFormatter.formatProductName(current.getProductName());

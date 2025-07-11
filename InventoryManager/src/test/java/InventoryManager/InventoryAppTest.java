@@ -9,6 +9,7 @@ import service.InventoryService;
 import ui.MainMenu;
 
 import java.io.File;
+import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,7 +33,8 @@ public class InventoryAppTest {
 
     @Test
     void fullInventoryFlowShouldWork() {
-        Product product = new Product("P100", "IntegrationTest", 5, 9.99);
+        Product product = new Product("P100", "IntegrationTest", 5, new BigDecimal("9.99"));
+
 
         // Add product
         assertTrue(service.addProduct(product));

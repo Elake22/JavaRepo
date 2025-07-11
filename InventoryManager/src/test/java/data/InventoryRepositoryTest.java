@@ -3,18 +3,19 @@ package data;
 import model.Product;
 import org.junit.jupiter.api.*;
 import java.io.File;
+import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class InventoryRepositoryTest {
 
-    private InMemoryInventoryRepository repository;
+    private CSVMemoryInventoryRepository repository;
     private static final String TEST_FILE = "test_inventory.txt"; // File used for save/load tests
 
     @BeforeEach
         // Create a fresh repository before each test
     void setUp() {
-        repository = new InMemoryInventoryRepository();
+        repository = new CSVMemoryInventoryRepository();
     }
 
     @AfterEach
@@ -26,14 +27,14 @@ public class InventoryRepositoryTest {
     @Test
     void testSaveAndLoad() {
         // Add a product to the current repository
-        Product product = new Product("P001", "Pen", 10, 1.50);
+        Product product = new Product("P001", "Pen", 10, new BigDecimal("1.50"));
         assertTrue(repository.add(product));
 
         // Save the repository data to a file
         assertTrue(repository.saveToFile(TEST_FILE));
 
         // Create a new repository and load data from the file
-        InMemoryInventoryRepository loadedRepo = new InMemoryInventoryRepository();
+        CSVMemoryInventoryRepository loadedRepo = new CSVMemoryInventoryRepository();
         assertTrue(loadedRepo.loadFromFile(TEST_FILE));
 
         // Verify the loaded data matches what was saved

@@ -1,6 +1,8 @@
 package model;
 
 import org.junit.jupiter.api.Test;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,12 +12,12 @@ public class PerishableProductTest {
     @Test
     void testPerishableProductCreation() {
         LocalDate date = LocalDate.of(2025, 12, 31);
-        PerishableProduct milk = new PerishableProduct("004", "Milk", 30, 3.99, date);
+        PerishableProduct milk = new PerishableProduct("004", "Milk", 30, new BigDecimal("3.99"), date);
 
-        assertEquals(4, milk.getProductID());
+        assertEquals(("004"), milk.getProductID());
         assertEquals("Milk", milk.getProductName());
         assertEquals(30, milk.getQuantity());
-        assertEquals(3.99, milk.getPrice());
+        assertEquals(new BigDecimal("3.99"), milk.getPrice());
         assertEquals(date, milk.getExpirationDate());
     }
 
@@ -23,7 +25,7 @@ public class PerishableProductTest {
     void testExpirationDateSetter() {
         LocalDate oldDate = LocalDate.of(2025, 1, 1);
         LocalDate newDate = LocalDate.of(2025, 2, 1);
-        PerishableProduct yogurt = new PerishableProduct("005", "Yogurt", 20, 2.49, oldDate);
+        PerishableProduct yogurt = new PerishableProduct("005", "Yogurt", 20, new BigDecimal("2.49"), oldDate);
 
         yogurt.setExpirationDate(newDate);
         assertEquals(newDate, yogurt.getExpirationDate());
@@ -32,7 +34,7 @@ public class PerishableProductTest {
     @Test // Create perishable item and set expiration
     void testToStringIncludesExpiration() {
         LocalDate date = LocalDate.of(2025, 7, 15);
-        PerishableProduct cheese = new PerishableProduct("006", "Cheese", 12, 5.49, date);
+        PerishableProduct cheese = new PerishableProduct("006", "Cheese", 12,new BigDecimal("5.49"), date);
         String output = cheese.toString();
 
         assertTrue(output.contains("Cheese"));

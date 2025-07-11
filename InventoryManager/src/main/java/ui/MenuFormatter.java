@@ -2,6 +2,7 @@ package ui;
 
 import model.Product;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -26,20 +27,20 @@ public class MenuFormatter {
     }
 
     public static void printTableHeader() {
-        System.out.println("ID       | Name             | Quantity | Price");
+        System.out.println("ID       | Name            | Quantity | Price");
         System.out.println("-----------------------------------------------");
     }
 
-    public static void printProductDetails(String id, String name, int quantity, double price) {
+    public static void printProductDetails(String id, String name, int quantity, BigDecimal price) {
         System.out.println("Product Found:");
         System.out.printf("ID: %-10s\n", id);
         System.out.printf("Name: %-15s\n", name);
         System.out.printf("Quantity: %-5d\n", quantity);
-        System.out.printf("Price: $%.2f\n", price);
+        System.out.printf("Price: $%s%n", price);
     }
 
     public static void printProductRow(Product p) {
-        System.out.printf("%-8s | %-15s | %-8d | $%.2f\n",
+        System.out.printf("%-8s | %-15s | %-8d | $%s%n",
                 p.getProductID(), p.getProductName(), p.getQuantity(), p.getPrice());
     }
 
@@ -49,7 +50,7 @@ public class MenuFormatter {
 
     public static void printCurrentDetails(Product product) {
         System.out.printf("Current Quantity: %d\n", product.getQuantity());
-        System.out.printf("Current Price: $%.2f\n", product.getPrice());
+        System.out.printf("Current Price: $%s%n", product.getPrice());
     }
 
     public static void printDeleteConfirmationPrompt() {
@@ -147,29 +148,31 @@ public class MenuFormatter {
         }
     }
 
-    // Required double input
-    public static double promptDouble(String message) {
-        return promptDouble(message, false, 0.0);
+    // Required BigDecimal input
+    public static BigDecimal promptBigDecimal(String message) {
+        return promptBigDecimal(message, false, BigDecimal.valueOf(0.0));
     }
 
-    // Optional double input with default fallback for updates
-    public static double promptDouble(String message, boolean allowBlank, double defaultValue) {
+    // Optional BigDecimal input with default fallback for updates
+    public static BigDecimal promptBigDecimal(String message, boolean allowBlank, BigDecimal defaultValue) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.print(message);
             String input = scanner.nextLine().trim();
-            if (allowBlank && input.isEmpty()) {
-                return defaultValue; // Return default if blank and allowed
+
+            if (allowBlank && input.isBlank()) {
+                return defaultValue; // Keep current price
             }
+
             try {
-                double value = Double.parseDouble(input);
-                if (value < 0) {
+                BigDecimal value = new BigDecimal(input);
+                if (value.compareTo(BigDecimal.ZERO) < 0) {
                     System.out.println("Price cannot be negative. Try again.");
-                } else {
-                    return value;
+                    continue;
                 }
+                return value;
             } catch (NumberFormatException e) {
-                System.out.println("Invalid price. Try again.");
+                System.out.println("Invalid price format. Try again.");
             }
         }
     }

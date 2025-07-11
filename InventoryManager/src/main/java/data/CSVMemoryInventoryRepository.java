@@ -4,11 +4,12 @@ import model.Product;
 import org.springframework.stereotype.Repository;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.util.*;
 
 // An in-memory implementation of InventoryRepository
 @Repository // Tells Spring it is ready for dependency injection
-public class InMemoryInventoryRepository implements InventoryRepository {
+public class CSVMemoryInventoryRepository implements InventoryRepository {
 
     // Stores products in a map using productID as the key
     private final Map<String, Product> inventory = new HashMap<>();
@@ -48,7 +49,7 @@ public class InMemoryInventoryRepository implements InventoryRepository {
     public boolean saveToFile(String filename) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
             for (Product product : inventory.values()) {
-                writer.printf("%s,%s,%d,%.2f%n",
+                writer.printf("%s,%s,%d,%s%n",
                         product.getProductID(),
                         product.getProductName(),
                         product.getQuantity(),
@@ -72,7 +73,7 @@ public class InMemoryInventoryRepository implements InventoryRepository {
                     String id = parts[0];
                     String name = parts[1];
                     int qty = Integer.parseInt(parts[2]);
-                    double price = Double.parseDouble(parts[3]);
+                    BigDecimal price = new BigDecimal(parts[3]);
                     inventory.put(id, new Product(id, name, qty, price));
                 }
             }

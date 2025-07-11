@@ -1,5 +1,6 @@
 package model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class PerishableProduct extends Product {
@@ -7,7 +8,7 @@ public class PerishableProduct extends Product {
     private LocalDate expirationDate;
 
 
-    public PerishableProduct(String productID, String productName, int quantity, double price, LocalDate expirationDate) {
+    public PerishableProduct(String productID, String productName, int quantity, BigDecimal price, LocalDate expirationDate) {
         super(productID, productName, quantity, price);
         this.expirationDate = expirationDate;
     }

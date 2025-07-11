@@ -5,6 +5,7 @@ import model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +23,8 @@ public class InventoryService {
     // Adds a product to the inventory (delegates to repository)
     public boolean addProduct(Product product) {
         // Reject invalid quantity or price
-        if (product.getQuantity() < 0 || product.getPrice() < 0) {
+        if (product.getQuantity() < 0 || product.getPrice().compareTo(BigDecimal.ZERO) < 0) {
+
             return false;
         }
         return repository.add(product);
