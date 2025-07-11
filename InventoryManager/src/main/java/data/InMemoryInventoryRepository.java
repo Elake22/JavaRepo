@@ -43,6 +43,7 @@ public class InMemoryInventoryRepository implements InventoryRepository {
     public List<Product> findAll() {
         return new ArrayList<>(inventory.values());
     }
+    // Save/writes to inventory file
     @Override
     public boolean saveToFile(String filename) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
@@ -59,6 +60,7 @@ public class InMemoryInventoryRepository implements InventoryRepository {
         }
     }
 
+    // Loads from save file
     @Override
     public boolean loadFromFile(String filename) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {

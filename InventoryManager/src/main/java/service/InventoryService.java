@@ -44,10 +44,11 @@ public class InventoryService {
     public List<Product> getAllProducts() {
         return repository.findAll();
     }
+    // Saves current inventory
     public boolean saveInventory(String filename) {
         return repository.saveToFile(filename);
     }
-
+    // Loads saved inventory
     public boolean loadInventory(String filename) {
         return repository.loadFromFile(filename);
     }
