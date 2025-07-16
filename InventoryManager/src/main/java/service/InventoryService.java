@@ -3,6 +3,7 @@ package service;
 import data.InventoryRepository;
 import model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -17,7 +18,7 @@ public class InventoryService {
     private final InventoryRepository repository;
 
     @Autowired// Injects the repository implementation
-    public InventoryService(InventoryRepository repository) {
+    public InventoryService(@Qualifier("CSVMemoryInventoryRepository") InventoryRepository repository) {
         this.repository = repository;
     }
     // Adds a product to the inventory (delegates to repository)
