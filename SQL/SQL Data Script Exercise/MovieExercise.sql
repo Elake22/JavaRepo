@@ -1,0 +1,57 @@
+USE sys;
+CREATE DATABASE MoviesExercise;
+USE MoviesExercise;
+
+
+CREATE TABLE Director (
+  DirectorID INT AUTO_INCREMENT PRIMARY KEY,
+  FirstName VARCHAR(100),
+  LastName VARCHAR(100)
+);
+
+CREATE TABLE Movie (
+  MovieID INT AUTO_INCREMENT PRIMARY KEY,
+  Title VARCHAR(255),
+  ReleaseYear INT,
+  Rating VARCHAR(10),
+  DirectorID INT,
+  FOREIGN KEY (DirectorID) REFERENCES Director(DirectorID)
+);
+
+CREATE TABLE Actor (
+ActorID INT AUTO_INCREMENT PRIMARY KEY,
+FirstName VARCHAR(100),
+LastName VARCHAR(100)
+);
+
+CREATE TABLE Credit (
+  MovieID INT,
+  ActorID INT,
+  Role VARCHAR(100),
+  PRIMARY KEY (MovieID, ActorID, Role),
+  FOREIGN KEY (MovieID) REFERENCES Movie(MovieID),
+  FOREIGN KEY (ActorID) REFERENCES Actor(ActorID)
+);
+
+CREATE TABLE Genre (
+Genre INT AUTO_INCREMENT PRIMARY KEY,
+Name VARCHAR(50)
+);
+
+CREATE TABLE MovieGenre (
+MovieID INT,
+GenreID INT,
+PRIMARY KEY (MovieID, GenreID),
+FOREIGN KEY (MovieID) REFERENCES Movie(MovieID),
+FOREIGN KEY (GenreID) REFERENCES Movie(MovieID)
+);
+
+
+
+
+
+
+
+
+
+
