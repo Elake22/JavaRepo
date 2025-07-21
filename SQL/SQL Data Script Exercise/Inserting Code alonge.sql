@@ -65,3 +65,11 @@ VALUES
 INSERT INTO Payment (PaymentMethodId, OrderId, Amount)
 SELECT 1, OrderId, 5.00
 FROM CustomerOrder;
+
+
+
+
+
+
+
+
