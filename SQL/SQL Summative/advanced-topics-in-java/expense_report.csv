@@ -1,0 +1,31 @@
+Date,Category,Description,Amount,Payment Method
+2024-01-01,Travel,Flight to NY,350.0,Credit Card
+2024-01-03,Office Supplies,Printer Ink,45.99,Company Card
+2024-01-07,Meals,Lunch Meeting,75.5,Cash
+2024-01-10,Entertainment,Concert Tickets,120.0,Credit Card
+2024-01-15,Utilities,Internet Bill,60.0,Bank Transfer
+2024-01-18,Travel,Hotel Stay,500.0,Credit Card
+2024-01-22,Office Supplies,Notebooks,25.99,Company Card
+2024-01-25,Meals,Dinner with Client,90.75,Cash
+2024-01-28,Entertainment,Theater Show,130.0,Credit Card
+2024-01-30,Utilities,Electricity Bill,80.0,Bank Transfer
+2024-02-01,Travel,Flight to LA,400.0,Credit Card
+2024-02-05,Office Supplies,Paper Reams,30.99,Company Card
+2024-02-08,Meals,Team Lunch,85.5,Cash
+2024-02-12,Entertainment,Movie Tickets,100.0,Credit Card
+2024-02-15,Utilities,Water Bill,55.0,Bank Transfer
+2024-02-18,Travel,Cab Fare,45.0,Cash
+2024-02-22,Office Supplies,Staplers,20.5,Company Card
+2024-02-25,Meals,Breakfast Meeting,60.75,Credit Card
+2024-02-28,Entertainment,Sports Event,150.0,Credit Card
+2024-02-29,Utilities,Gas Bill,90.0,Bank Transfer
+2024-03-03,Travel,Flight to Chicago,380.0,Credit Card
+2024-03-06,Office Supplies,Desk Organizer,40.25,Company Card
+2024-03-09,Meals,Coffee with Client,20.0,Cash
+2024-03-12,Entertainment,Music Concert,200.0,Credit Card
+2024-03-15,Utilities,Phone Bill,75.0,Bank Transfer
+2024-03-18,Travel,Train Ticket,120.0,Credit Card
+2024-03-21,Office Supplies,Pens and Markers,15.99,Company Card
+2024-03-24,Meals,Lunch Buffet,45.5,Cash
+2024-03-27,Entertainment,Museum Visit,85.0,Credit Card
+2024-03-30,Utilities,Heating Bill,95.0,Bank Transfer
