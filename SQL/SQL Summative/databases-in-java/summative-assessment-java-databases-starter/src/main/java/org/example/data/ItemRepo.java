@@ -7,8 +7,13 @@ import org.example.model.ItemCategory;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface ItemRepo {
+    List<Item> findAll() throws InternalErrorException;
+
+    Optional<Item> findById(int id) throws InternalErrorException;
+
     Item getItemById(int id) throws RecordNotFoundException, InternalErrorException;
 
     // Item records have a StartDate and an EndDate.

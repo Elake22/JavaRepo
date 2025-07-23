@@ -9,7 +9,7 @@ public class TaxMapper {
     public static Tax map(ResultSet rs) throws SQLException {
         Tax tax = new Tax();
         tax.setTaxID(rs.getInt("TaxID"));
-        tax.setTaxPercentage(rs.getBigDecimal("Rate")); // your column is Rate, but Java field is taxPercentage
+        tax.setTaxPercentage(rs.getBigDecimal("TaxPercentage")); // your column is Rate, but Java field is taxPercentage
         tax.setStartDate(rs.getDate("StartDate").toLocalDate());
         var endDate = rs.getDate("EndDate");
         tax.setEndDate(endDate != null ? endDate.toLocalDate() : null);

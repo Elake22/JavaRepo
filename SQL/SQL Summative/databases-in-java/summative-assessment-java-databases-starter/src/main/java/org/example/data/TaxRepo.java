@@ -6,9 +6,16 @@ import org.example.model.Tax;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface TaxRepo {
+    List<Tax> findAll();
+
     // Tax records have a StartDate and an EndDate.
     // Return only the records where the given date falls in between the StartDate and EndDate inclusive.
     public Tax getCurrentTax(LocalDate dateOf) throws InternalErrorException, RecordNotFoundException;
+
+    Optional<Tax> findById(int id) throws InternalErrorException;
+
+
 }
