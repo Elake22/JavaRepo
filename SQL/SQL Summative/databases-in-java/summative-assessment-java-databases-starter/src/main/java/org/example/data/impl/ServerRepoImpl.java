@@ -25,7 +25,8 @@ public class ServerRepoImpl implements ServerRepo {
     public Server getServerById(int id) throws InternalErrorException, RecordNotFoundException {
         try {
             String sql = "SELECT ServerID, FirstName, LastName, HireDate, TermDate FROM Server WHERE ServerID = ?";
-            return jdbcTemplate.queryForObject(sql, (ResultSet rs, int rowNum) -> ServerMapper.map(rs), id);
+            return jdbcTemplate.queryForObject(sql, ServerMapper.serverRowMapper(), id);
+
         } catch (org.springframework.dao.EmptyResultDataAccessException ex) {
             throw new RecordNotFoundException("Server with ID " + id + " not found.");
         } catch (Exception ex) {
@@ -36,10 +37,24 @@ public class ServerRepoImpl implements ServerRepo {
     @Override
     public List<Server> getAllAvailableServers(LocalDate date) throws InternalErrorException {
         try {
-            String sql = "SELECT ServerID, FirstName, LastName, HireDate, TermDate FROM Server WHERE HireDate <= ? AND (TermDate IS NULL OR TermDate >= ?)";
-            return jdbcTemplate.query(sql, (rs, rowNum) -> ServerMapper.map(rs), date, date);
+            String sql = """
+            SELECT ServerID, FirstName, LastName, HireDate, TermDate
+            FROM Server
+            WHERE HireDate <= ? AND (TermDate IS NULL OR TermDate >= ?)
+        """;
+
+            System.out.println("DEBUG: ServerRepoImpl running query for date = " + date);
+            List<Server> servers = jdbcTemplate.query(sql, ServerMapper.serverRowMapper(), date, date);
+            System.out.println("DEBUG: Repo returned " + servers.size() + " server(s)");
+            return servers;
         } catch (Exception ex) {
             throw new InternalErrorException("Error retrieving available servers", ex);
         }
+    }
+
+
+    @Override
+    public List<Server> findAll() throws InternalErrorException {
+        return List.of();
     }
 }

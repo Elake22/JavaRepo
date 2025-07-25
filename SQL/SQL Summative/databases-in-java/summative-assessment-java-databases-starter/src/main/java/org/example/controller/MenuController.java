@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Component
@@ -180,27 +181,29 @@ public class MenuController {
     private void addItem(Order order) {
         try {
             List<ItemCategory> categories = svc.getAllItemCategories();
-            int category = 0;
-            for (ItemCategory cat : categories) {
-                io.displayMessage(String.format("%3d - %s", cat.getItemCategoryID(), cat.getItemCategoryName()));
+            for (int i = 0; i < categories.size(); i++) {
+                io.displayMenuChoice(i + 1, categories.get(i).getItemCategoryName());
             }
-            category = io.getInt("Select a category");
-            for (Item i : svc.getAllItemsByCategory(category)) {
-                io.displayMessage(String.format("%3d - %s", i.getItemID(), i.getItemName()));
+            int catIndex = io.getIntRequiredRange("Select a category", 1, categories.size());
+            ItemCategory selectedCategory = categories.get(catIndex - 1);
+
+            List<Item> items = svc.getAllItemsByCategory(selectedCategory.getItemCategoryID());
+            for (int i = 0; i < items.size(); i++) {
+                io.displayMenuChoice(i + 1, items.get(i).getItemName());
             }
-            int itemId = io.getInt("Select an item");
+            int itemIndex = io.getIntRequiredRange("Select an item", 1, items.size());
+            Item selectedItem = items.get(itemIndex - 1);
+
             int quantity = io.getInt("Enter a quantity");
 
             OrderItem oi = new OrderItem();
-            oi.setItem(svc.getItem(itemId));
+            oi.setItem(selectedItem);
             oi.setQuantity(quantity);
-            oi.setPrice(oi.getItem().getUnitPrice());
-            oi.setItemID(itemId);
+            oi.setPrice(selectedItem.getUnitPrice());
+            oi.setItemID(selectedItem.getItemID());
             order.getItems().add(oi);
         } catch (InternalErrorException e) {
             io.displayMessage("A database error has occurred: " + e.getLocalizedMessage());
-        } catch (RecordNotFoundException e) {
-            io.displayMessage("Item not found.");
         }
     }
 
@@ -260,22 +263,30 @@ public class MenuController {
 
     private void selectServer(Order order) {
         try {
-            List<Server> servers = svc.getAllAvailableServers();
+            List<Server> servers = svc.getAllAvailableServers(LocalDate.now());
 
-            for (Server server : servers) {
-                io.displayMenuChoice(server.getServerID(), server.getFirstName() + " " + server.getLastName());
+            if (servers.isEmpty()) {
+                io.displayMessage("No available servers found.");
+                return;
             }
 
-            int serverID = io.getInt("Choose a server ");
-            Server server = svc.getServerByID(serverID);
-            order.setServerID(serverID);
-            order.setServer(server);
+            io.displayMessage("Available Servers:");
+            for (int i = 0; i < servers.size(); i++) {
+                Server s = servers.get(i);
+                io.displayMenuChoice(i + 1, s.getFirstName() + " " + s.getLastName());
+            }
+
+            int selection = io.getIntRequiredRange("Choose a server", 1, servers.size());
+            Server selected = servers.get(selection - 1);
+            order.setServerID(selected.getServerID());
+            order.setServer(selected);
+
         } catch (InternalErrorException e) {
             io.displayMessage("A database error has occurred.");
-        } catch (RecordNotFoundException e) {
-            io.displayMessage("Server not found.");
         }
     }
+
+
 
     private int displayAndChooseOrderEditMenu(Order order) {
         if (order.getOrderID() > 0) {

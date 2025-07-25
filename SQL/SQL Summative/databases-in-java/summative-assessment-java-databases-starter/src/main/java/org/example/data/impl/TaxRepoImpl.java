@@ -62,16 +62,15 @@ public class TaxRepoImpl implements TaxRepo {
     }
 
     @Override
-    public Tax getCurrentTax(LocalDate dateOf) throws InternalErrorException, RecordNotFoundException {
+    public Tax getCurrentTax(LocalDate dateOf) {
         return null;
     }
 
     @Override
     public Optional<Tax> findById(int id) throws InternalErrorException {
-        final String sql = "SELECT * FROM tax WHERE TaxID = ?";
+        final String sql = "SELECT * FROM Tax WHERE TaxID = ?";
         try {
-            Tax tax = jdbcTemplate.queryForObject(sql, (rs, rowNum) -> TaxMapper.map(rs), id);
-
+            Tax tax = jdbcTemplate.queryForObject(sql, TaxMapper.taxRowMapper(), id);
             return Optional.ofNullable(tax);
         } catch (EmptyResultDataAccessException e) {
             return Optional.empty();
@@ -79,5 +78,6 @@ public class TaxRepoImpl implements TaxRepo {
             throw new InternalErrorException("Unable to retrieve tax by ID", ex);
         }
     }
+
 
 }

@@ -4,11 +4,13 @@ import org.example.data.exceptions.InternalErrorException;
 import org.example.data.exceptions.RecordNotFoundException;
 import org.example.model.Item;
 import org.example.model.ItemCategory;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface ItemRepo {
     List<Item> findAll() throws InternalErrorException;
 
@@ -23,4 +25,7 @@ public interface ItemRepo {
 
     //ItemCategory being used only in context with the Item table, this method has been bundled within the Item repo
     List<ItemCategory> getAllItemCategories() throws InternalErrorException;
+
+    List<Item> findByCategoryId(int categoryId) throws InternalErrorException;
+
 }

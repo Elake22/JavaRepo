@@ -2,6 +2,7 @@ package org.example.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -15,8 +16,9 @@ public class Order {
     private BigDecimal tip;
     private BigDecimal total;
     private Server server;
-    private List<OrderItem> items;
-    private List<Payment> payments;
+    private List<OrderItem> items = new ArrayList<>();
+    private List<Payment> payments = new ArrayList<>();
+
 
     public int getOrderID() {
         return orderID;

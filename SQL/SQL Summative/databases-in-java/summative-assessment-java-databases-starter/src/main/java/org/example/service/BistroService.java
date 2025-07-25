@@ -1,120 +1,172 @@
 package org.example.service;
 
-import org.example.data.ItemRepo;
-import org.example.data.OrderRepo;
-import org.example.data.ServerRepo;
-import org.example.data.TaxRepo;
+import org.example.data.*;
 import org.example.data.exceptions.InternalErrorException;
 import org.example.data.exceptions.RecordNotFoundException;
-import org.example.data.PaymentTypeRepo;
 import org.example.model.*;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BistroService {
-    private OrderRepo orders;
-    private ServerRepo servers;
-    private TaxRepo taxes;
-    private PaymentTypeRepo paymentTypes;
-    private ItemRepo items;
 
-    public BistroService(OrderRepo orders, ServerRepo servers, TaxRepo taxes, PaymentTypeRepo paymentTypes, ItemRepo items) {
-        this.orders = orders;
-        this.servers = servers;
-        this.taxes = taxes;
-        this.paymentTypes = paymentTypes;
-        this.items = items;
+    private final OrderRepo orderRepo;
+    private final OrderItemRepo orderItemRepo;
+    private final PaymentRepo paymentRepo;
+    private final PaymentTypeRepo paymentTypeRepo;
+    private final ServerRepo serverRepo;
+    private final TaxRepo taxRepo;
+    private final ItemRepo itemRepo;
+    private final ItemCategoryRepo itemCategoryRepo;
+
+    public BistroService(
+            OrderRepo orderRepo,
+            OrderItemRepo orderItemRepo,
+            PaymentRepo paymentRepo,
+            PaymentTypeRepo paymentTypeRepo,
+            ServerRepo serverRepo,
+            TaxRepo taxRepo,
+            ItemRepo itemRepo,
+            ItemCategoryRepo itemCategoryRepo
+    ) {
+        this.orderRepo = orderRepo;
+        this.orderItemRepo = orderItemRepo;
+        this.paymentRepo = paymentRepo;
+        this.paymentTypeRepo = paymentTypeRepo;
+        this.serverRepo = serverRepo;
+        this.taxRepo = taxRepo;
+        this.itemRepo = itemRepo;
+        this.itemCategoryRepo = itemCategoryRepo;
     }
 
+    // 1. Retrieve all orders
     public List<Order> getAllOrders() throws InternalErrorException, RecordNotFoundException {
-        return orders.getAllOrders();
+        return orderRepo.getAllOrders();
     }
 
-    public List<Server> getAllAvailableServers() throws InternalErrorException {
-        return servers.getAllAvailableServers(LocalDate.now());
-    }
-
-    public Order getOrder(int id) throws RecordNotFoundException, InternalErrorException {
-        return orders.getOrderById(id);
-    }
-
-    public Order addOrder(Order order) throws InternalErrorException, RecordNotFoundException {
-        calculateOrderTotals(order);
-        order = orders.addOrder(order);
+    // 2. Retrieve a single order by ID
+    public Order getOrder(int orderId) throws InternalErrorException, RecordNotFoundException {
+        Order order = orderRepo.getOrderById(orderId);
+        if (order == null) {
+            throw new RecordNotFoundException("Order not found");
+        }
+        order.setItems(orderItemRepo.findByOrderId(orderId));
+        order.setPayments(paymentRepo.findByOrderId(orderId));
         return order;
     }
 
-    public Order deleteOrder(int id) throws InternalErrorException {
-        return orders.deleteOrder(id);
+    // 3. Delete order
+    public void deleteOrder(int orderId) throws InternalErrorException {
+        orderRepo.deleteOrder(orderId);
     }
 
-    public void calculateOrderTotals(Order order) throws RecordNotFoundException, InternalErrorException {
-        BigDecimal subTotal = new BigDecimal("0").setScale(2, RoundingMode.HALF_EVEN);
+    // 4. Create a new blank order
+    public Order getNewOrder() {
+        Order order = new Order();
+        order.setOrderDate(LocalDateTime.now());
+        order.setItems(new ArrayList<>());
+        order.setPayments(new ArrayList<>());
+        return order;
+    }
 
-        for (OrderItem oi : order.getItems()) {
-            subTotal = subTotal.add(oi.getPrice().multiply(new BigDecimal(oi.getQuantity())));
-        }
-        Tax currentTax = taxes.getCurrentTax(order.getOrderDate().toLocalDate());
+    // 5. Calculate order totals
+    public void calculateOrderTotals(Order order) {
+        BigDecimal subtotal = order.getItems().stream()
+                .map(oi -> oi.getPrice().multiply(BigDecimal.valueOf(oi.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        BigDecimal taxAmount = subTotal.multiply(currentTax.getTaxPercentage().divide(new BigDecimal("100"))).setScale(2, RoundingMode.HALF_EVEN);
+        BigDecimal tax = subtotal.multiply(new BigDecimal("0.10")); // Placeholder: adjust if needed
+        BigDecimal total = subtotal.add(tax).add(order.getTip() != null ? order.getTip() : BigDecimal.ZERO);
 
-        BigDecimal total = subTotal.add(taxAmount).add(order.getTip()).setScale(2, RoundingMode.HALF_EVEN);
-
-        order.setSubTotal(subTotal);
-        order.setTax(taxAmount);
+        order.setSubTotal(subtotal);
+        order.setTax(tax);
         order.setTotal(total);
     }
 
-    public Order updateOrder(Order order) throws RecordNotFoundException, InternalErrorException {
-        calculateOrderTotals(order);
-        orders.updateOrder(order);
-        return order;
+    // 6. Update existing order
+    public void updateOrder(Order order) throws InternalErrorException {
+        orderRepo.deleteOrder(order.getOrderID());
+        orderItemRepo.update(order.getOrderID(), order.getItems());
+        paymentRepo.update(order.getOrderID(), order.getPayments());
     }
 
-    public List<PaymentType> getPaymentTypes() throws InternalErrorException {
-        return paymentTypes.getAll();
+    // 7. Add new order
+    public Order addOrder(Order order) throws InternalErrorException {
+        Order created = orderRepo.addOrder(order);
+        orderItemRepo.update(created.getOrderID(), order.getItems());
+        paymentRepo.update(created.getOrderID(), order.getPayments());
+        return created;
+    }
+
+    // 8. Get all item categories
+    public List<ItemCategory> getAllItemCategories() {
+        return itemCategoryRepo.findAll();
+    }
+
+    // 9. Get all items by category
+    public List<Item> getAllItemsByCategory(int categoryId) throws InternalErrorException {
+        return itemRepo.findByCategoryId(categoryId); // You must implement this in ItemRepoImpl
+    }
+
+    // 10. Get item by ID
+    public Item getItem(int itemId) throws InternalErrorException, RecordNotFoundException {
+        return itemRepo.findById(itemId)
+                .orElseThrow(() -> new RecordNotFoundException("Item not found"));
+    }
+
+    // 11. Get all payment types
+    public List<PaymentType> getAllPaymentTypes() throws InternalErrorException {
+        return paymentTypeRepo.findAll();
+    }
+
+    // 12. Get server by ID
+    public Server getServerByID(int id) throws RecordNotFoundException, InternalErrorException {
+        Server server = serverRepo.getServerById(id);
+        if (server == null) {
+            throw new RecordNotFoundException("Server not found");
+        }
+        return server;
+    }
+
+    // 13. Get all available servers
+    public List<Server> getAllAvailableServers(LocalDate date) throws InternalErrorException {
+        List<Server> servers = serverRepo.getAllAvailableServers(date);
+        System.out.println("DEBUG: Available servers found = " + servers.size());
+        return servers;
+    }
+
+
+    // Optional: used for displaying order info
+    public Optional<Tax> getTaxById(int id) throws InternalErrorException {
+        return taxRepo.findById(id);
     }
 
     public List<Item> getAllItems() throws InternalErrorException {
-        return items.getAllAvailableItems(LocalDate.now());
+        return itemRepo.findAll();
     }
 
-    public List<Item> getAllItemsByCategory(int itemCategoryID) throws InternalErrorException {
-        return items.getItemsByCategory(LocalDate.now(), itemCategoryID);
+    public Optional<Server> getServerById(int id) throws RecordNotFoundException, InternalErrorException {
+        return Optional.ofNullable(serverRepo.getServerById(id));
     }
 
-    public List<ItemCategory> getAllItemCategories() throws InternalErrorException {
-        return items.getAllItemCategories();
+    // Optional: fully hydrated order
+    public Optional<Order> getCompleteOrder(int orderId) throws InternalErrorException {
+        try {
+            Order order = orderRepo.getOrderById(orderId);
+            order.setItems(orderItemRepo.findByOrderId(orderId));
+            order.setPayments(paymentRepo.findByOrderId(orderId));
+            return Optional.of(order);
+        } catch (RecordNotFoundException e) {
+            return Optional.empty();
+        }
     }
 
-    public Item getItem(int id) throws RecordNotFoundException, InternalErrorException {
-        return items.getItemById(id);
-    }
 
-    public Server getServerByID (int id) throws RecordNotFoundException, InternalErrorException {
-        return servers.getServerById(id);
-    }
 
-    public List<PaymentType> getAllPaymentTypes() throws InternalErrorException {
-        return paymentTypes.getAll();
-    }
-
-    public Order getNewOrder() {
-        Order result = new Order();
-        result.setItems(new ArrayList<>());
-        result.setPayments(new ArrayList<>());
-        result.setOrderDate(LocalDateTime.now());
-        result.setSubTotal(new BigDecimal(0));
-        result.setTax(new BigDecimal(0));
-        result.setTip(new BigDecimal(0));
-        result.setTotal(new BigDecimal(0));
-        return result;
-    }
 }

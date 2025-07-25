@@ -3,6 +3,7 @@ package org.example.view;
 import org.example.model.Order;
 import org.example.model.OrderItem;
 import org.example.model.Payment;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -13,7 +14,11 @@ import java.util.Scanner;
 
 @Component
 public class ConsoleIO implements IO {
-    NumberFormat formatter = NumberFormat.getCurrencyInstance();
+    private final NumberFormat formatter = NumberFormat.getCurrencyInstance();
+    private BigDecimal safeAmount(BigDecimal value) {
+        return value != null ? value : BigDecimal.ZERO;
+    }
+
     DateTimeFormatter dtformatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 
     private static final String ORDER_DISPLAY_DIVIDER = "===============================================";
@@ -151,30 +156,34 @@ public class ConsoleIO implements IO {
 
             //Footer
             buff.append(ORDER_DISPLAY_DIVIDER).append("\n");
-            buff.append(String.format("%39s %7s\n", "Subtotal", formatter.format(order.getSubTotal())));
-            buff.append(String.format("%39s %7s\n", "Tax", formatter.format(order.getTax())));
-            buff.append(String.format("%39s %7s\n", "Tip", formatter.format(order.getTip())));
+            buff.append(String.format("%39s %7s\n", "Subtotal", formatter.format(safeAmount(order.getSubTotal()))));
+            buff.append(String.format("%39s %7s\n", "Tax", formatter.format(safeAmount(order.getTax()))));
+            buff.append(String.format("%39s %7s\n", "Tip", formatter.format(safeAmount(order.getTip()))));
             buff.append(String.format("%48s", "===============\n"));
-            buff.append(String.format("%39S %7s\n", "Total", formatter.format(order.getTotal())));
+            buff.append(String.format("%39S %7s\n", "Total", formatter.format(safeAmount(order.getTotal()))));
+
             buff.append(ORDER_DISPLAY_DIVIDER).append("\n");
 
             buff.append("PAYMENTS:\n");
             BigDecimal unpaid = new BigDecimal(order.getTotal().doubleValue());
             for (Payment p : order.getPayments()) {
-                buff.append(String.format("%39S %7s\n", p.getPaymentType().getPaymentTypeName(), formatter.format(p.getAmount())));
-                unpaid = unpaid.subtract(p.getAmount());
+                buff.append(String.format("%39S %7s\n",
+                        p.getPaymentType() != null ? p.getPaymentType().getPaymentTypeName() : "[Unknown]",
+                        formatter.format(safeAmount(p.getAmount()))));
+
+                unpaid = safeAmount(unpaid); // prevent null
+
+                if (unpaid.compareTo(BigDecimal.ZERO) > 0) {
+                    buff.append(String.format("%39S %7s\n", "UNPAID:", formatter.format(unpaid)));
+                } else if (unpaid.compareTo(BigDecimal.ZERO) == 0) {
+                    buff.append(String.format("%39S\n", "PAID IN FULL"));
+                } else {
+                    BigDecimal refund = unpaid.abs();
+                    buff.append(String.format("%39S %7s\n", "REFUND DUE:", formatter.format(refund)));
+                }
             }
 
-            if (unpaid.compareTo(BigDecimal.ZERO) > 0) {
-                buff.append(String.format("%39S %7s\n", "UNPAID:", formatter.format(unpaid)));
-            } else if (unpaid.compareTo(BigDecimal.ZERO) == 0) {
-                buff.append(String.format("%39S\n", "PAID IN FULL"));
             } else {
-                BigDecimal refund = unpaid.abs();
-                buff.append(String.format("%39S %7s\n", "REFUND DUE:", formatter.format(refund)));
-            }
-
-        } else {
             buff.append("Unable to display order.");
         }
 
@@ -186,12 +195,91 @@ public class ConsoleIO implements IO {
         displayMessage(String.format("%3d - %s", choiceId, label));
     }
 
-    private static String getServerName(Order order) {
-        String fullName = order.getServer().getFirstName() + " " + order.getServer().getLastName();
-        return fullName;
+    private static String getServerName(@NotNull Order order) {
+        if (order.getServer() == null) {
+            return "[No Server]";
+        }
+        return order.getServer().getFirstName() + " " + order.getServer().getLastName();
     }
 
+
     private String formatOrderItem(OrderItem item) {
-        return String.format("%-25s %3d %8s %8s", item.getItem().getItemName(), item.getQuantity(), formatter.format(item.getPrice()), formatter.format(item.getPrice().multiply(new BigDecimal(item.getQuantity()))));
+        BigDecimal price = item.getPrice();
+        int quantity = item.getQuantity();
+
+        if (price == null) {
+            System.err.println("⚠️  Price is null for item ID: " + item.getItemID());
+            price = BigDecimal.ZERO;
+        }
+
+        BigDecimal total = price.multiply(BigDecimal.valueOf(quantity));
+
+        System.out.println("DEBUG - Price: " + price + " | Class: " + price.getClass().getName());
+        System.out.println("DEBUG - Total: " + total + " | Class: " + total.getClass().getName());
+
+        String formattedPrice = "ERR";
+        String formattedTotal = "ERR";
+
+        try {
+            formattedPrice = formatter.format(price);
+        } catch (Exception ex) {
+            System.err.println("❌ Failed to format price: " + price + " - " + ex.getMessage());
+        }
+
+        try {
+            formattedTotal = formatter.format(total);
+        } catch (Exception ex) {
+            System.err.println("❌ Failed to format total: " + total + " - " + ex.getMessage());
+        }
+
+        return String.format(
+                "%-25s %3d %8s %8s",
+                item.getItem().getItemName(),
+                quantity,
+                formattedPrice,
+                formattedTotal
+        );
     }
+    public static class OrderItemFormatter {
+        private static final NumberFormat formatter = NumberFormat.getCurrencyInstance();
+
+        public static String formatOrderItem(OrderItem item) {
+            BigDecimal price = item.getPrice();
+            int quantity = item.getQuantity();
+
+            if (price == null) {
+                System.err.println("⚠️  Price is null for item ID: " + item.getItemID());
+                price = BigDecimal.ZERO;
+            }
+
+            BigDecimal total = price.multiply(BigDecimal.valueOf(quantity));
+
+            System.out.println("DEBUG - Price: " + price + " | Class: " + price.getClass().getName());
+            System.out.println("DEBUG - Total: " + total + " | Class: " + total.getClass().getName());
+
+            String formattedPrice = "ERR";
+            String formattedTotal = "ERR";
+
+            try {
+                formattedPrice = formatter.format(price);
+            } catch (Exception ex) {
+                System.err.println("❌ Failed to format price: " + price + " - " + ex.getMessage());
+            }
+
+            try {
+                formattedTotal = formatter.format(total);
+            } catch (Exception ex) {
+                System.err.println("❌ Failed to format total: " + total + " - " + ex.getMessage());
+            }
+
+            return String.format(
+                    "%-25s %3d %8s %8s",
+                    item.getItem().getItemName(),
+                    quantity,
+                    formattedPrice,
+                    formattedTotal
+            );
+        }
+    }
+
 }
