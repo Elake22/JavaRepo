@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -18,8 +19,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@JdbcTest
-@Import(OrderRepoImpl.class)
+@SpringBootTest
 public class OrderRepoImplTest {
 
     @Autowired
@@ -78,8 +78,10 @@ public class OrderRepoImplTest {
         orderRepo.updateOrder(order);
 
         Order updated = orderRepo.getOrderById(1);
-        assertEquals(BigDecimal.valueOf(20), updated.getTip());
+        
+        assertEquals(0, updated.getTip().compareTo(BigDecimal.valueOf(20)));
     }
+
 
     @Test
     void deleteOrder_deletesAndReturnsOrder() throws Exception {

@@ -5,6 +5,7 @@ import org.example.data.exceptions.InternalErrorException;
 import org.example.data.exceptions.RecordNotFoundException;
 import org.example.data.mappers.ServerMapper;
 import org.example.model.Server;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +18,7 @@ public class ServerRepoImpl implements ServerRepo {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public ServerRepoImpl(JdbcTemplate jdbcTemplate) {
+    public ServerRepoImpl(@Autowired JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

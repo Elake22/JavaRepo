@@ -9,6 +9,7 @@ import org.example.data.TaxRepo;
 import org.example.data.exceptions.InternalErrorException;
 import org.example.data.exceptions.RecordNotFoundException;
 import org.example.data.mappers.TaxMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,7 +23,7 @@ public class TaxRepoImpl implements TaxRepo {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public TaxRepoImpl(JdbcTemplate jdbcTemplate) {
+    public TaxRepoImpl(@Autowired JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

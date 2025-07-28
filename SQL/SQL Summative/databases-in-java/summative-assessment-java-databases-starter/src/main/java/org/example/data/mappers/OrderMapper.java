@@ -24,20 +24,26 @@ public class OrderMapper {
     }
     public static RowMapper<Order> orderWithServerRowMapper() {
         return (rs, rowNum) -> {
-            Order order = orderRowMapper().mapRow(rs, rowNum); // use existing mapper
+            Order o = new Order();
+            o.setOrderID(rs.getInt("OrderID"));
+            o.setServerID(rs.getInt("ServerID"));
+            o.setOrderDate(rs.getTimestamp("OrderDate").toLocalDateTime());
+            o.setSubTotal(rs.getBigDecimal("SubTotal"));
+            o.setTax(rs.getBigDecimal("Tax"));
+            o.setTip(rs.getBigDecimal("Tip"));
+            o.setTotal(rs.getBigDecimal("Total"));
 
-            Server server = new Server();
-            server.setServerID(rs.getInt("ServerID"));
-            server.setFirstName(rs.getString("FirstName"));
-            server.setLastName(rs.getString("LastName"));
-            server.setHireDate(rs.getDate("HireDate").toLocalDate());
+            Server s = new Server();
+            s.setServerID(rs.getInt("ServerID"));
+            s.setFirstName(rs.getString("FirstName"));
+            s.setLastName(rs.getString("LastName"));
+            s.setHireDate(rs.getDate("HireDate").toLocalDate());
+//            if (rs.getDate("TermDate") != null)
+//                s.setTermDate(rs.getDate("TermDate").toLocalDate());
 
-            if (rs.getDate("TermDate") != null) {
-                server.setTermDate(rs.getDate("TermDate").toLocalDate());
-            }
-
-            order.setServer(server);
-            return order;
+            o.setServer(s);
+            return o;
         };
     }
+
 }

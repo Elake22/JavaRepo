@@ -324,6 +324,7 @@ public class MenuController {
             String confirm = io.getString("Delete order #" + order.getOrderID() + "? (y/N)");
             if (confirm.equals("y")) {
                 svc.deleteOrder(order.getOrderID());
+                io.displayMessage("✅ Order #" + order.getOrderID() + " successfully deleted.");
             } else {
                 io.displayMessage("Action canceled.");
             }

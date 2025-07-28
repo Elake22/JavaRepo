@@ -3,6 +3,7 @@ package org.example.data.impl;
 import org.example.data.ItemCategoryRepo;
 import org.example.data.mappers.ItemCategoryMapper;
 import org.example.model.ItemCategory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -15,7 +16,7 @@ public class ItemCategoryRepoImpl implements ItemCategoryRepo {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public ItemCategoryRepoImpl(JdbcTemplate jdbcTemplate) {
+    public ItemCategoryRepoImpl(@Autowired JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

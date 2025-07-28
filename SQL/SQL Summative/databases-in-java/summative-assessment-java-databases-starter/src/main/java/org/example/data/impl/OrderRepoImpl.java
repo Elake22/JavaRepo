@@ -8,6 +8,7 @@ import org.example.model.Item;
 import org.example.model.Order;
 import org.example.model.OrderItem;
 import org.example.model.Payment;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -26,7 +27,7 @@ public class OrderRepoImpl implements OrderRepo {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public OrderRepoImpl(JdbcTemplate jdbcTemplate) {
+    public OrderRepoImpl(@Autowired JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -84,11 +85,17 @@ public class OrderRepoImpl implements OrderRepo {
 
                 return order;
             };
+            Order result = jdbcTemplate.execute("{CALL get_order_with_details(?)}", callback);
 
-            return jdbcTemplate.execute("{CALL get_order_with_details(?)}", callback);
+            if (result == null) {
+                throw new RecordNotFoundException("Order with ID " + id + " not found.");
+            }
 
-        } catch (EmptyResultDataAccessException ex) {
-            throw new RecordNotFoundException("Order with ID " + id + " not found.");
+            return result;
+
+
+        } catch (RecordNotFoundException ex) {
+            throw ex;
         } catch (Exception ex) {
             throw new InternalErrorException("Failed to retrieve order details", ex);
         }
@@ -130,7 +137,11 @@ public class OrderRepoImpl implements OrderRepo {
             );
 
             // retrieve and return the last inserted order
-            String getLastId = "SELECT * FROM `Order` ORDER BY OrderID DESC LIMIT 1";
+            String getLastId = "SELECT o.*, s.FirstName, s.LastName, s.HireDate\n" +
+                    "FROM `Order` o\n" +
+                    "JOIN Server s ON o.ServerID = s.ServerID\n" +
+                    "ORDER BY o.OrderID DESC\n" +
+                    "LIMIT 1\n";
             return jdbcTemplate.queryForObject(getLastId, OrderMapper.orderWithServerRowMapper());
 
 
@@ -165,19 +176,25 @@ public class OrderRepoImpl implements OrderRepo {
     @Override
     public Order deleteOrder(int id) throws InternalErrorException {
         try {
-            Order toDelete = getOrderById(id); // may throw RecordNotFoundException
+            // First, get the order to return later (or trigger RecordNotFoundException)
+            Order toDelete = getOrderById(id);
 
-            String sql = "DELETE FROM `Order` WHERE OrderID = ?";
-            jdbcTemplate.update(sql, id);
+            // Step 1: Delete child records
+            jdbcTemplate.update("DELETE FROM Payment WHERE OrderID = ?", id);
+            jdbcTemplate.update("DELETE FROM OrderItem WHERE OrderID = ?", id);
+
+            // Step 2: Delete the parent order record
+            jdbcTemplate.update("DELETE FROM `Order` WHERE OrderID = ?", id);
 
             return toDelete;
+
         } catch (RecordNotFoundException ex) {
-            // Optional: return null or rethrow — depending on your intended behavior
             throw new InternalErrorException("Order not found to delete", ex);
         } catch (Exception ex) {
             throw new InternalErrorException("Error deleting order", ex);
         }
     }
+
 
     @Override
     public void deleteOrder(Order order) throws InternalErrorException {

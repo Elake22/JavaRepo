@@ -5,6 +5,7 @@ import org.example.data.PaymentRepo;
 import org.example.data.exceptions.InternalErrorException;
 import org.example.data.mappers.PaymentMapper;
 import org.example.model.Payment;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -16,7 +17,7 @@ public class PaymentRepoImpl implements org.example.data.PaymentRepo {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public PaymentRepoImpl(JdbcTemplate jdbcTemplate) {
+    public PaymentRepoImpl(@Autowired JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

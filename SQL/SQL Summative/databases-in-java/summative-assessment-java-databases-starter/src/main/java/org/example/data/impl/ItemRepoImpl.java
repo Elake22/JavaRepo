@@ -6,6 +6,7 @@ import org.example.data.exceptions.RecordNotFoundException;
 import org.example.model.Item;
 import org.example.data.mappers.ItemMapper;
 import org.example.model.ItemCategory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,7 +21,7 @@ public class ItemRepoImpl implements ItemRepo {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public ItemRepoImpl(JdbcTemplate jdbcTemplate) {
+    public ItemRepoImpl(@Autowired JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
