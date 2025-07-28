@@ -110,8 +110,9 @@ public class BistroService {
     }
 
     // 9. Get all items by category
-    public List<Item> getAllItemsByCategory(int categoryId) throws InternalErrorException {
-        return itemRepo.findByCategoryId(categoryId); // You must implement this in ItemRepoImpl
+    public List<Item> getAllItemsByCategory(int itemCategoryID) throws InternalErrorException {
+        System.out.println("🟦 BistroService calling getAllItemsByCategory()");
+        return itemRepo.getItemsByCategory(LocalDate.now(), itemCategoryID);
     }
 
     // 10. Get item by ID

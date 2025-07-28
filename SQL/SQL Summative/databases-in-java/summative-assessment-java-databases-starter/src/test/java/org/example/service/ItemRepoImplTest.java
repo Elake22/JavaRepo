@@ -48,4 +48,20 @@ public class ItemRepoImplTest {
         Optional<Item> result = itemRepo.findById(9999);
         assertFalse(result.isPresent());
     }
+    @Test
+    void getItemsByCategory_validInput_returnsItemsInCategory() throws Exception {
+        var today = java.time.LocalDate.now();
+        var items = itemRepo.getItemsByCategory(today, 1);
+        assertNotNull(items);
+        assertFalse(items.isEmpty());
+        assertEquals(1, items.get(0).getItemCategoryID());
+    }
+    @Test
+    void findByCategoryId_returnsCorrectItems() throws Exception {
+        var items = itemRepo.findByCategoryId(1);
+        assertNotNull(items);
+        assertTrue(items.stream().allMatch(i -> i.getItemCategoryID() == 1));
+    }
+
+
 }

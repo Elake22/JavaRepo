@@ -184,13 +184,21 @@ public class MenuController {
             for (int i = 0; i < categories.size(); i++) {
                 io.displayMenuChoice(i + 1, categories.get(i).getItemCategoryName());
             }
+
             int catIndex = io.getIntRequiredRange("Select a category", 1, categories.size());
             ItemCategory selectedCategory = categories.get(catIndex - 1);
 
             List<Item> items = svc.getAllItemsByCategory(selectedCategory.getItemCategoryID());
+
+            if (items.isEmpty()) {
+                io.displayMessage("No items found in that category.");
+                return;
+            }
+
             for (int i = 0; i < items.size(); i++) {
                 io.displayMenuChoice(i + 1, items.get(i).getItemName());
             }
+
             int itemIndex = io.getIntRequiredRange("Select an item", 1, items.size());
             Item selectedItem = items.get(itemIndex - 1);
 
@@ -202,10 +210,12 @@ public class MenuController {
             oi.setPrice(selectedItem.getUnitPrice());
             oi.setItemID(selectedItem.getItemID());
             order.getItems().add(oi);
+
         } catch (InternalErrorException e) {
             io.displayMessage("A database error has occurred: " + e.getLocalizedMessage());
         }
     }
+
 
     private void addPayment(Order order) {
         try {

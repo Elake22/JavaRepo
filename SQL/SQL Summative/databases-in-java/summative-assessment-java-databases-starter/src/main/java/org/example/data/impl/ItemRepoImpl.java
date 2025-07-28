@@ -58,19 +58,26 @@ public class ItemRepoImpl implements ItemRepo {
     }
 
     @Override
-    public List<Item> getItemsByCategory(LocalDate today, int itemCategoryID) throws InternalErrorException {
-        final String sql = """
-        SELECT *
-        FROM Item
+    public List<Item> getItemsByCategory(LocalDate today, int categoryID) throws InternalErrorException {
+        System.out.println("🟩 getItemsByCategory() executing");
+
+        String sql = """
+        SELECT * FROM Item
         WHERE ItemCategoryID = ?
-          AND (StartDate IS NULL OR StartDate <= ?)
+          AND StartDate <= ?
           AND (EndDate IS NULL OR EndDate >= ?)
     """;
 
         try {
-            return jdbcTemplate.query(sql, ItemMapper.itemRowMapper(), itemCategoryID, today, today);
-        } catch (DataAccessException ex) {
-            throw new InternalErrorException("Unable to retrieve items by category", ex);
+            List<Item> items = jdbcTemplate.query(
+                    sql,
+                    ItemMapper.itemRowMapper(),
+                    categoryID, today, today
+            );
+            System.out.println("✅ Repo: Found " + items.size() + " items");
+            return items;
+        } catch (Exception ex) {
+            throw new InternalErrorException("Failed to get items by category", ex);
         }
     }
 

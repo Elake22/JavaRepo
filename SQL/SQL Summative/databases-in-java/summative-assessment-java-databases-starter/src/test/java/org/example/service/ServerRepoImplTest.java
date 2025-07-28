@@ -53,7 +53,6 @@ public class ServerRepoImplTest {
         assertNotNull(servers);
         assertFalse(servers.isEmpty());
 
-        // Optional: validate one known result
         boolean containsExpected = servers.stream()
                 .anyMatch(s -> s.getFirstName().equals("Zita"));
         assertTrue(containsExpected);
