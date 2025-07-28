@@ -78,7 +78,7 @@ public class OrderRepoImplTest {
         orderRepo.updateOrder(order);
 
         Order updated = orderRepo.getOrderById(1);
-        
+
         assertEquals(0, updated.getTip().compareTo(BigDecimal.valueOf(20)));
     }
 
