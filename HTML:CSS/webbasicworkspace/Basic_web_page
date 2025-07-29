@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Styling Demo</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Internal CSS */
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .intro {
+      color: green;
+      font-size: 16px;
+    }
+
+    #myButton {
+      background-color: yellow;
+      border: 2px solid black;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Welcome to My First HTML Page</h1>
+
+  <p class="intro">
+    This is a simple HTML page to practice basic HTML elements. We are learning how to use headings, paragraphs, lists, and images.
+  </p>
+
+  <p id="special" style="color: blue; font-size: 20px;">
+    This paragraph has special styling.
+  </p>
+
+  <ul>
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+  </ul>
+
+  <img src="https://via.placeholder.com/150" alt="Placeholder Image">
+
+  <p>
+    Here is an image to illustrate the use of the <code>&lt;img&gt;</code> tag in HTML.
+  </p>
+</body>
+</html>
