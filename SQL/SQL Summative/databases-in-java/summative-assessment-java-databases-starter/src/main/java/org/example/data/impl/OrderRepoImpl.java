@@ -176,7 +176,6 @@ public class OrderRepoImpl implements OrderRepo {
     @Override
     public Order deleteOrder(int id) throws InternalErrorException {
         try {
-            // First, get the order to return later (or trigger RecordNotFoundException)
             Order toDelete = getOrderById(id);
 
             // Step 1: Delete child records
