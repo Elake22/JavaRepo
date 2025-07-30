@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Example</title>
+</head>
+<body>
+    <!-- Your media elements will go here -->
+<h2>Image Example</h2>
+<img src="images/sample-image.png" alt="A description of the image"
+style="width: 300px; height: 200px;">
+
+<h2>Video Example</h2>
+<video controls width="800" height="600" poster="images/video-poster.png">
+    <source src="videos/sample-video.mp4" type="video/mp4">
+    <source src="videos/sample-video.webm" type="video/webm">
+    <p>Your browser does not support the video tag.</p>
+</video>
+<h2>Audio Example</h2>
+<audio controls>
+    <source src="audio/sample-audio.mp3" type="audio/mp3">
+    <source src="audio/sample-audio.wav" type="audio/wav">
+    <p>Your browser does not support the audio element.</p>
+</audio>
+
+<h2>Clickable Image Map</h2>
+<img src="images/north-america.png" width="300" height="300" alt="Clickable map
+of North America" usemap="#na-map">
+<map name="na-map">
+    <area shape="rect" coords="0,0,100,100" href="canada.html" alt="Canada">
+    <area shape="rect" coords="100,0,200,100" href="usa.html" alt="USA">
+    <area shape="rect" coords="200,0,300,100" href="mexico.html" alt="Mexico">
+</map>
+
+
+</body>
+</html>
+

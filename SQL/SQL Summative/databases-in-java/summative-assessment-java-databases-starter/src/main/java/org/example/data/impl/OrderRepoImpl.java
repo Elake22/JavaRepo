@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.jdbc.core.CallableStatementCallback;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.sql.*;
@@ -174,6 +175,7 @@ public class OrderRepoImpl implements OrderRepo {
     }
 
     @Override
+    @Transactional
     public Order deleteOrder(int id) throws InternalErrorException {
         try {
             Order toDelete = getOrderById(id);
