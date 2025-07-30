@@ -10,6 +10,7 @@
 
 
 </head>
+
 <body>
   <header>
     <h1>COTA Customs</h1>
@@ -48,5 +49,27 @@
   <footer>
     <p>&copy; 2025 COTA Customs. All rights reserved.</p>
   </footer>
+  <audio id="engineSound" src="sounds/c63-cold-start-trim.mp3" preload="auto"></audio>
+
+<script>
+  // Only run this if the sound hasn't been played before
+  window.addEventListener('load', () => {
+    const alreadyPlayed = localStorage.getItem('engineSoundPlayed');
+
+    if (!alreadyPlayed) {
+      setTimeout(() => {
+        const sound = document.getElementById('engineSound');
+        sound.volume = 0.5;
+        sound.play().then(() => {
+          localStorage.setItem('engineSoundPlayed', 'true');
+        }).catch((e) => {
+          console.log('Autoplay blocked:', e);
+        });
+      }, 3000);
+    }
+  });
+</script>
+
+
 </body>
 </html>
