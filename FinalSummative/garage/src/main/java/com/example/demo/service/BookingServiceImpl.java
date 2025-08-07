@@ -1,8 +1,12 @@
 package com.example.demo.service;
 
+import com.example.demo.model.Booking;
 import com.example.demo.repository.BookingRepository;
 
+import java.util.List;
+
 public class BookingServiceImpl implements BookingService {
+
     private final BookingRepository bookingRepository;
 
     public BookingServiceImpl(BookingRepository bookingRepository) {
@@ -10,20 +14,27 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Booking createBooking(Booking booking) {
-        return null;
+    public Booking addBooking(Booking booking) {
+        return bookingRepository.save(booking);
     }
 
     @Override
     public List<Booking> getAllBookings() {
-        return null;
+        return bookingRepository.findAll();
     }
 
     @Override
     public Booking getBookingById(int id) {
-        return null;
+        return bookingRepository.findById(id);
     }
 
-    // implement methods here
-}
+    @Override
+    public Booking updateBooking(int id, Booking updatedBooking) {
+        return bookingRepository.update(id, updatedBooking);
+    }
 
+    @Override
+    public boolean deleteBooking(int id) {
+        return bookingRepository.delete(id);
+    }
+}

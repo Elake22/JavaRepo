@@ -1,8 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Booking;
 import com.example.demo.service.BookingService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/bookings")
@@ -16,7 +19,7 @@ public class BookingController {
 
     @PostMapping
     public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
-        return ResponseEntity.ok(bookingService.createBooking(booking));
+        return ResponseEntity.ok(bookingService.addBooking(booking));
     }
 
     @GetMapping
