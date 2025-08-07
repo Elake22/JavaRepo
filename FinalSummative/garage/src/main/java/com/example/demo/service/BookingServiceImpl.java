@@ -2,39 +2,43 @@ package com.example.demo.service;
 
 import com.example.demo.model.Booking;
 import com.example.demo.repository.BookingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class BookingServiceImpl implements BookingService {
 
-    private final BookingRepository bookingRepository;
+    private final BookingRepository repo;
 
-    public BookingServiceImpl(BookingRepository bookingRepository) {
-        this.bookingRepository = bookingRepository;
+    @Autowired
+    public BookingServiceImpl(BookingRepository repo) {
+        this.repo = repo;
     }
 
     @Override
     public Booking addBooking(Booking booking) {
-        return bookingRepository.save(booking);
+        return repo.save(booking);
     }
 
     @Override
     public List<Booking> getAllBookings() {
-        return bookingRepository.findAll();
+        return repo.findAll();
     }
 
     @Override
     public Booking getBookingById(int id) {
-        return bookingRepository.findById(id);
+        return repo.findById(id);
     }
 
     @Override
     public Booking updateBooking(int id, Booking updatedBooking) {
-        return bookingRepository.update(id, updatedBooking);
+        return repo.update(id, updatedBooking);
     }
 
     @Override
     public boolean deleteBooking(int id) {
-        return bookingRepository.delete(id);
+        return repo.delete(id);
     }
 }

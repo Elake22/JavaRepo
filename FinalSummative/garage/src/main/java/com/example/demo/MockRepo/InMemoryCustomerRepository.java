@@ -2,22 +2,26 @@ package com.example.demo.MockRepo;
 
 import com.example.demo.model.Customer;
 import com.example.demo.repository.CustomerRepository;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 // This mock repo stores customers in memory for testing purposes
+@Repository
+@Profile("mock")
 public class InMemoryCustomerRepository implements CustomerRepository {
 
     private final Map<Integer, Customer> customerMap = new HashMap<>();
-    private int currentId = 1;
+    private final AtomicInteger idGenerator = new AtomicInteger(1);
 
     @Override
     public Customer save(Customer customer) {
-        // Assign a new ID and save the customer
-        customer.setId(currentId++);
+        customer.setId(idGenerator.getAndIncrement());
         customerMap.put(customer.getId(), customer);
         return customer;
     }

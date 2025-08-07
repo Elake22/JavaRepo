@@ -2,18 +2,23 @@ package com.example.demo.MockRepo;
 
 import com.example.demo.model.Mechanic;
 import com.example.demo.repository.MechanicRepository;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 // In-memory implementation of MechanicRepository for testing
+@Repository
+@Profile("mock")
 public class InMemoryMechanicRepository implements MechanicRepository {
 
     private final Map<Integer, Mechanic> mechanicMap = new HashMap<>();
-    private int currentId = 1;
+    private final AtomicInteger idGenerator = new AtomicInteger(1);
 
     @Override
     public Mechanic save(Mechanic mechanic) {
-        mechanic.setId(currentId++);
+        mechanic.setId(idGenerator.getAndIncrement());
         mechanicMap.put(mechanic.getId(), mechanic);
         return mechanic;
     }
@@ -29,11 +34,11 @@ public class InMemoryMechanicRepository implements MechanicRepository {
     }
 
     @Override
-    public Mechanic update(int id, Mechanic mechanic) {
+    public Mechanic update(int id, Mechanic updatedMechanic) {
         if (mechanicMap.containsKey(id)) {
-            mechanic.setId(id);
-            mechanicMap.put(id, mechanic);
-            return mechanic;
+            updatedMechanic.setId(id);
+            mechanicMap.put(id, updatedMechanic);
+            return updatedMechanic;
         }
         return null;
     }

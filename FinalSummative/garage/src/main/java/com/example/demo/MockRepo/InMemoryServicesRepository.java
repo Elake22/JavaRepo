@@ -2,18 +2,23 @@ package com.example.demo.MockRepo;
 
 import com.example.demo.model.Services;
 import com.example.demo.repository.ServicesRepository;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 // In-memory implementation of the ServicesRepository for testing
+@Repository
+@Profile("mock")
 public class InMemoryServicesRepository implements ServicesRepository {
 
     private final Map<Integer, Services> servicesMap = new HashMap<>();
-    private int currentId = 1;
+    private final AtomicInteger idGenerator = new AtomicInteger(1);
 
     @Override
     public Services save(Services services) {
-        services.setId(currentId++);
+        services.setId(idGenerator.getAndIncrement());
         servicesMap.put(services.getId(), services);
         return services;
     }

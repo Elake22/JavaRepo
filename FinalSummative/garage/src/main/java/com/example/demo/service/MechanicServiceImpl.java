@@ -2,41 +2,44 @@ package com.example.demo.service;
 
 import com.example.demo.model.Mechanic;
 import com.example.demo.repository.MechanicRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 // Implementation of MechanicService
+@Service
 public class MechanicServiceImpl implements MechanicService {
 
-    private final MechanicRepository mechanicRepository;
+    private final MechanicRepository repo;
 
-    // Injects the repository into the service
-    public MechanicServiceImpl(MechanicRepository mechanicRepository) {
-        this.mechanicRepository = mechanicRepository;
+    @Autowired
+    public MechanicServiceImpl(MechanicRepository repo) {
+        this.repo = repo;
     }
 
     @Override
     public Mechanic addMechanic(Mechanic mechanic) {
-        return mechanicRepository.save(mechanic);
+        return repo.save(mechanic);
     }
 
     @Override
     public List<Mechanic> getAllMechanics() {
-        return mechanicRepository.findAll();
+        return repo.findAll();
     }
 
     @Override
     public Mechanic getMechanicById(int id) {
-        return mechanicRepository.findById(id);
+        return repo.findById(id);
     }
 
     @Override
     public Mechanic updateMechanic(int id, Mechanic updatedMechanic) {
-        return mechanicRepository.update(id, updatedMechanic);
+        return repo.update(id, updatedMechanic);
     }
 
     @Override
     public boolean deleteMechanic(int id) {
-        return mechanicRepository.delete(id);
+        return repo.delete(id);
     }
 }

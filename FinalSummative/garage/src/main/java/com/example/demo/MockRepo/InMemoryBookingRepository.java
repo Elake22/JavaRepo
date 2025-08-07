@@ -2,18 +2,23 @@ package com.example.demo.MockRepo;
 
 import com.example.demo.model.Booking;
 import com.example.demo.repository.BookingRepository;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 // In-memory mock implementation of the BookingRepository
+@Repository
+@Profile("mock")
 public class InMemoryBookingRepository implements BookingRepository {
 
     private final Map<Integer, Booking> bookingMap = new HashMap<>();
-    private int currentId = 1;
+    private final AtomicInteger idGenerator = new AtomicInteger(1);
 
     @Override
     public Booking save(Booking booking) {
-        booking.setId(currentId++);
+        booking.setId(idGenerator.getAndIncrement());
         bookingMap.put(booking.getId(), booking);
         return booking;
     }
@@ -29,11 +34,11 @@ public class InMemoryBookingRepository implements BookingRepository {
     }
 
     @Override
-    public Booking update(int id, Booking booking) {
+    public Booking update(int id, Booking updatedBooking) {
         if (bookingMap.containsKey(id)) {
-            booking.setId(id);
-            bookingMap.put(id, booking);
-            return booking;
+            updatedBooking.setId(id);
+            bookingMap.put(id, updatedBooking);
+            return updatedBooking;
         }
         return null;
     }
