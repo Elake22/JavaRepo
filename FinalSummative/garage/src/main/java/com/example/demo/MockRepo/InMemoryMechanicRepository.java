@@ -16,6 +16,14 @@ public class InMemoryMechanicRepository implements MechanicRepository {
     private final Map<Integer, Mechanic> mechanicMap = new HashMap<>();
     private final AtomicInteger idGenerator = new AtomicInteger(1);
 
+    private void initializeSampleData() {
+        save(new Mechanic(0, "John Smith", 15));
+        save(new Mechanic(0, "Sarah Johnson", 12));
+        save(new Mechanic(0, "Mike Rodriguez", 10));
+        save(new Mechanic(0, "Laura Chen", 8));
+        save(new Mechanic(0, "David Wilson", 14));
+    }
+
     @Override
     public Mechanic save(Mechanic mechanic) {
         mechanic.setId(idGenerator.getAndIncrement());
