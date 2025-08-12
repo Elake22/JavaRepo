@@ -1,68 +1,38 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.*;
 
 import java.math.BigDecimal;
+
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+@Entity
+@Table(name = "services")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 
 // This class represents an automotive service that a customer can book.
 public class Services {
 
-    private int id; // Unique identifier
-    private String name; // Name of the service (e.g., Oil Change)
-    private String description; // Description of the service
-    private BigDecimal price; // Cost of the service
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;  // Use wrapper for JPA
 
-    public Services() {
-    }
+    @NotBlank
+    @Column(nullable = false, length = 100)
+    private String name;
 
-    public Services(int id, String name, String description, BigDecimal price) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-    }
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
-    // --- Getters and Setters ---
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    @Override
-    public String toString() {
-        return "Services{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                '}';
-    }
+    @NotNull
+    @DecimalMin("0.00")
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal price;
 }
-

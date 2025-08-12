@@ -2,18 +2,16 @@ package com.example.demo.service;
 
 import com.example.demo.model.Mechanic;
 import com.example.demo.repository.MechanicRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-// Implementation of MechanicService
 @Service
 public class MechanicServiceImpl implements MechanicService {
 
     private final MechanicRepository repo;
 
-    @Autowired
     public MechanicServiceImpl(MechanicRepository repo) {
         this.repo = repo;
     }
@@ -30,16 +28,24 @@ public class MechanicServiceImpl implements MechanicService {
 
     @Override
     public Mechanic getMechanicById(int id) {
-        return repo.findById(id);
+        return repo.findById(id).orElse(null);
     }
 
     @Override
-    public Mechanic updateMechanic(int id, Mechanic updatedMechanic) {
-        return repo.update(id, updatedMechanic);
+    @Transactional
+    public Mechanic updateMechanic(int id, Mechanic updated) {
+        return repo.findById(id).map(existing -> {
+            existing.setName(updated.getName());
+            existing.setSpecialty(updated.getSpecialty());
+            existing.setYearsExperience(updated.getYearsExperience());
+            return repo.save(existing);
+        }).orElse(null);
     }
 
     @Override
     public boolean deleteMechanic(int id) {
-        return repo.delete(id);
+        if (!repo.existsById(id)) return false;
+        repo.deleteById(id);
+        return true;
     }
 }

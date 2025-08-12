@@ -1,95 +1,47 @@
+
+
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.*;
+
+
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+@Entity
+@Table(name = "customers")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 
 // This class represents a customer in the garage booking system.
 public class Customer {
 
-    // Unique identifier for each customer
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    // First name of the customer
+    @NotBlank
+    @Column(name = "first_name", nullable = false, length = 80)
     private String firstName;
 
-    // Last name of the customer
+    @NotBlank
+    @Column(name = "last_name", nullable = false, length = 80)
     private String lastName;
 
-    // Email address of the customer
-    private String email;
-
-    // Phone number of the customer
+    @NotBlank
+    @Column(nullable = false, length = 20)
     private String phone;
 
-    // Model of the car the customer owns
+    @Email
+    @NotBlank
+    @Column(name = "email", unique = true, nullable = false, length = 120)
+    private String email;
+
+    @Column(name = "car_model", length = 120)
     private String carModel;
-
-    public Customer() {
-    }
-    public Customer(int id, String firstName, String lastName, String email, String phone, String carModel) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phone = phone;
-        this.carModel = carModel;
-    }
-
-    // --- Getters and Setters ---
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getCarModel() {
-        return carModel;
-    }
-
-    public void setCarModel(String carModel) {
-        this.carModel = carModel;
-    }
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", carModel='" + carModel + '\'' +
-                '}';
-    }
 }

@@ -2,18 +2,16 @@ package com.example.demo.service;
 
 import com.example.demo.model.Services;
 import com.example.demo.repository.ServicesRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-// Implementation of ServiceService
 @Service
 public class ServicesServiceImpl implements ServicesService {
 
     private final ServicesRepository repo;
 
-    @Autowired
     public ServicesServiceImpl(ServicesRepository repo) {
         this.repo = repo;
     }
@@ -30,16 +28,24 @@ public class ServicesServiceImpl implements ServicesService {
 
     @Override
     public Services getServiceById(int id) {
-        return repo.findById(id);
+        return repo.findById(id).orElse(null);
     }
 
     @Override
+    @Transactional
     public Services updateService(int id, Services updatedService) {
-        return repo.update(id, updatedService);
+        return repo.findById(id).map(existing -> {
+            existing.setName(updatedService.getName());
+            existing.setDescription(updatedService.getDescription());
+            existing.setPrice(updatedService.getPrice());
+            return repo.save(existing);
+        }).orElse(null);
     }
 
     @Override
     public boolean deleteService(int id) {
-        return repo.delete(id);
+        if (!repo.existsById(id)) return false;
+        repo.deleteById(id);
+        return true;
     }
 }

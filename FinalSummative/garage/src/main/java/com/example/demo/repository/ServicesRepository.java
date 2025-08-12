@@ -1,18 +1,17 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.Services;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.math.BigDecimal;
 import java.util.List;
 
-// Interface for CRUD operations on garage services
-public interface ServicesRepository {
+public interface ServicesRepository extends JpaRepository<Services, Integer> {
 
-    Services save(Services services);
+    // Derived query methods
+    List<Services> findByNameContainingIgnoreCase(String namePart);
 
-    List<Services> findAll();
-
-    Services findById(int id);
-
-    Services update(int id, Services updatedServices);
-
-    boolean delete(int id);
+    List<Services> findByPriceBetween(BigDecimal min, BigDecimal max);
 }
+
+// JpaRepository<Services, Integer> already provides: save(entity), findById(id), findAll(), deleteById(id), existsById(id), paging/sorting, etc.

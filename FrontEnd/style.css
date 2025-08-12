@@ -1,0 +1,6 @@
+body { font: 16px/1.4 system-ui, sans-serif; margin: 20px; }
+section { border: 1px solid #ddd; padding: 12px; border-radius: 10px; margin-bottom: 16px; }
+form, .grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 8px; margin-bottom: 8px; }
+input, select, textarea, button { padding: 8px; }
+ul { padding-left: 18px; }
+#msg { margin-top: 8px; color: #0a7a28; }

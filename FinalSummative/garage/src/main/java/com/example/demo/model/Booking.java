@@ -1,85 +1,62 @@
 package com.example.demo.model;
 
-import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+@Entity
+@Table(name = "bookings")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Booking {
 
-    private int id;
-    private int customerId;
-    private int serviceId;
-    private int mechanicId;
-    private String timePreference;
-    private BigDecimal estimatedTotal; // switched from double to BigDecimal
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    public Booking() {
-    }
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "customer_id", nullable = false)
+    @ToString.Exclude
+    private Customer customer;
 
-    public Booking(int id, int customerId, int serviceId, int mechanicId, String timePreference, BigDecimal estimatedTotal) {
-        this.id = id;
-        this.customerId = customerId;
-        this.serviceId = serviceId;
-        this.mechanicId = mechanicId;
-        this.timePreference = timePreference;
-        this.estimatedTotal = estimatedTotal;
-    }
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "service_id", nullable = false)
+    @ToString.Exclude
+    private Services service;
 
-    // --- Getters and Setters ---
-    public int getId() {
-        return id;
-    }
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "mechanic_id", nullable = false)
+    @ToString.Exclude
+    private Mechanic mechanic;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @NotNull
+    @FutureOrPresent
+    @Column(name = "appointment_at", nullable = false)
+    private LocalDateTime appointmentAt;
 
-    public int getCustomerId() {
-        return customerId;
-    }
+    @NotNull
+    @DecimalMin("0.00")
+    @Column(name = "quoted_price", nullable = false, precision = 10, scale = 2)
+    private BigDecimal quotedPrice;
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
+    // e.g., SCHEDULED, IN_PROGRESS, DONE, CANCELED
+    @NotBlank
+    @Column(length = 30, nullable = false)
+    private String status;
 
-    public int getServiceId() {
-        return serviceId;
-    }
-
-    public void setServiceId(int serviceId) {
-        this.serviceId = serviceId;
-    }
-
-    public int getMechanicId() {
-        return mechanicId;
-    }
-
-    public void setMechanicId(int mechanicId) {
-        this.mechanicId = mechanicId;
-    }
-
-    public String getTimePreference() {
-        return timePreference;
-    }
-
-    public void setTimePreference(String timePreference) {
-        this.timePreference = timePreference;
-    }
-
-    public BigDecimal getEstimatedTotal() {
-        return estimatedTotal;
-    }
-
-    public void setEstimatedTotal(BigDecimal estimatedTotal) {
-        this.estimatedTotal = estimatedTotal;
-    }
-    @Override
-    public String toString() {
-        return "Booking{" +
-                "id=" + id +
-                ", customerId=" + customerId +
-                ", serviceId=" + serviceId +
-                ", mechanicId=" + mechanicId +
-                ", timePreference='" + timePreference + '\'' +
-                ", estimatedTotal=" + estimatedTotal +
-                '}';
-    }
+    @Column(columnDefinition = "TEXT")
+    private String notes;
 }

@@ -1,18 +1,14 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.Mechanic;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import java.util.List;
 
-// Interface to define basic CRUD operations for mechanics
-public interface MechanicRepository {
+public interface MechanicRepository extends JpaRepository<Mechanic, Integer> {
 
-    Mechanic save(Mechanic mechanic);
+    // Optional extra finder methods
+    List<Mechanic> findBySpecialtyContainingIgnoreCase(String specialty);
 
-    List<Mechanic> findAll();
-
-    Mechanic findById(int id);
-
-    Mechanic update(int id, Mechanic mechanic);
-
-    boolean delete(int id);
+    List<Mechanic> findByYearsExperienceGreaterThanEqual(int minYears);
 }

@@ -1,0 +1,105 @@
+/* === Theme tokens ======================================================== */
+:root {
+  --red:    #FF2400;   /* Ferrari Red */
+  --yellow: #FFC300;   /* Racing Yellow */
+  --dark:   #111;
+  --muted:  #666;
+  --border: #eee;
+  --bg:     #fff;
+}
+
+/* === Base ================================================================ */
+html, body { height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Links inherit Bootstrap behavior; only tweak brand accent */
+.navbar-brand b { color: var(--red); }
+
+/* === Buttons / badges ==================================================== */
+.btn-accent {
+  background: var(--red);
+  border: none;
+  color: #fff;
+}
+.btn-accent:hover { filter: brightness(0.95); }
+.btn-accent:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--red), white 60%);
+  outline-offset: 2px;
+}
+
+.badge-accent { background: var(--yellow); color: var(--dark); }
+
+/* === Hero ================================================================ */
+.hero {
+  padding: 96px 0 72px;
+  background: linear-gradient(135deg, #fff, #f7f7f7);
+  border-bottom: 1px solid var(--border);
+}
+
+/* === Cards (services & mechanics) ======================================= */
+.service-card,
+.mechanic-card {
+  border: 1px solid var(--border);
+  transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+  will-change: transform;
+  border-radius: .6rem;
+}
+
+.service-card:hover,
+.mechanic-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 26px rgba(0,0,0,.08);
+}
+
+/* Mechanics polish (kept separate so it wins on hover) */
+.mechanic-card:hover {
+  border-color: var(--yellow);
+  box-shadow: 0 12px 26px rgba(0,0,0,.08), inset 0 0 0 1px var(--yellow);
+}
+
+/* Avatar ring */
+.mechanic-avatar {
+  box-shadow: 0 0 0 3px #fff, 0 0 0 5px rgba(0,0,0,.06);
+}
+
+/* Rating color */
+.mechanic-rating { color: #e0a800; font-weight: 600; } /* amber star */
+
+/* === Icons / chips ======================================================= */
+.icon-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--yellow);
+  color: var(--dark);
+  font-size: 20px;
+}
+
+/* === Step indicator (if used on booking page) =========================== */
+.step-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--red);
+  color: var(--red);
+  font-weight: 700;
+}
+.step-dot.active { background: var(--red); color: #fff; }
+
+/* === Footer note ========================================================= */
+.footer-note { color: var(--muted); }
+
+/* === Small-screen tweaks ================================================= */
+@media (max-width: 576px) {
+  .hero { padding: 64px 0 48px; }
+  .icon-circle { width: 40px; height: 40px; font-size: 18px; }
+}

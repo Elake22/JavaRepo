@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Booking;
 import com.example.demo.service.BookingService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,38 +13,41 @@ public class BookingController {
 
     private final BookingService bookingService;
 
-    @Autowired
     public BookingController(BookingService bookingService) {
         this.bookingService = bookingService;
     }
 
     // GET all bookings
     @GetMapping
-    public List<Booking> getAllBookings() {
-        return bookingService.getAllBookings();
+    public ResponseEntity<List<Booking>> getAllBookings() {
+        return ResponseEntity.ok(bookingService.getAllBookings());
     }
 
     // GET booking by ID
     @GetMapping("/{id}")
-    public Booking getBookingById(@PathVariable int id) {
-        return bookingService.getBookingById(id);
+    public ResponseEntity<Booking> getBookingById(@PathVariable int id) {
+        Booking booking = bookingService.getBookingById(id);
+        return booking != null ? ResponseEntity.ok(booking) : ResponseEntity.notFound().build();
     }
 
     // POST a new booking
     @PostMapping
-    public Booking addBooking(@RequestBody Booking booking) {
-        return bookingService.addBooking(booking);
+    public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
+        Booking saved = bookingService.addBooking(booking);
+        return ResponseEntity.ok(saved);
     }
 
     // PUT to update a booking
     @PutMapping("/{id}")
-    public Booking updateBooking(@PathVariable int id, @RequestBody Booking updatedBooking) {
-        return bookingService.updateBooking(id, updatedBooking);
+    public ResponseEntity<Booking> updateBooking(@PathVariable int id, @RequestBody Booking updatedBooking) {
+        Booking updated = bookingService.updateBooking(id, updatedBooking);
+        return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     // DELETE a booking
     @DeleteMapping("/{id}")
-    public boolean deleteBooking(@PathVariable int id) {
-        return bookingService.deleteBooking(id);
+    public ResponseEntity<Void> deleteBooking(@PathVariable int id) {
+        boolean deleted = bookingService.deleteBooking(id);
+        return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 }

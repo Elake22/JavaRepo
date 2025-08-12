@@ -13,50 +13,64 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MechanicServiceTest {
 
+    private InMemoryMechanicRepository repo;
     private MechanicService service;
 
     @BeforeEach
     void setUp() {
-        service = new MechanicServiceImpl(new InMemoryMechanicRepository());
+        repo = new InMemoryMechanicRepository();
+        // Repo preloads sample data; clear for predictable tests
+        repo.deleteAll();
+        service = new MechanicServiceImpl(repo);
     }
+
     @Test
     void testAddMechanicSuccess() {
-        Mechanic m = new Mechanic(0, "John Doe", 15);
+        Mechanic m = new Mechanic(null, "John Doe", "Engine Specialist", 15);
         Mechanic added = service.addMechanic(m);
+        assertNotNull(added.getId());
         assertEquals("John Doe", added.getName());
+        assertEquals("Engine Specialist", added.getSpecialty());
+        assertEquals(15, added.getYearsExperience());
     }
+
     @Test
     void testGetAllMechanics() {
-        service.addMechanic(new Mechanic(0, "Laura Chen", 8));
-        service.addMechanic(new Mechanic(0, "Mike Rodriguez", 10));
+        service.addMechanic(new Mechanic(null, "Laura Chen", "Brake Systems", 8));
+        service.addMechanic(new Mechanic(null, "Mike Rodriguez", "Transmission Expert", 10));
         List<Mechanic> mechanics = service.getAllMechanics();
         assertEquals(2, mechanics.size());
     }
+
     @Test
     void testGetMechanicByIdNotFound() {
         Mechanic result = service.getMechanicById(999);
         assertNull(result);
     }
+
     @Test
     void testUpdateMechanicSuccess() {
-        Mechanic m = service.addMechanic(new Mechanic(0, "David Wilson", 14));
-        int id = m.getId();
-        Mechanic updated = new Mechanic(id, "David Wilson", 20);
+        Mechanic m = service.addMechanic(new Mechanic(null, "David Wilson", "A/C and Cooling", 14));
+        Integer id = m.getId();
+        Mechanic updated = new Mechanic(id, "David Wilson", "A/C and Cooling", 20);
 
         Mechanic result = service.updateMechanic(id, updated);
         assertNotNull(result);
-        assertEquals(20, result.getExperienceYears());
+        assertEquals("David Wilson", result.getName());
+        assertEquals("A/C and Cooling", result.getSpecialty());
+        assertEquals(20, result.getYearsExperience());
     }
+
     @Test
     void testUpdateMechanicFail_NotFound() {
-        Mechanic updated = new Mechanic(404, "Ghost Tech", 99);
+        Mechanic updated = new Mechanic(404, "Ghost Tech", "Unknown", 99);
         Mechanic result = service.updateMechanic(404, updated);
         assertNull(result);
     }
 
     @Test
     void testDeleteMechanicSuccess() {
-        Mechanic m = service.addMechanic(new Mechanic(0, "Sarah Johnson", 12));
+        Mechanic m = service.addMechanic(new Mechanic(null, "Sarah Johnson", "Electrical Systems", 12));
         boolean deleted = service.deleteMechanic(m.getId());
         assertTrue(deleted);
         assertNull(service.getMechanicById(m.getId()));
@@ -64,7 +78,7 @@ public class MechanicServiceTest {
 
     @Test
     void testDeleteMechanicFail_NotFound() {
-        boolean deleted = service.deleteMechanic(999); // Invalid ID
+        boolean deleted = service.deleteMechanic(999);
         assertFalse(deleted);
     }
 }

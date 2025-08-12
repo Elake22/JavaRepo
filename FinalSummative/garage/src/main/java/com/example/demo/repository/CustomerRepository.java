@@ -1,23 +1,17 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.Customer;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import java.util.List;
+import java.util.Optional;
 
-// Interface to define basic CRUD operations for customers
-public interface CustomerRepository {
+public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
-    // Save a new customer
-    Customer save(Customer customer);
+    // Handy finders (optional)
+    Optional<Customer> findByEmailIgnoreCase(String email);
 
-    // Find all customers
-    List<Customer> findAll();
+    List<Customer> findByLastNameContainingIgnoreCase(String lastNamePart);
 
-    // Find a customer by ID
-    Customer findById(int id);
-
-    // Update a customer by ID
-    Customer update(int id, Customer updatedCustomer);
-
-    // Delete a customer by ID
-    boolean delete(int id);
+    List<Customer> findByPhone(String phone);
 }

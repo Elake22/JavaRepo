@@ -1,54 +1,37 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.*;
+
+
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+@Entity
+@Table(name = "mechanics")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 
 // Represents a mechanic who can be assigned to a service appointment.
 public class Mechanic {
 
-    private int id; // Unique ID
-    private String name; // Mechanic's full name
-    private int experienceYears; // Years of experience
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    public Mechanic() {
-    }
+    @NotBlank
+    @Column(nullable = false, length = 100)
+    private String name;
 
-    public Mechanic(int id, String name, int experienceYears) {
-        this.id = id;
-        this.name = name;
-        this.experienceYears = experienceYears;
-    }
+    @NotBlank
+    @Column(nullable = false, length = 100)
+    private String specialty;
 
-    // --- Getters and Setters ---
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getExperienceYears() {
-        return experienceYears;
-    }
-
-    public void setExperienceYears(int experienceYears) {
-        this.experienceYears = experienceYears;
-    }
-
-    @Override
-    public String toString() {
-        return "Mechanic{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", experienceYears=" + experienceYears +
-                '}';
-    }
+    @PositiveOrZero
+    @Column(nullable = false)
+    private int yearsExperience;
 }
