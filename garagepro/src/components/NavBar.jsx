@@ -17,7 +17,7 @@ export default function NavBar(){
               <NavLink className="nav-link" to="/">Home</NavLink>
             </li>
             <li className="nav-item ms-md-2">
-              <NavLink className="btn btn-accent text-white" to="/book">Book an Appointment</NavLink>
+              <NavLink className="btn btn-accent " to="/book">Book an Appointment</NavLink>
             </li>
           </ul>
         </div>

@@ -7,7 +7,7 @@
   --border: #eee;
   --bg:     #fff;
 
-  /* new */
+ 
   --radius: .875rem;                  /* consistent rounded corners */
   --shadow: 0 12px 28px rgba(0,0,0,.08);
 }
@@ -38,12 +38,10 @@ body {
   background: var(--red);
   border: none;
   color: #fff;
+  
 }
 .btn-accent:hover { filter: brightness(0.95); }
-.btn-accent:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--red), white 60%);
-  outline-offset: 2px;
-}
+
 
 /* subtle outline variant that matches the design */
 .btn-outline-ink {
@@ -140,11 +138,22 @@ body {
 .footer-note { color: var(--muted); }
 
 /* === Accessibility: clear focus ring on links/buttons =================== */
-a, .btn:focus { outline: none; box-shadow: 0 0 0 3px rgba(255,36,0,.2) !important; }
+
 
 /* === Small-screen tweaks ================================================= */
 @media (max-width: 576px) {
   .hero { padding: 64px 0 48px; }
   .icon-circle, .icon-pill { width: 40px; height: 40px; font-size: 18px; }
   .section { padding: 48px 0; }
+}
+a:focus,
+a:focus-visible,
+.btn:focus,
+.btn:focus-visible,
+.btn:active:focus,
+.btn:active:focus-visible,
+.btn-check:focus + .btn,
+.btn-check:focus-visible + .btn {
+  outline: none !important;
+  box-shadow: none !important;
 }
