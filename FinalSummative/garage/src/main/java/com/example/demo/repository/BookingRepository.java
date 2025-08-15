@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
 
+
+
     // Common, handy finders (optional)
     List<Booking> findByStatus(String status);
 

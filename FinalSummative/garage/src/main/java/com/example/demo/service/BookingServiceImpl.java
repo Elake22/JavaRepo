@@ -1,3 +1,4 @@
+// src/main/java/com/example/demo/service/BookingServiceImpl.java
 package com.example.demo.service;
 
 import com.example.demo.model.Booking;
@@ -7,8 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
-
-import static java.lang.System.in;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -29,7 +28,7 @@ public class BookingServiceImpl implements BookingService {
             throw new IllegalArgumentException("appointmentAt is required.");
         }
 
-        // Disallow past dates (date-only check, keeps morning/afternoon logic)
+        // Disallow past dates (date-only check)
         LocalDate apptDate = booking.getAppointmentAt().toLocalDate();
         if (apptDate.isBefore(LocalDate.now())) {
             throw new IllegalArgumentException("Appointment date cannot be in the past.");
@@ -48,14 +47,21 @@ public class BookingServiceImpl implements BookingService {
 
         return repo.save(booking);
     }
+
     @Override
+    @Transactional(readOnly = true)
     public List<Booking> getAllBookings() {
-        return repo.findAll();
+        List<Booking> list = repo.findAll();
+        list.forEach(this::hydrate); // initialize lazy relations for JSON
+        return list;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Booking getBookingById(int id) {
-        return repo.findById(id).orElse(null);
+        return repo.findById(id)
+                .map(b -> { hydrate(b); return b; })
+                .orElse(null);
     }
 
     @Override
@@ -75,9 +81,31 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    @Transactional
     public boolean deleteBooking(int id) {
         if (!repo.existsById(id)) return false;
         repo.deleteById(id);
         return true;
+    }
+
+    // ---- helper to initialize lazy refs while the session is open ----
+    private void hydrate(Booking b) {
+        if (b.getCustomer() != null) {
+            b.getCustomer().getFirstName();
+            b.getCustomer().getLastName();
+            b.getCustomer().getEmail();
+            b.getCustomer().getPhone();
+            b.getCustomer().getCarModel();
+        }
+        if (b.getService() != null) {
+            b.getService().getName();
+            b.getService().getPrice();
+            b.getService().getDescription();
+        }
+        if (b.getMechanic() != null) {
+            b.getMechanic().getName();
+            b.getMechanic().getSpecialty();
+            b.getMechanic().getYearsExperience();
+        }
     }
 }
