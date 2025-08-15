@@ -9,23 +9,13 @@ import {
 } from "../lib/api";
 
 // ---------------- helpers ----------------
-const ICONS = {
-  "oil change": "🛢️",
-  "brake inspection": "🛞",
-  "tire rotation": "🔁",
-  "engine diagnostics": "🧰",
-  "battery replacement": "🔋",
-  "transmission service": "⚙️",
-  "a/c repair": "❄️",
-};
-
 const norm = (s) => (s || "").trim().toLowerCase();
 
 function dedupeServicesByName(list) {
   const byName = new Map();
   for (const s of list || []) {
     const key = norm(s.name);
-    if (!byName.has(key)) byName.set(key, s);
+    if (!byName.has(key)) byName.set(key, s); // keep first occurrence
   }
   return [...byName.values()];
 }
@@ -35,17 +25,36 @@ function dedupeMechanicsPreferSpecialty(list) {
   for (const m of list || []) {
     const key = norm(m.name);
     const prev = byName.get(key);
+    // keep the one with a specialty if duplicates exist
     if (!prev || (!!m.specialty && !prev.specialty)) byName.set(key, m);
   }
   return [...byName.values()];
 }
 
-function iconFor(name) {
-  const key = norm(name);
-  return ICONS[key] || "🛠️";
-}
+/* === Emoji icons to match Home ========================================= */
+const EMOJI = {
+  "oil change": "🛢️",
+  "brake inspection": "🛞",
+  "tire rotation": "🔁",
+  "engine diagnostics": "🧰",
+  "battery replacement": "🔋",
+  "transmission service": "⚙️",
+  "a/c repair": "❄️",
+};
+const emojiForService = (name = "") => {
+  const key = name.trim().toLowerCase();
+  if (key.includes("oil")) return EMOJI["oil change"];
+  if (key.includes("brake")) return EMOJI["brake inspection"];
+  if (key.includes("rotation") || key.includes("rotate")) return EMOJI["tire rotation"];
+  if (key.includes("diagnostic") || key.includes("engine")) return EMOJI["engine diagnostics"];
+  if (key.includes("battery")) return EMOJI["battery replacement"];
+  if (key.includes("transmission") || key.includes("gear")) return EMOJI["transmission service"];
+  if (/\ba\/c\b/.test(key) || /\bac\b/.test(key) || key.includes("air conditioning"))
+    return EMOJI["a/c repair"];
+  return "🛠️"; // default
+};
 
-// Local YYYY-MM-DD (avoid UTC offset issues)
+// Local YYYY-MM-DD (avoid UTC issues)
 function todayStr() {
   const d = new Date();
   const y = d.getFullYear();
@@ -57,7 +66,6 @@ function toLocalDate(dateStr, timeStr) {
   if (!dateStr) return null;
   const [y, m, d] = dateStr.split("-").map(Number);
   const [hh, mm, ss] = (timeStr || "00:00:00").split(":").map(Number);
-  // Local time (no UTC conversion)
   return new Date(y, (m || 1) - 1, d || 1, hh || 0, mm || 0, ss || 0, 0);
 }
 
@@ -79,9 +87,9 @@ export default function Booking() {
   const [mechanicId, setMechanicId] = useState("");
 
   const today = useMemo(() => todayStr(), []);
-  const [date, setDate] = useState(today);                 // ✅ define date state
+  const [date, setDate] = useState(today);
   const [dateTouched, setDateTouched] = useState(false);
-  const dateInvalid = dateTouched && date && date < today; // string compare ok for YYYY-MM-DD
+  const dateInvalid = dateTouched && date && date < today; // safe because YYYY-MM-DD
 
   const [period, setPeriod] = useState("MORNING"); // MORNING | AFTERNOON
 
@@ -159,24 +167,25 @@ export default function Booking() {
       return;
     }
     if (selectedServiceIds.length === 0) {
-  setError("Please select at least one service.");
-  return;
-}
-
-// Date must be today or future
-if (!date || date < today) {
-  setDateTouched(true);
-  setError("Please choose today or a future date.");
-  return;
-}
-
-// And the chosen period must be in the future too
-const candidate = toLocalDate(date, period === "MORNING" ? "09:00:00" : "14:00:00");
-if (!candidate || candidate.getTime() < Date.now()) {
-  setDateTouched(true);
-  setError("That time slot has already passed. Please pick a future slot or another day.");
-  return;
-}
+      setError("Please select at least one service.");
+      return;
+    }
+    // Date must be today or future
+    if (!date || date < today) {
+      setDateTouched(true);
+      setError("Please choose today or a future date.");
+      return;
+    }
+    // And the chosen period must be in the future too
+    const candidate = toLocalDate(
+      date,
+      period === "MORNING" ? "09:00:00" : "14:00:00"
+    );
+    if (!candidate || candidate.getTime() < Date.now()) {
+      setDateTouched(true);
+      setError("That time slot has already passed. Please pick a future slot or another day.");
+      return;
+    }
 
     setSubmitting(true);
     try {
@@ -345,7 +354,9 @@ if (!candidate || candidate.getTime() < Date.now()) {
                     htmlFor={`svc-${s.id}`}
                     style={{ cursor: "pointer" }}
                   >
-                    <span className="icon-circle fs-5">{iconFor(s.name)}</span>
+                    <span className="icon-circle" aria-hidden="true">
+                      {emojiForService(s.name)}
+                    </span>
                     <div className="flex-grow-1">
                       <div className="d-flex justify-content-between align-items-center">
                         <span className="fw-semibold">{s.name}</span>
