@@ -78,7 +78,7 @@ export default function AdvisorAppointments() {
             <option value="">All statuses</option>
             <option>REQUESTED</option>
             <option>CONFIRMED</option>
-            <option>IN_PROGRESS</option>
+            <option>IN PROGRESS</option>
             <option>COMPLETED</option>
             <option>CANCELED</option>
           </select>
