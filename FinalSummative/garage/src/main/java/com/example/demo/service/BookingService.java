@@ -14,4 +14,7 @@ public interface BookingService {
     Booking updateBooking(int id, Booking updatedBooking);
 
     boolean deleteBooking(int id);
+
+    Booking updateStatus(int id, String newStatus);
+
 }

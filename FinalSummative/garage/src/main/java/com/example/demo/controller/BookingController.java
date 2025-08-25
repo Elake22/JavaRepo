@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:5173") // optional, helps local dev
 @RestController
@@ -56,5 +57,12 @@ public class BookingController {
     public ResponseEntity<Void> deleteBooking(@PathVariable int id) {
         boolean deleted = bookingService.deleteBooking(id);
         return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<Booking> updateStatus(@PathVariable int id, @RequestBody Map<String,String> body) {
+        String status = body.get("status");
+        Booking updated = bookingService.updateStatus(id, status);
+        return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 }

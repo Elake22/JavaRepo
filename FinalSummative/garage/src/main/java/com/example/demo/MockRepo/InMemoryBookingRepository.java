@@ -177,6 +177,11 @@ public class InMemoryBookingRepository implements BookingRepository {
     }
 
     @Override
+    public int updateStatus(Integer id, String status) {
+        return 0;
+    }
+
+    @Override
     public List<Booking> findByStatus(String status) {
         return List.of();
     }

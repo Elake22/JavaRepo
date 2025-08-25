@@ -64,3 +64,14 @@ export const updateBooking = (id, body) =>
 
 export const deleteBooking = (id) =>
   request(`/api/bookings/${id}`, { method: "DELETE" });
+
+export const setBookingStatus = (id, status) =>
+  request(`/api/bookings/${id}/status`, {
+    method: "PATCH",
+    body: JSON.stringify({ status })
+  });
+  export const patchBookingStatus = (id, status) =>
+  request(`/api/bookings/${id}/status`, {
+    method: "PATCH",
+    body: JSON.stringify({ status }),
+  });
