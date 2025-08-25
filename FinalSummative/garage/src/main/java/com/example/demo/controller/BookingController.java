@@ -1,6 +1,7 @@
 // src/main/java/com/example/demo/controller/BookingController.java
 package com.example.demo.controller;
 
+import com.example.demo.DataTransferObject.UpdateStatusRequest;
 import com.example.demo.model.Booking;
 import com.example.demo.service.BookingService;
 import jakarta.validation.Valid;
@@ -60,9 +61,13 @@ public class BookingController {
     }
 
     @PatchMapping("/{id}/status")
-    public ResponseEntity<Booking> updateStatus(@PathVariable int id, @RequestBody Map<String,String> body) {
-        String status = body.get("status");
-        Booking updated = bookingService.updateStatus(id, status);
-        return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
+    public ResponseEntity<Void> updateStatus(
+            @PathVariable int id,
+            @RequestBody @Valid UpdateStatusRequest body
+    ) {
+        Booking updated = bookingService.updateStatus(id, body.getStatus());
+        return (updated == null) ? ResponseEntity.notFound().build()
+                : ResponseEntity.noContent().build();
     }
 }
+
